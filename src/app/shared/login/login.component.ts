@@ -19,6 +19,16 @@ export class LoginComponent {
   subtotal = 2014.95;
   total = 1014.95;
 
+  hasCheckout = false;
+
+  get title() {
+    if (this.hasCheckout) {
+      return 'Finalize sua compra';
+    }
+
+    return 'Acesse sua conta';
+  }
+
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
