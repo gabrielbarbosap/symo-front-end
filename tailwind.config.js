@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 const config = {
   darkMode: 'class',
   content: ['./src/**/*.{html,ts}'],
@@ -22,6 +24,9 @@ const config = {
           lightgray: '#EBEDF6',
           terciaria: '#12D1DE',
         },
+      },
+      fontFamily: {
+        sans: ['Poppins', ...defaultTheme.fontFamily.sans],
       },
     },
   },
