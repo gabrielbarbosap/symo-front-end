@@ -31,13 +31,14 @@ export class ThemeService {
    *
    * @param isDark Booleano que indica se o tema deve ser escuro (true) ou claro (false)
    */
-  setDarkTheme(isDark: boolean): void {
+  setTheme(theme: 'light' | 'dark'): void {
     // Se o tema deve ser escuro, adiciona a classe 'dark' ao <body>
-    if (isDark) {
+    if (theme === 'dark') {
       this.renderer.addClass(document.body, 'dark');
-    } else {
-      // Caso contrário, remove a classe 'dark' do <body>
-      this.renderer.removeClass(document.body, 'dark');
+      return;
     }
+
+    // Caso contrário, remove a classe 'dark' do <body>
+    this.renderer.removeClass(document.body, 'dark');
   }
 }

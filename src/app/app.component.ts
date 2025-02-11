@@ -14,6 +14,6 @@ export class AppComponent {
   constructor(private themeService: ThemeService) {}
 
   toggleTheme(isDark: boolean) {
-    this.themeService.setDarkTheme(isDark);
+    this.themeService.setTheme(isDark ? 'dark' : 'light');
   }
 }
