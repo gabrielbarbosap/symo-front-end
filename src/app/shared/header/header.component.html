@@ -1,0 +1,47 @@
+<header class="w-full fixed top-0 left-0 h-[160px] bg-lightgray dark:bg-dark shadow-md z-50">
+  <!-- Top Banner -->
+  <app-top-banner></app-top-banner>
+
+  <!-- Barra inferior -->
+  <div class="w-full h-[120px] bg-purple-500 dark:bg-dark flex flex-wrap items-center justify-between px-4 md:px-8">
+    <!-- Logo -->
+    <img src="assets/logo_familhao.svg" alt="Logo" class="w-[126.5px] h-[44px] md:w-[184px] md:h-[64px]" />
+
+    <!-- Barra de pesquisa -->
+    <div class="hidden sm:flex ml-4 flex-grow max-w-[400px] md:max-w-[600px]">
+      <input
+        type="text"
+        placeholder="O que você está buscando"
+        class="w-full h-10 md:h-12 px-4 rounded-full border border-gray-300 outline-none text-black dark:text-lightgray"
+      />
+    </div>
+
+    <!-- Saldo e botões -->
+    <div class="flex items-center gap-2 md:gap-4 text-white">
+      <span class="hidden md:flex text-sm md:text-lg bg-white/20 dark:bg-dark/50 px-3 md:px-4 py-2 rounded-full">
+        R$ <strong>23.345.544,49</strong>
+        <!-- Ícone de olho -->
+        <img src="assets/icons/olhos_fechados.svg" alt="Notificações" class="w-6 h-6" />
+      </span>
+
+      <button
+        class="bg-light-terciaria dark:bg-dark-terciaria hover:bg-[#0FB5C0] dark:hover:bg-[#0EAAB4] text-white px-4 py-1 rounded text-sm transition"
+      >
+        Depositar
+      </button>
+
+      <!-- Ícone de Notificação -->
+      <button class="w-8 h-8 flex items-center justify-center">
+        <img src="assets/icons/sino.svg" alt="Notificações" class="w-6 h-6" />
+      </button>
+
+      <!-- Ícone do WhatsApp -->
+      <button class="w-8 h-8 flex items-center justify-center">
+        <img src="assets/icons/whatsapp.svg" alt="WhatsApp" class="w-6 h-6" />
+      </button>
+
+      <!-- Ícone de Perfil -->
+      <img src="assets/icons/perfil.svg" alt="User" class="w-10 md:w-12 h-10 md:h-12 rounded-full" />
+    </div>
+  </div>
+</header>
