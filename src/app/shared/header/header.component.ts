@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TopBannerComponent } from '../top-banner/top-banner.component';
-import { LoginComponent } from '../login/login.component';
+import { LoginComponent } from '../../components/login/login.component';
 
 /**
  * Componente responsável pela exibição da barra de navegação no topo da aplicação.
