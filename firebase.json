@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/symo",
+    "public": "dist/symo/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
