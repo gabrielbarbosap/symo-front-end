@@ -1,5 +1,6 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { Component } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   NgpDialog,
   NgpDialogTitle,
@@ -7,6 +8,8 @@ import {
   NgpDialogTrigger,
   NgpDialogOverlay,
 } from 'ng-primitives/dialog';
+import { NgpButton } from 'ng-primitives/button';
+import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons';
 
 @Component({
   selector: 'app-login',
@@ -17,8 +20,11 @@ import {
     NgpDialogTrigger,
     NgpDialogOverlay,
     DecimalPipe,
+    NgpButton,
+    NgIcon,
     CommonModule,
   ],
+  viewProviders: [provideIcons({ bootstrapInfoCircleFill })],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
