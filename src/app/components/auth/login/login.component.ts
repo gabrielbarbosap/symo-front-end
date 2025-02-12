@@ -37,7 +37,7 @@ export class LoginComponent {
 
   hasCheckout = false;
 
-  currentFlow: 'login' | 'forgot_password' | 'reset_password' = 'forgot_password';
+  currentFlow: 'login' | 'forgot_password' | 'reset_password' = 'reset_password';
 
   isEmailSent = true;
   emailSent = 'r4*****@h****.com.br';
