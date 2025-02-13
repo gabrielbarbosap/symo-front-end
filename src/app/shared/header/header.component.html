@@ -1,4 +1,4 @@
-<header class="w-full fixed top-0 left-0 h-[160px] bg-lightgray dark:bg-dark shadow-md z-50">
+<header class="w-full top-0 left-0 h-[160px] bg-lightgray dark:bg-dark shadow-md z-50">
   <!-- Top Banner -->
   <app-top-banner></app-top-banner>
 
@@ -8,11 +8,18 @@
     <img src="assets/logo_familhao.svg" alt="Logo" class="w-[126.5px] h-[44px] md:w-[184px] md:h-[64px]" />
 
     <!-- Barra de pesquisa -->
-    <div class="hidden sm:flex ml-4 flex-grow max-w-[400px] md:max-w-[600px]">
+    <div class="hidden sm:flex ml-4 flex-grow max-w-[642px] md:max-w-[642px] relative">
+      <!-- Input com ícone dentro -->
       <input
         type="text"
         placeholder="O que você está buscando"
-        class="w-full h-10 md:h-12 px-4 rounded-full border border-gray-300 outline-none text-black dark:text-lightgray"
+        class="w-[642px] h-[56px] pl-10 pr-4 rounded-[12px] border border-gray-300 outline-none text-white dark:text-lightgray bg-[rgba(235,237,246,0.13)] gap-[10px] p-[16px]"
+      />
+      <!-- Ícone de pesquisa (posicionado dentro do input) -->
+      <img
+        src="assets/icons/MagnifyingGlass.svg"
+        alt="Buscar"
+        class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white"
       />
     </div>
 
@@ -24,11 +31,7 @@
         <img src="assets/icons/olhos_fechados.svg" alt="Notificações" class="w-6 h-6" />
       </span>
 
-      <button
-        class="bg-light-terciaria dark:bg-dark-terciaria hover:bg-[#0FB5C0] dark:hover:bg-[#0EAAB4] text-white px-4 py-1 rounded text-sm transition"
-      >
-        Depositar
-      </button>
+      <button class="bg-[#12D1DE] text-[#2E2170] px-4 py-1 font-bold rounded text-sm transition">Depositar</button>
 
       <!-- Ícone de Notificação -->
       <button class="w-8 h-8 flex items-center justify-center">
