@@ -9,7 +9,21 @@ import {
   NgpDialogOverlay,
 } from 'ng-primitives/dialog';
 import { NgpButton } from 'ng-primitives/button';
-import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons';
+import {
+  bootstrapInfoCircleFill,
+  bootstrapX,
+  bootstrapPerson,
+  bootstrapBracesAsterisk,
+  bootstrapEyeFill,
+  bootstrapEyeSlashFill,
+  bootstrapPhone,
+  bootstrapApple,
+  bootstrapGoogle,
+  bootstrapFacebook,
+} from '@ng-icons/bootstrap-icons';
+import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
+
+type Flow = 'login' | 'forgot_password' | 'reset_password';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +37,22 @@ import { bootstrapInfoCircleFill } from '@ng-icons/bootstrap-icons';
     NgpButton,
     NgIcon,
     CommonModule,
+    SpinnerComponent,
   ],
-  viewProviders: [provideIcons({ bootstrapInfoCircleFill })],
+  viewProviders: [
+    provideIcons({
+      bootstrapInfoCircleFill,
+      bootstrapX,
+      bootstrapPerson,
+      bootstrapBracesAsterisk,
+      bootstrapEyeFill,
+      bootstrapEyeSlashFill,
+      bootstrapPhone,
+      bootstrapApple,
+      bootstrapGoogle,
+      bootstrapFacebook,
+    }),
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -37,19 +65,31 @@ export class LoginComponent {
 
   hasCheckout = false;
 
-  currentFlow: 'login' | 'forgot_password' | 'reset_password' = 'reset_password';
+  currentFlow: Flow = 'login';
 
-  isEmailSent = true;
+  isEmailSent = false;
   emailSent = 'r4*****@h****.com.br';
 
+  socialLogin: 'facebook' | 'google' | 'apple' | '' = '';
+
   get modalTitle() {
-    const titles = {
+    const titles: Record<Flow, string> = {
       login: 'Login',
       forgot_password: 'Esqueci minha senha',
       reset_password: 'Reset de senha',
     };
 
     return titles[this.currentFlow];
+  }
+
+  get modalIcon() {
+    const icons: Record<Flow, string> = {
+      login: 'bootstrapPerson',
+      forgot_password: 'bootstrapBracesAsterisk',
+      reset_password: 'bootstrapBracesAsterisk',
+    };
+
+    return icons[this.currentFlow];
   }
 
   get contentTitle() {
@@ -72,5 +112,9 @@ export class LoginComponent {
     }
 
     this.showConfirmResetPassword = !this.showConfirmResetPassword;
+  }
+
+  toggleFlow(flow: Flow) {
+    this.currentFlow = flow;
   }
 }
