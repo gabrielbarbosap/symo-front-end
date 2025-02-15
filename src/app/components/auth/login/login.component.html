@@ -1,0 +1,300 @@
+<button [ngpDialogTrigger]="dialog" ngpButton><ng-content></ng-content></button>
+
+<ng-template #dialog let-close="close">
+  <div ngpDialogOverlay class="bg-[#2E217099] fixed inset-0 flex items-center justify-center">
+    <div
+      ngpDialog
+      [ngClass]="{
+        'bg-white md:border-[#8C6BFA] md:border-solid md:border-2 md:rounded-2xl w-full h-screen overflow-y-scroll md:overflow-auto md:h-auto': true,
+        'md:max-w-2xl': currentFlow === 'login',
+        'md:max-w-md': currentFlow !== 'login',
+      }"
+    >
+      <div class="flex justify-between items-center p-4">
+        <div class="flex items-center gap-2">
+          <ng-icon [name]="modalIcon" class="!text-[#8C6BFA] !w-6 !h-6" />
+          <span ngpDialogTitle class="text-[#1B0B3B] font-bold">{{ modalTitle }}</span>
+        </div>
+        <button
+          (click)="close()"
+          ngpButton
+          class="w-8 h-8 cursor-pointer flex items-center justify-center rounded-lg border border-[#8C6BFA] hover:bg-gray-100 text-[#8C6BFA]"
+        >
+          <ng-icon name="bootstrapX" class="!w-full !h-full" />
+        </button>
+      </div>
+
+      <hr class="border-[#8C6BFA] border-1 w-full mb-4" />
+
+      @switch (currentFlow) {
+        @case ('login') {
+          <!-- Logo -->
+          <div class="flex justify-center mb-4 md:hidden">
+            <img src="assets/logo_familhao.svg" alt="Familhão Logo" class="h-16 w-auto" />
+          </div>
+
+          <!-- Main Content -->
+          <div class="max-w-2xl mx-auto p-4 pt-0">
+            <h1 ngpDialogDescription class="text-[#1B0B3B] text-2xl font-bold mb-0">{{ contentTitle }}</h1>
+            <p class="text-[#809FB8] mb-6">Entre com seu número de celular e senha.</p>
+
+            @if (hasCheckout) {
+              <!-- Purchase Details -->
+              <div class="bg-[#F2F4F9] rounded-2xl p-6 border-1 border-solid border-[#D1D8EE]">
+                <h2 class="text-[#2E2170] text-lg font-bold mb-4">Detalhes da compra</h2>
+
+                <div class="flex justify-between mb-2 text-[#2E2170]">
+                  <span>Subtotal (2 sorteios)</span>
+                  <span class="font-semibold">R$ {{ subtotal | number: '1.2-2' }}</span>
+                </div>
+
+                <div class="pl-4 space-y-2 mb-4 text-[#2E2170]">
+                  <div class="flex justify-between text-sm">
+                    <span>
+                      Pix do milhão
+                      <span><strong>(123 cotas)</strong></span>
+                    </span>
+                    <span class="text-[#2E2170] font-semibold">R$ 123,00</span>
+                  </div>
+                  <div class="flex justify-between text-sm">
+                    <span>
+                      Pix do milhão
+                      <span><strong>(123 cotas)</strong></span>
+                    </span>
+                    <span class="font-semibold">R$ 123,00</span>
+                  </div>
+                </div>
+
+                <hr class="border-[#DFE6F6] pb-3" />
+
+                <div class="flex justify-between">
+                  <span class="text-[#2E2170] font-bold">Total</span>
+                  <span class="text-[#8C6BFA] font-semibold">R$ {{ total | number: '1.2-2' }}</span>
+                </div>
+              </div>
+            }
+
+            <!-- Form -->
+            <form class="space-y-4 mt-6">
+              <div>
+                <div class="relative">
+                  <input
+                    type="tel"
+                    placeholder="Celular com DDD"
+                    class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                  />
+                  <button
+                    type="button"
+                    class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center"
+                    ngpButton
+                  >
+                    <ng-icon class="!w-6 !h-6 z-2" name="bootstrapPhone" />
+                  </button>
+                </div>
+                <span class="text-xs font-semibold text-[#8C6BFA] mt-1">Exemplo (XX) XXXXX-XXXX</span>
+              </div>
+
+              <div class="relative">
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  placeholder="Senha"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                />
+                <button
+                  type="button"
+                  (click)="togglePasswordVisibility('login')"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center cursor-pointer"
+                  ngpButton
+                >
+                  <ng-icon class="!w-6 !h-6 z-2" [name]="showPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'" />
+                </button>
+              </div>
+
+              <button
+                type="button"
+                class="text-sm text-[#809FB8] cursor-pointer"
+                ngpButton
+                (click)="toggleFlow('forgot_password')"
+              >
+                Esqueci minha senha
+              </button>
+
+              <button
+                ngpButton
+                type="submit"
+                class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+              >
+                Entrar
+              </button>
+            </form>
+
+            <!-- Social Login -->
+            <div class="flex justify-center gap-4 my-6">
+              <button
+                class="w-12 h-12 flex items-center justify-center rounded-xl cursor-pointer border border-[#8C6BFA] hover:bg-gray-100 disabled:cursor-not-allowed"
+                ngpButton
+                [disabled]="!!socialLogin"
+              >
+                @if (socialLogin === 'facebook') {
+                  <app-spinner />
+                } @else {
+                  <ng-icon name="bootstrapFacebook" class="!w-4 !h-4 !text-[#8C6BFA]" />
+                }
+              </button>
+              <button
+                class="w-12 h-12 cursor-pointer flex items-center justify-center rounded-xl border border-[#8C6BFA] hover:bg-gray-100 disabled:cursor-not-allowed"
+                ngpButton
+                [disabled]="!!socialLogin"
+              >
+                @if (socialLogin === 'google') {
+                  <app-spinner />
+                } @else {
+                  <ng-icon name="bootstrapGoogle" class="!w-4 !h-4 !text-[#8C6BFA]" />
+                }
+              </button>
+              <button
+                class="w-12 h-12 flex cursor-pointer items-center justify-center rounded-xl border border-[#8C6BFA] hover:bg-gray-100 disabled:cursor-not-allowed"
+                ngpButton
+                [disabled]="!!socialLogin"
+              >
+                @if (socialLogin === 'apple') {
+                  <app-spinner />
+                } @else {
+                  <ng-icon name="bootstrapApple" class="!w-4 !h-4 !text-[#8C6BFA]" />
+                }
+              </button>
+            </div>
+
+            <!-- Create Account -->
+            <button
+              class="w-full border border-[#8C6BFA] text-[#8C6BFA] rounded-xl py-4 font-medium cursor-pointer hover:bg-gray-100"
+              ngpButton
+            >
+              Criar conta
+            </button>
+          </div>
+        }
+
+        @case ('forgot_password') {
+          <div class="md:max-w-md mx-auto p-4 pt-0">
+            @if (isEmailSent) {
+              <div class="space-y-4">
+                <div class="relative">
+                  <h1 ngpDialogDescription class="text-[#1B0B3B] text-lg font-bold mb-0">
+                    Enviamos um link de reset de senha para o email cadastrado:
+                  </h1>
+                  <p class="mb-4 text-[#8C6BFA] text-lg font-bold">{{ emailSent }}</p>
+                </div>
+
+                <button
+                  class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+                  ngpButton
+                >
+                  Ok, entendi
+                </button>
+
+                <div class="md:max-w-md mx-auto p-4 bg-[#EBEDF6] rounded-lg border-[#8C6BFA] border-solid border-1">
+                  <div class="flex items-center space-x-4">
+                    <div class="flex-shrink-0">
+                      <div class="text-[#8C6BFA] w-6 h-6">
+                        <ng-icon name="bootstrapInfoCircleFill" class="!w-full !h-full" />
+                      </div>
+                    </div>
+                    <div class="flex-1 space-y-4">
+                      <p class="text-[#2E2170] text-base">
+                        Não reconhece esse email ou não tem mais acesso a ele? Entre em contato com nossa central de
+                        atendimento.
+                      </p>
+                      <a
+                        href="/atendimento"
+                        class="block w-full border border-[#8C6BFA] text-[#8C6BFA] text-center rounded-xl py-2 font-medium cursor-pointer hover:bg-gray-100 transition-colors"
+                      >
+                        Central de atendimento
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            } @else {
+              <h1 ngpDialogDescription class="text-[#1B0B3B] text-lg font-bold mb-4">
+                Para o reset da senha, digite o seu CPF que enviaremos um link para isso
+              </h1>
+
+              <form class="space-y-4 mt-6">
+                <input
+                  type="text"
+                  placeholder="CPF"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                />
+
+                <button
+                  type="submit"
+                  class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+                  ngpButton
+                >
+                  Avançar
+                </button>
+              </form>
+            }
+          </div>
+        }
+
+        @case ('reset_password') {
+          <div class="md:max-w-md mx-auto p-4 pt-0">
+            <h1 ngpDialogDescription class="text-[#1B0B3B] text-lg font-bold mb-4">
+              Pronto! Agora digite sua nova senha, ela será usada para acessar o site e realizar compras e apostas.
+            </h1>
+
+            <form class="space-y-4 mt-6">
+              <div class="relative">
+                <input
+                  [type]="showResetPassword ? 'text' : 'password'"
+                  placeholder="Senha"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                />
+                <button
+                  type="button"
+                  (click)="togglePasswordVisibility('reset')"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center cursor-pointer"
+                  ngpButton
+                >
+                  <ng-icon
+                    class="!w-6 !h-6 z-2"
+                    [name]="showResetPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'"
+                  />
+                </button>
+              </div>
+
+              <div class="relative">
+                <input
+                  [type]="showConfirmResetPassword ? 'text' : 'password'"
+                  placeholder="Repita a senha"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                />
+                <button
+                  type="button"
+                  (click)="togglePasswordVisibility('confirm_reset')"
+                  class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center cursor-pointer"
+                  ngpButton
+                >
+                  <ng-icon
+                    class="!w-6 !h-6 z-2"
+                    [name]="showConfirmResetPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'"
+                  />
+                </button>
+              </div>
+
+              <button
+                type="submit"
+                class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+                ngpButton
+              >
+                Salvar
+              </button>
+            </form>
+          </div>
+        }
+      }
+    </div>
+  </div>
+</ng-template>
