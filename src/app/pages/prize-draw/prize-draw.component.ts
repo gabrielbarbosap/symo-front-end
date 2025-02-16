@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HeaderPrizeDrawComponent } from '../../components/header-prize-draw/header-prize-draw.component';
-import { CardPrizeDrawComponent } from '../../components/card-prize-draw/card-prize-draw.component';
+import { HeaderPrizeDrawComponent } from '../../shared/header-prize-draw/header-prize-draw.component';
+import { CardPrizeDrawComponent } from '../../shared/card-prize-draw/card-prize-draw.component';
 
 @Component({
   selector: 'app-prize-draw',

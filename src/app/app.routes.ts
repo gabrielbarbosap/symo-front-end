@@ -4,8 +4,7 @@ import { provideRouter } from '@angular/router';
 export const routes: Routes = [
   {
     path: 'prize-draw',
-    loadComponent: () =>
-      import('./facture/prize-draw/page/prize-draw/prize-draw.component').then((m) => m.PrizeDrawComponent),
+    loadComponent: () => import('./pages/prize-draw/prize-draw.component').then((m) => m.PrizeDrawComponent),
   },
   { path: '**', redirectTo: '' },
 ];

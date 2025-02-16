@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { Component } from '@angular/core';
 import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.component';
 
