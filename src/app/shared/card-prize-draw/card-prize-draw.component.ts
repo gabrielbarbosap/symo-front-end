@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.component';
+import { StartQuotasComponent } from '../start-quotas/start-quotas.component';
+import { SelectedQuotasComponent } from '../selected-quotas/selected-quotas.component';
 
 @Component({
   selector: 'app-card-prize-draw',
-  imports: [BtnPrizeDrawComponent],
+  imports: [StartQuotasComponent, SelectedQuotasComponent],
   templateUrl: './card-prize-draw.component.html',
   styleUrl: './card-prize-draw.component.css',
 })
