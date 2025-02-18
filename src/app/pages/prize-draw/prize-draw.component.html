@@ -1,5 +1,8 @@
 <div class="gap-2">
   <app-header-prize-draw></app-header-prize-draw>
-
-  <app-card-prize-draw></app-card-prize-draw>
+  @for (card of cards; track $index) {
+    <div class="mb-10">
+      <app-card-prize-draw></app-card-prize-draw>
+    </div>
+  }
 </div>

@@ -7,4 +7,6 @@ import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.componen
   templateUrl: './card-prize-draw.component.html',
   styleUrl: './card-prize-draw.component.css',
 })
-export class CardPrizeDrawComponent {}
+export class CardPrizeDrawComponent {
+  cotasSelecionadas = ['00', '00', '00'];
+}

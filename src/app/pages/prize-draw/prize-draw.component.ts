@@ -8,4 +8,6 @@ import { CardPrizeDrawComponent } from '../../shared/card-prize-draw/card-prize-
   templateUrl: './prize-draw.component.html',
   styleUrl: './prize-draw.component.css',
 })
-export class PrizeDrawComponent {}
+export class PrizeDrawComponent {
+  cards = [0, 1, 2, 3, 4, 5, 6];
+}
