@@ -1,0 +1,122 @@
+<!-- Contêiner principal -->
+<div
+  class="w-full max-w-[1511px] mx-auto bg-white rounded-2xl border border-gray-400 p-6 flex mt-5 mb-5 flex-col md:flex-row gap-6 shadow-lg"
+>
+  <!-- Esquerda: Progresso e Contagem Regressiva -->
+  <div class="flex flex-col items-center bg-[#2E2170] rounded-lg p-6 w-full md:w-[22%] h-full justify-between">
+    <div class="relative text-white w-24 h-24 md:w-28 md:h-28">
+      <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+        <circle cx="50" cy="50" r="40" stroke="white" stroke-width="10" fill="none" opacity="0.2"></circle>
+        <circle
+          cx="50"
+          cy="50"
+          r="40"
+          stroke="white"
+          stroke-width="10"
+          fill="none"
+          stroke-dasharray="251.2"
+          [attr.stroke-dashoffset]="251.2 - (soldPercentage / 100) * 251.2"
+          class="transition-all duration-500"
+        ></circle>
+      </svg>
+      <span class="absolute inset-0 flex items-center justify-center font-bold text-lg md:text-xl"
+        >{{ soldPercentage }}%</span
+      >
+    </div>
+
+    <span class="mt-2 font-bold text-white text-sm md:text-base">Vendido</span>
+    <span class="mt-4 text-2xl md:text-3xl text-white font-bold">{{ daysLeft }} dias</span>
+    <div class="flex gap-2 mt-2 text-sm md:text-base">
+      <span class="bg-white text-primary font-bold px-3 py-2 rounded">{{ hours }}</span> :
+      <span class="bg-white text-primary font-bold px-3 py-2 rounded">{{ minutes }}</span> :
+      <span class="bg-white text-primary font-bold px-3 py-2 rounded">{{ seconds }}</span>
+    </div>
+  </div>
+
+  <!-- Meio: Informações e Seleção -->
+  <div class="flex-1">
+    <h2 class="text-xl md:text-2xl font-bold text-[#8C6BFA]">{{ title }}</h2>
+    <div class="flex flex-wrap gap-2 mt-2">
+      <span class="bg-[#2E2170] px-3 py-1 rounded text-white text-sm font-bold">{{ edition }}</span>
+      <span class="bg-[#C4CCE4] px-3 py-1 rounded text-sm text-[#2E2170] font-bold">{{ date }}</span>
+      <span class="bg-[#12D1DE] text-[#2E2170] px-3 py-1 rounded text-sm font-bold">Cota {{ price }}</span>
+    </div>
+
+    <!-- Estado: Cotas selecionadas -->
+    <div *ngIf="selectedQuotes >= 0" class="bg-[#F4F5FB] p-6 rounded-xl mt-4 flex flex-col gap-6 shadow-lg">
+      <!-- Seção do Slider -->
+      <div class="flex items-center gap-4">
+        <!-- Botão de diminuir -->
+        <button
+          (click)="decreaseQuotes()"
+          class="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-2xl font-bold text-gray-600"
+        >
+          -
+        </button>
+
+        <!-- Slider customizado -->
+        <div class="flex-1 relative">
+          <input
+            type="range"
+            min="1"
+            max="10000000000000"
+            [(ngModel)]="selectedQuotes"
+            class="w-full cursor-pointer appearance-none bg-transparent"
+          />
+          <span class="absolute top-[-30px] left-1/2 transform -translate-x-1/2 text-[#8C6BFA] font-bold text-lg">
+            {{ selectedQuotes }}
+          </span>
+        </div>
+
+        <!-- Botão de aumentar -->
+        <button
+          (click)="increaseQuotes()"
+          class="w-10 h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-2xl font-bold text-gray-600"
+        >
+          +
+        </button>
+
+        <!-- Valor total -->
+        <span class="bg-[#8C6BFA] text-white px-4 py-2 rounded-full text-lg font-bold">
+          {{ totalPrice | currency: 'BRL' }}
+        </span>
+      </div>
+
+      <!-- Opções de cotas -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+        <button
+          *ngFor="let option of options"
+          (click)="addQuotes(option)"
+          class="relative border-2 border-[#8C6BFA] rounded-xl p-4 text-center text-[#8C6BFA] font-semibold text-lg shadow-md hover:bg-[#8C6BFA] hover:text-white transition-all"
+        >
+          <span
+            class="absolute -top-3 -right-3 bg-white border-2 border-[#8C6BFA] text-[#8C6BFA] w-6 h-6 flex items-center justify-center rounded-full text-lg font-bold"
+          >
+            +
+          </span>
+          <span class="block text-xl font-bold">{{ option }}</span>
+          <span class="block text-sm">Cotas</span>
+          <span class="block text-sm mt-1 font-medium">Adicionar</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Direita: Botões de Ação -->
+  <div class="flex flex-col w-full md:w-[22%] self-end">
+    <button
+      [ngClass]="selectedQuotes === 0 ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-[#8C6BFA] text-white'"
+      class="font-bold px-12 py-12 rounded-lg w-full text-lg md:text-xl transition-all"
+      [disabled]="selectedQuotes === 0"
+    >
+      Comprar agora - {{ totalPrice | currency: 'BRL' }}
+    </button>
+    <button
+      [ngClass]="selectedQuotes === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-[#C4CCE4] text-[#2E2170]'"
+      class="font-bold px-12 py-12 rounded-lg w-full text-lg md:text-xl transition-all mt-2"
+      [disabled]="selectedQuotes === 0"
+    >
+      Adicionar ao carrinho
+    </button>
+  </div>
+</div>
