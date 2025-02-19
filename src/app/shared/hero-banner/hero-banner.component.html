@@ -1,8 +1,11 @@
-<!-- Contêiner principal -->
-<div class="w-full mx-auto bg-white rounded-2xl border border-gray-400 p-6 flex flex-col md:flex-row gap-6 shadow-lg">
+<!-- Contêiner Principal -->
+<div
+  class="w-full mx-auto bg-white rounded-2xl border border-gray-400 p-4 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 shadow-lg mt-8 mb-8 md:w-[1511px] md:h-[330px] mx-4 lg:mx-auto"
+  style="max-width: 100%"
+>
   <!-- Esquerda: Progresso e Contagem Regressiva -->
-  <div class="flex flex-col items-center bg-[#2E2170] rounded-lg p-6 w-full md:w-1/4 lg:w-1/5 h-full justify-between">
-    <div class="relative text-white w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28">
+  <div class="flex flex-col items-center bg-[#2E2170] rounded-lg p-4 sm:p-6 w-full md:w-1/4 lg:w-1/5 justify-between">
+    <div class="relative text-white w-16 sm:w-20 h-16 sm:h-20 md:w-24 md:h-24">
       <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
         <circle cx="50" cy="50" r="40" stroke="white" stroke-width="10" fill="none" opacity="0.2"></circle>
         <circle
@@ -17,47 +20,50 @@
           class="transition-all duration-500"
         ></circle>
       </svg>
-      <span class="absolute inset-0 flex items-center justify-center font-bold text-sm sm:text-lg md:text-xl">
+      <span class="absolute inset-0 flex items-center justify-center font-bold text-xs sm:text-sm md:text-lg">
         {{ soldPercentage }}%
       </span>
     </div>
 
-    <span class="mt-2 font-bold text-white text-xs sm:text-sm md:text-base">Vendido</span>
+    <span class="mt-2 font-bold text-white text-xs sm:text-sm">Vendido</span>
     <span class="mt-4 text-xl sm:text-2xl md:text-3xl text-white font-bold">{{ daysLeft }} dias</span>
-    <div class="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm md:text-base">
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 sm:py-2 rounded">{{ hours }}</span> :
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 sm:py-2 rounded">{{ minutes }}</span> :
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 sm:py-2 rounded">{{ seconds }}</span>
+    <div class="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm">
+      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ hours }}</span> :
+      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ minutes }}</span> :
+      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ seconds }}</span>
     </div>
   </div>
 
   <!-- Meio: Informações e Seleção -->
-  <div class="flex-1">
-    <h2 class="text-lg sm:text-xl md:text-2xl font-bold text-[#8C6BFA]">{{ title }}</h2>
-    <div class="flex flex-wrap gap-2 mt-2">
-      <span class="bg-[#2E2170] px-2 sm:px-3 py-1 rounded text-white text-xs sm:text-sm font-bold">{{ edition }}</span>
-      <span class="bg-[#C4CCE4] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm text-[#2E2170] font-bold">{{ date }}</span>
-      <span class="bg-[#12D1DE] text-[#2E2170] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-bold"
-        >Cota {{ price }}</span
-      >
+  <div class="flex-1 flex flex-col gap-4">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#8C6BFA]">
+      {{ title }}
+    </h2>
+    <div class="flex flex-wrap gap-2">
+      <span class="bg-[#2E2170] px-2 sm:px-3 py-1 rounded text-white text-xs sm:text-sm font-bold">
+        {{ edition }}
+      </span>
+      <span class="bg-[#C4CCE4] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm text-[#2E2170] font-bold">
+        {{ date }}
+      </span>
+      <span class="bg-[#12D1DE] text-[#2E2170] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-bold">
+        Cota {{ price }}
+      </span>
     </div>
 
-    <!-- Estado: Cotas selecionadas -->
-    <div
-      *ngIf="selectedQuotes >= 0"
-      class="bg-[#F4F5FB] p-4 sm:p-6 rounded-xl mt-4 flex flex-col gap-4 sm:gap-6 shadow-lg"
-    >
+    <!-- Estado: Cotas Selecionadas -->
+    <div *ngIf="selectedQuotes >= 0" class="bg-[#F4F5FB] p-4 sm:p-6 rounded-xl flex flex-col gap-4 shadow-lg">
       <!-- Seção do Slider -->
-      <div class="flex items-center gap-2 sm:gap-4">
+      <div class="flex items-center gap-2">
         <!-- Botão de diminuir -->
         <button
           (click)="decreaseQuotes()"
-          class="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-xl font-bold text-gray-600"
+          class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-lg sm:text-xl font-bold text-gray-600"
         >
           -
         </button>
 
-        <!-- Slider customizado -->
+        <!-- Slider Customizado -->
         <div class="flex-1 relative">
           <div
             ngpSlider
@@ -67,27 +73,25 @@
             [ngpSliderStep]="1"
             class="relative w-full h-8 mt-4"
           >
-            <!-- Trilha do slider -->
+            <!-- Trilha do Slider -->
             <div ngpSliderTrack class="h-2 rounded-full relative bg-gray-300">
-              <!-- Faixa de progresso: largura calculada conforme o valor -->
+              <!-- Faixa de Progresso -->
               <div
                 ngpSliderRange
                 class="bg-[#8C6BFA] h-full rounded-full"
                 [ngStyle]="{ width: ((selectedQuotes - 1) / 9999) * 100 + '%' }"
               ></div>
             </div>
-
-            <!-- Thumb do slider: posição calculada conforme o valor -->
+            <!-- Thumb (Bolinha) do Slider -->
             <div
               ngpSliderThumb
               class="bg-[#8C6BFA] w-6 h-6 rounded-full border-2 border-white absolute top-1/2 transform -translate-y-1/2"
               [ngStyle]="{ left: ((selectedQuotes - 1) / 9999) * 100 + '%' }"
             ></div>
           </div>
-
-          <!-- Exibe o valor do slider -->
+          <!-- Exibe o Valor do Slider -->
           <span
-            class="absolute top-[-20px] sm:top-[-30px] left-1/2 transform -translate-x-1/2 text-[#8C6BFA] font-bold text-sm sm:text-lg"
+            class="absolute top-[-20px] sm:top-[-30px] left-1/2 transform -translate-x-1/2 text-[#8C6BFA] font-bold text-xs sm:text-sm md:text-lg"
           >
             {{ selectedQuotes }}
           </span>
@@ -96,31 +100,32 @@
         <!-- Botão de aumentar -->
         <button
           (click)="increaseQuotes()"
-          class="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-xl font-bold text-gray-600"
+          class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-lg sm:text-xl font-bold text-gray-600"
         >
           +
         </button>
 
-        <!-- Valor total -->
-        <span class="bg-[#8C6BFA] text-white px-3 sm:px-4 py-2 rounded-full text-sm sm:text-lg font-bold">
+        <!-- Valor Total -->
+        <span class="bg-[#8C6BFA] text-white px-3 py-2 rounded-full text-xs sm:text-sm font-bold">
           {{ totalPrice | currency: 'BRL' }}
         </span>
       </div>
 
-      <!-- Opções de cotas -->
-      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3">
+      <!-- Opções de Cotas -->
+      <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
         <button
           *ngFor="let option of options"
           (click)="addQuotes(option)"
-          class="relative border-2 border-[#8C6BFA] rounded-xl p-3 sm:p-4 text-center text-[#8C6BFA] font-semibold text-sm sm:text-lg shadow-md hover:bg-[#8C6BFA] hover:text-white transition-all"
+          class="relative border-2 border-[#8C6BFA] rounded-xl p-2 sm:p-3 text-center text-[#8C6BFA] font-semibold text-xs sm:text-sm shadow-md hover:bg-[#8C6BFA] hover:text-white transition-all"
         >
           <span
-            class="absolute -top-2 sm:-top-3 -right-2 sm:-right-3 bg-white border-2 border-[#8C6BFA] text-[#8C6BFA] w-5 sm:w-6 h-5 sm:h-6 flex items-center justify-center rounded-full text-lg font-bold"
-            >+</span
+            class="absolute -top-1 -right-1 bg-white border-2 border-[#8C6BFA] text-[#8C6BFA] w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full text-[10px] font-bold"
           >
-          <span class="block text-lg font-bold">{{ option }}</span>
-          <span class="block text-xs sm:text-sm">Cotas</span>
-          <span class="block text-xs sm:text-sm mt-1 font-medium">Adicionar</span>
+            +
+          </span>
+          <span class="block text-base font-bold">{{ option }}</span>
+          <span class="block text-[10px] sm:text-xs">Cotas</span>
+          <span class="block text-[10px] sm:text-xs mt-1 font-medium">Adicionar</span>
         </button>
       </div>
     </div>
@@ -130,14 +135,14 @@
   <div class="flex flex-col w-full md:w-1/4 lg:w-1/5 self-end">
     <button
       [ngClass]="selectedQuotes === 0 ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-[#8C6BFA] text-white'"
-      class="font-bold px-8 sm:px-12 py-4 sm:py-6 rounded-lg w-full text-base sm:text-lg md:text-xl transition-all"
+      class="font-bold px-4 sm:px-8 py-12 sm:py-12 rounded-lg w-full text-xs sm:text-sm md:text-base transition-all"
       [disabled]="selectedQuotes === 0"
     >
       Comprar agora - {{ totalPrice | currency: 'BRL' }}
     </button>
     <button
       [ngClass]="selectedQuotes === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-[#C4CCE4] text-[#2E2170]'"
-      class="font-bold px-8 sm:px-12 py-4 sm:py-6 rounded-lg w-full text-base sm:text-lg md:text-xl transition-all mt-2"
+      class="font-bold px-4 sm:px-8 py-12 sm:py-12 rounded-lg w-full text-xs sm:text-sm md:text-base transition-all mt-2"
       [disabled]="selectedQuotes === 0"
     >
       Adicionar ao carrinho

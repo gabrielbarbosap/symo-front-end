@@ -30,7 +30,7 @@ export class HeroBannerComponent {
     this._selectedQuotes = Math.round(value);
   }
 
-  options: number[] = [200, 400, 600, 800, 1000];
+  options: number[] = [100, 200, 300, 400];
 
   // Calcula o preço total baseado nas cotas selecionadas
   get totalPrice(): number {
