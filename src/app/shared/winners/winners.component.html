@@ -1,0 +1,16 @@
+<div class="border border-purple-300 rounded-lg p-2 mt-1 w-full mx-auto shadow-md">
+  <p class="text-gray-500 text-sm font-semibold uppercase">Vencedor Prêmio Principal</p>
+  <h2 class="text-lg font-bold text-purple-700">{{ winnerName }}</h2>
+  <div class="flex items-center justify-between mt-2 bg-purple-50 border border-yellow-400 rounded-lg p-2">
+    <img src="assets/image-carro.png" alt="Prêmio" class="w-12 h-12 rounded-lg object-cover" />
+    <p class="text-sm text-gray-700">{{ prizeDescription }}</p>
+    <div class="bg-yellow-400 text-gray-800 px-3 py-1 text-xs rounded flex items-center font-bold">
+      <span class="mr-1">🎟️</span> {{ ticketNumber }}
+    </div>
+  </div>
+  <app-btn-prize-draw
+    size="w-full"
+    styleBtn="border border-purple-600 text-white bg-purple-600 mt-4 py-2 ms-sm md:text-lg text-sm"
+    text=" Ver todos os ganhadores"
+  />
+</div>

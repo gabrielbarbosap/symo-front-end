@@ -15,12 +15,26 @@
       </div>
     </div>
     <!-- conteúdo card aqui  -->
-
-    <app-selected-quotas></app-selected-quotas>
+    <ng-container *ngTemplateOutlet="etapa4"> </ng-container>
   </div>
 
-  <!-- Em Breve Badge -->
   <div class="h-15 absolute -top-3 md:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs px-4 py-5 rounded-b-full">
     <span> EM ABERTO</span>
   </div>
 </div>
+
+<ng-template #etapa1>
+  <app-selected-quotas></app-selected-quotas>
+</ng-template>
+
+<ng-template #etapa2>
+  <app-purchased-shares />
+</ng-template>
+
+<ng-template #etapa3>
+  <app-start-quotas />
+</ng-template>
+
+<ng-template #etapa4>
+  <app-winners />
+</ng-template>

@@ -14,8 +14,6 @@ export class SelectedQuotasComponent {
     this.quotasSelected.splice(index, 1);
   }
 
-  quotaSelect: string[] = Array(20).fill('00'); // Simula 20 cotas
-
   showQuotas(): void {
     console.log('Mostrar cotas selecionadas:', this.quotasSelected);
   }
