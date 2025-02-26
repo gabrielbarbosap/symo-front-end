@@ -9,5 +9,12 @@ import { CardPrizeDrawComponent } from '../../shared/card-prize-draw/card-prize-
   styleUrl: './prize-draw.component.css',
 })
 export class PrizeDrawComponent {
-  cards = [0, 1, 2, 3, 4, 5, 6];
+  cards = [
+    { status: 'open' },
+    { status: 'participating' },
+    { status: 'open' },
+    { status: 'completed' },
+    { status: 'comingSoon' },
+    { status: 'comingSoon' },
+  ];
 }

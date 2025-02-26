@@ -1,7 +1,18 @@
 <div class="h-110 md:h-70 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
   <!-- Imagem -->
-  <div class="sm:w-2/3 md:w-1/3 rounded-lg overflow-hidden">
+  <div class="relative flex flex-col rounded-lg overflow-hidden">
+    <!-- Imagem do sorteio -->
     <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full h-full object-cover" />
+
+    <!-- Badge de participação -->
+    <div class="absolute top-2 left-2 bg-purple-700 text-white text-sm px-3 py-1 rounded-full">
+      Você já está participando
+    </div>
+
+    <!-- Contador posicionado na parte inferior -->
+    <div class="absolute bottom-4 w-full flex justify-start px-1">
+      <app-count-down />
+    </div>
   </div>
 
   <!-- Conteúdo -->
@@ -15,7 +26,7 @@
       </div>
     </div>
     <!-- conteúdo card aqui  -->
-    <ng-container *ngTemplateOutlet="etapa4"> </ng-container>
+    <ng-container *ngTemplateOutlet="currentTemplate"> </ng-container>
   </div>
 
   <div class="h-15 absolute -top-3 md:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs px-4 py-5 rounded-b-full">
@@ -23,18 +34,18 @@
   </div>
 </div>
 
-<ng-template #etapa1>
+<ng-template #open>
   <app-selected-quotas></app-selected-quotas>
 </ng-template>
 
-<ng-template #etapa2>
+<ng-template #participating>
   <app-purchased-shares />
 </ng-template>
 
-<ng-template #etapa3>
+<ng-template #completed>
   <app-start-quotas />
 </ng-template>
 
-<ng-template #etapa4>
+<ng-template #comingSoon>
   <app-winners />
 </ng-template>

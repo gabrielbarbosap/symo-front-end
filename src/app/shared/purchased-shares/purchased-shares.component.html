@@ -1,10 +1,17 @@
 <div class="p-1 rounded-lg">
-  <div class="hidden md:flex bg-gray-100 shadow-md rounded-full flex items-center px-4 py-1 w-full">
+  <div class="hidden md:flex bg-gray-100 shadow-md rounded-full items-center px-4 py-1 w-full">
     <!-- Botão Fechar -->
-    <button class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">✕</button>
+    <button
+      class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
+    >
+      ✕
+    </button>
 
     <!-- Botão Diminuir -->
-    <button (click)="diminuir()" class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center ml-2">
+    <button
+      (click)="diminuir()"
+      class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
+    >
       -
     </button>
 
@@ -24,24 +31,31 @@
     </div>
 
     <!-- Botão Aumentar -->
-    <button (click)="increase()" class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center mr-2">
+    <button
+      (click)="increase()"
+      class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px] md:max-h-[32px"
+    >
       +
     </button>
 
     <!-- Valor -->
-    <div class="ml-2 px-4 py-1 bg-purple-500 text-white rounded-full">R$ {{ price | number: '1.2-2' }}</div>
+    <div
+      class="ml-2 px-4 py-1 bg-purple-500 text-white lg:tex-md rounded-full md:min-w-max cursor-pointer md:text-[13px]"
+    >
+      R$ {{ price | number: '1.2-2' }}
+    </div>
   </div>
 
   <!-- Lista de cotas -->
-  <div class="overflow-x-scroll hidden md:block">
-    <div class="flex gap-4 mt-3 overflow-visible pb-1 relative">
+  <div class="cursor-pointer mt-1 overflow-x-scroll hidden md:block max-h-[104px]">
+    <div class="flex gap-2 mt-2 overflow-visible pb-1 relative flex-wrap">
       <div
         *ngFor="let cota of quotasAvailable"
         class="min-w-[126px] flex-col justify-center items-center relative border-2 border-purple-500 rounded-lg p-2 text-center w-32 bg-white overflow-visible"
       >
         <!-- Botão "+" fixo no canto superior direito -->
         <button
-          class="absolute -top-3 right-2 bg-purple-500 text-white rounded-full w-7 h-7 flex items-center justify-center shadow-md border-2 border-white"
+          class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
         >
           +
         </button>
@@ -55,38 +69,48 @@
 
   <!--MOBILE-->
 
-  <div class="flex flex-col items-center space-y-4 flex-col md:hidden">
+  <div class="flex flex-col items-center space-y-4 md:hidden">
     <!-- Barra de seleção -->
     <div class="bg-gray-100 shadow-md rounded-full flex items-center px-4 py-1 w-full justify-between">
-      <button (click)="diminuir()" class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">-</button>
+      <button
+        (click)="diminuir()"
+        class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
+      >
+        -
+      </button>
 
-      <p class="w-full pl-2 font-semibold text-gray-700 text-md">
+      <p class="cursor-pointer w-full pl-2 font-semibold text-gray-700 text-md">
         <span class="text-purple-700">{{ amount }}</span> Cotas
       </p>
 
       <div class="flex space-x-2">
-        <button class="text-gray-400">✕</button>
-        <button (click)="increase()" class="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">
+        <button class="cursor-pointer text-gray-400">✕</button>
+        <button
+          (click)="increase()"
+          class="cursor-pointer w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center"
+        >
           +
         </button>
       </div>
     </div>
 
     <!-- Botões rápidos de cotas -->
-    <div class="flex space-x-2 w-full overflow-x-scroll">
+    <div class="cursor-pointer flex space-x-2 w-full overflow-x-scroll">
       <button
         *ngFor="let cota of extraquotas"
         (click)="selectQuotas(cota)"
         [class.bg-purple-900]="quotasSelected === cota"
         [class.text-white]="quotasSelected === cota"
-        class="border-2 border-purple-500 text-purple-500 px-3 py-1 rounded-full text-sm font-semibold"
+        class="cursor-pointer border-2 border-purple-500 text-purple-500 px-3 py-1 rounded-full text-sm font-semibold"
       >
         +{{ cota }}
       </button>
     </div>
 
     <!-- Preço Total -->
-    <div class="w-full text-center bg-purple-100 text-purple-700 text-lg font-semibold px-6 py-2 rounded-lg">
+    <div
+      class="cursor-pointer w-full text-center bg-purple-100 text-purple-700 text-lg font-semibold px-6 py-2 rounded-lg"
+    >
       R$ {{ price }}
     </div>
   </div>
@@ -96,13 +120,13 @@
   <div class="flex flex-col gap-2 md:flex-row">
     <app-btn-prize-draw
       styleContainer="flex-1"
-      styleBtn="border border-purple-600 text-white bg-purple-600 mt-1 py-2 md:text-lg md:min-w-[240px]   text-sm"
+      styleBtn="border border-purple-600 text-white bg-purple-600 mt-1 py-2 md:text-lg  text-sm md:min-w-[50%] hover:bg-purple-600 hover:text-white lg:text-lg  text-sm md:text-[11px] md:w-full md:h-[45px]"
       text="Comprar agora R$ 234,45"
       size="w-full"
     />
     <app-btn-prize-draw
       size="w-full"
-      styleBtn="border border-purple-500 text-purple-600 py-2 mt-1 hover:bg-purple-600 hover:text-white md:text-lg text-sm"
+      styleBtn="border border-purple-500 text-purple-600 py-2 mt-1 hover:bg-purple-600 hover:text-white md:text-lg text-sm md:min-w-[50%] hover:bg-purple-600 hover:text-white lg:text-lg  text-sm md:text-[11px] md:w-full md:h-[45px]"
       text="Avise-me"
       styleContainer="flex-1"
     />
