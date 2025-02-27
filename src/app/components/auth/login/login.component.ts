@@ -22,6 +22,8 @@ import {
   bootstrapFacebook,
 } from '@ng-icons/bootstrap-icons';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
+import { NgpInput } from 'ng-primitives/input';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 
 type Flow = 'login' | 'forgot_password' | 'reset_password';
 
@@ -33,11 +35,13 @@ type Flow = 'login' | 'forgot_password' | 'reset_password';
     NgpDialogDescription,
     NgpDialogTrigger,
     NgpDialogOverlay,
+    NgpInput,
     DecimalPipe,
     NgpButton,
     NgIcon,
-    CommonModule,
     SpinnerComponent,
+    NgxMaskDirective,
+    CommonModule,
   ],
   viewProviders: [
     provideIcons({
@@ -53,6 +57,7 @@ type Flow = 'login' | 'forgot_password' | 'reset_password';
       bootstrapFacebook,
     }),
   ],
+  providers: [provideNgxMask()],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
