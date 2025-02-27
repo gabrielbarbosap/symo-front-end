@@ -72,6 +72,10 @@ export class LoginComponent {
 
   socialLogin: 'facebook' | 'google' | 'apple' | '' = '';
 
+  closeDialog() {
+    this.currentFlow = 'login';
+  }
+
   get modalTitle() {
     const titles: Record<Flow, string> = {
       login: 'Login',

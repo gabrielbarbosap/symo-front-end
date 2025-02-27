@@ -1,7 +1,7 @@
 <button [ngpDialogTrigger]="dialog" ngpButton><ng-content></ng-content></button>
 
 <ng-template #dialog let-close="close">
-  <div ngpDialogOverlay class="bg-[#2E217099] fixed inset-0 flex items-center justify-center">
+  <div ngpDialogOverlay class="bg-[#2E217099] fixed inset-0 flex items-center justify-center" (click)="closeDialog()">
     <div
       ngpDialog
       [ngClass]="{
@@ -16,7 +16,7 @@
           <span ngpDialogTitle class="text-[#1B0B3B] font-bold">{{ modalTitle }}</span>
         </div>
         <button
-          (click)="close()"
+          (click)="close(); closeDialog()"
           ngpButton
           class="w-8 h-8 cursor-pointer flex items-center justify-center rounded-lg border border-[#8C6BFA] hover:bg-gray-100 text-[#8C6BFA]"
         >
