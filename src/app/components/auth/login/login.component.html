@@ -48,8 +48,8 @@
                   <span class="font-semibold">R$ {{ subtotal | number: '1.2-2' }}</span>
                 </div>
 
-                <div class="pl-4 space-y-2 mb-4 text-[#2E2170]">
-                  <div class="flex justify-between text-sm">
+                <div class="pl-4 mb-4 text-[#2E2170]">
+                  <div class="flex justify-between text-sm mb-2">
                     <span>
                       Pix do milhão
                       <span><strong>(123 cotas)</strong></span>
@@ -75,8 +75,8 @@
             }
 
             <!-- Form -->
-            <form class="space-y-4 mt-6">
-              <div>
+            <form class="mt-6">
+              <div class="mb-4">
                 <div class="relative">
                   <input
                     type="tel"
@@ -94,7 +94,7 @@
                 <span class="text-xs font-semibold text-[#8C6BFA] mt-1">Exemplo (XX) XXXXX-XXXX</span>
               </div>
 
-              <div class="relative">
+              <div class="relative mb-4">
                 <input
                   [type]="showPassword ? 'text' : 'password'"
                   placeholder="Senha"
@@ -112,7 +112,7 @@
 
               <button
                 type="button"
-                class="text-sm text-[#809FB8] cursor-pointer"
+                class="text-sm text-[#809FB8] cursor-pointer mb-4"
                 ngpButton
                 (click)="toggleFlow('forgot_password')"
               >
@@ -178,8 +178,8 @@
         @case ('forgot_password') {
           <div class="md:max-w-md mx-auto p-4 pt-0">
             @if (isEmailSent) {
-              <div class="space-y-4">
-                <div class="relative">
+              <div>
+                <div class="relative mb-4">
                   <h1 ngpDialogDescription class="text-[#1B0B3B] text-lg font-bold mb-0">
                     Enviamos um link de reset de senha para o email cadastrado:
                   </h1>
@@ -187,21 +187,21 @@
                 </div>
 
                 <button
-                  class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+                  class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80 mb-4"
                   ngpButton
                 >
                   Ok, entendi
                 </button>
 
                 <div class="md:max-w-md mx-auto p-4 bg-[#EBEDF6] rounded-lg border-[#8C6BFA] border-solid border-1">
-                  <div class="flex items-center space-x-4">
-                    <div class="flex-shrink-0">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 mr-4">
                       <div class="text-[#8C6BFA] w-6 h-6">
                         <ng-icon name="bootstrapInfoCircleFill" class="!w-full !h-full" />
                       </div>
                     </div>
-                    <div class="flex-1 space-y-4">
-                      <p class="text-[#2E2170] text-base">
+                    <div class="flex-1">
+                      <p class="text-[#2E2170] text-base mb-4">
                         Não reconhece esse email ou não tem mais acesso a ele? Entre em contato com nossa central de
                         atendimento.
                       </p>
@@ -220,11 +220,11 @@
                 Para o reset da senha, digite o seu CPF que enviaremos um link para isso
               </h1>
 
-              <form class="space-y-4 mt-6">
+              <form class="mt-6">
                 <input
                   type="text"
                   placeholder="CPF"
-                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] mb-4"
                 />
 
                 <button
@@ -245,8 +245,8 @@
               Pronto! Agora digite sua nova senha, ela será usada para acessar o site e realizar compras e apostas.
             </h1>
 
-            <form class="space-y-4 mt-6">
-              <div class="relative">
+            <form class="mt-6">
+              <div class="relative mb-4">
                 <input
                   [type]="showResetPassword ? 'text' : 'password'"
                   placeholder="Senha"
@@ -265,7 +265,7 @@
                 </button>
               </div>
 
-              <div class="relative">
+              <div class="relative mb-4">
                 <input
                   [type]="showConfirmResetPassword ? 'text' : 'password'"
                   placeholder="Repita a senha"
