@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { TopBannerComponent } from '../top-banner/top-banner.component';
 import { LoginComponent } from '../../components/auth/login/login.component';
+import { ButtonComponent } from '../button/button.component';
 
 /**
  * Componente responsável pela exibição da barra de navegação no topo da aplicação.
@@ -8,7 +9,7 @@ import { LoginComponent } from '../../components/auth/login/login.component';
  */
 @Component({
   selector: 'app-header',
-  imports: [TopBannerComponent, LoginComponent],
+  imports: [TopBannerComponent, LoginComponent, ButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

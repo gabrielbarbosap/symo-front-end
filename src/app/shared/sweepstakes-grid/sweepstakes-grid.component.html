@@ -1,0 +1,18 @@
+<div class="px-12 py-12 m-12">
+  <div class="flex items-center justify-between flex-wrap">
+    <!-- Aplicando flexbox aqui -->
+    <div class="flex items-center gap-2">
+      <!-- Alinhando o ícone e o título -->
+      <img src="assets/icons/alvo.svg" alt="Sorteios" />
+      <strong>Sorteios 🔥</strong>
+    </div>
+    <app-button class="mt-4 md:mt-0" styleType="secondary">Ver todos os sorteios</app-button>
+  </div>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+    <!-- Adicionando margem superior para espaçamento -->
+    <app-sweepstakes></app-sweepstakes>
+    <app-sweepstakes></app-sweepstakes>
+    <app-sweepstakes></app-sweepstakes>
+    <app-sweepstakes></app-sweepstakes>
+  </div>
+</div>

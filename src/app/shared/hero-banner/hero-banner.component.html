@@ -1,41 +1,10 @@
 <!-- Contêiner Principal -->
 <div
-  class="w-full mx-auto bg-white rounded-2xl border border-gray-400 p-4 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 shadow-lg mt-8 mb-8 md:w-[1511px] md:h-[330px] mx-4 lg:mx-auto"
-  style="max-width: 100%"
+  class="mx-auto shadow-2xs bg-white rounded-3xl p-6 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 mt-[-20vh] mb-8"
+  style="max-width: 90%"
 >
-  <!-- Esquerda: Progresso e Contagem Regressiva -->
-  <div class="flex flex-col items-center bg-[#2E2170] rounded-lg p-4 sm:p-6 w-full md:w-1/4 lg:w-1/5 justify-between">
-    <div class="relative text-white w-16 sm:w-20 h-16 sm:h-20 md:w-24 md:h-24">
-      <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
-        <circle cx="50" cy="50" r="40" stroke="white" stroke-width="10" fill="none" opacity="0.2"></circle>
-        <circle
-          cx="50"
-          cy="50"
-          r="40"
-          stroke="white"
-          stroke-width="10"
-          fill="none"
-          stroke-dasharray="251.2"
-          [attr.stroke-dashoffset]="251.2 - (soldPercentage / 100) * 251.2"
-          class="transition-all duration-500"
-        ></circle>
-      </svg>
-      <span class="absolute inset-0 flex items-center justify-center font-bold text-xs sm:text-sm md:text-lg">
-        {{ soldPercentage }}%
-      </span>
-    </div>
-
-    <span class="mt-2 font-bold text-white text-xs sm:text-sm">Vendido</span>
-    <span class="mt-4 text-xl sm:text-2xl md:text-3xl text-white font-bold">{{ daysLeft }} dias</span>
-    <div class="flex gap-1 sm:gap-2 mt-2 text-xs sm:text-sm">
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ hours }}</span> :
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ minutes }}</span> :
-      <span class="bg-white text-primary font-bold px-2 sm:px-3 py-1 rounded">{{ seconds }}</span>
-    </div>
-  </div>
-
-  <!-- Meio: Informações e Seleção -->
-  <div class="flex-1 flex flex-col gap-4">
+  <app-progress class="flex items-stretch"></app-progress>
+  <div class="flex-1 flex flex-col mt-2">
     <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#8C6BFA]">
       {{ title }}
     </h2>
@@ -50,102 +19,11 @@
         Cota {{ price }}
       </span>
     </div>
-
-    <!-- Estado: Cotas Selecionadas -->
-    <div *ngIf="selectedQuotes >= 0" class="bg-[#F4F5FB] p-4 sm:p-6 rounded-xl flex flex-col gap-4 shadow-lg">
-      <!-- Seção do Slider -->
-      <div class="flex items-center gap-2">
-        <!-- Botão de diminuir -->
-        <button
-          (click)="decreaseQuotes()"
-          class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-lg sm:text-xl font-bold text-gray-600"
-        >
-          -
-        </button>
-
-        <!-- Slider Customizado -->
-        <div class="flex-1 relative">
-          <div
-            ngpSlider
-            [(ngpSliderValue)]="selectedQuotes"
-            [ngpSliderMin]="1"
-            [ngpSliderMax]="10000"
-            [ngpSliderStep]="1"
-            class="relative w-full h-8 mt-4"
-          >
-            <!-- Trilha do Slider -->
-            <div ngpSliderTrack class="h-2 rounded-full relative bg-gray-300">
-              <!-- Faixa de Progresso -->
-              <div
-                ngpSliderRange
-                class="bg-[#8C6BFA] h-full rounded-full"
-                [ngStyle]="{ width: ((selectedQuotes - 1) / 9999) * 100 + '%' }"
-              ></div>
-            </div>
-            <!-- Thumb (Bolinha) do Slider -->
-            <div
-              ngpSliderThumb
-              class="bg-[#8C6BFA] w-6 h-6 rounded-full border-2 border-white absolute top-1/2 transform -translate-y-1/2"
-              [ngStyle]="{ left: ((selectedQuotes - 1) / 9999) * 100 + '%' }"
-            ></div>
-          </div>
-          <!-- Exibe o Valor do Slider -->
-          <span
-            class="absolute top-[-20px] sm:top-[-30px] left-1/2 transform -translate-x-1/2 text-[#8C6BFA] font-bold text-xs sm:text-sm md:text-lg"
-          >
-            {{ selectedQuotes }}
-          </span>
-        </div>
-
-        <!-- Botão de aumentar -->
-        <button
-          (click)="increaseQuotes()"
-          class="w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white border border-gray-300 rounded-full text-lg sm:text-xl font-bold text-gray-600"
-        >
-          +
-        </button>
-
-        <!-- Valor Total -->
-        <span class="bg-[#8C6BFA] text-white px-3 py-2 rounded-full text-xs sm:text-sm font-bold">
-          {{ totalPrice | currency: 'BRL' }}
-        </span>
-      </div>
-
-      <!-- Opções de Cotas -->
-      <div class="grid grid-cols-2 gap-2 sm:grid-cols-4">
-        <button
-          *ngFor="let option of options"
-          (click)="addQuotes(option)"
-          class="relative border-2 border-[#8C6BFA] rounded-xl p-2 sm:p-3 text-center text-[#8C6BFA] font-semibold text-xs sm:text-sm shadow-md hover:bg-[#8C6BFA] hover:text-white transition-all"
-        >
-          <span
-            class="absolute -top-1 -right-1 bg-white border-2 border-[#8C6BFA] text-[#8C6BFA] w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center rounded-full text-[10px] font-bold"
-          >
-            +
-          </span>
-          <span class="block text-base font-bold">{{ option }}</span>
-          <span class="block text-[10px] sm:text-xs">Cotas</span>
-          <span class="block text-[10px] sm:text-xs mt-1 font-medium">Adicionar</span>
-        </button>
-      </div>
-    </div>
+    <app-quota-selection class="mt-5" [context]="'hero'"></app-quota-selection>
   </div>
-
-  <!-- Direita: Botões de Ação -->
-  <div class="flex flex-col w-full md:w-1/4 lg:w-1/5 self-end">
-    <button
-      [ngClass]="selectedQuotes === 0 ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-[#8C6BFA] text-white'"
-      class="font-bold px-4 sm:px-8 py-12 sm:py-12 rounded-lg w-full text-xs sm:text-sm md:text-base transition-all"
-      [disabled]="selectedQuotes === 0"
-    >
-      Comprar agora - {{ totalPrice | currency: 'BRL' }}
-    </button>
-    <button
-      [ngClass]="selectedQuotes === 0 ? 'bg-gray-200 text-gray-500 cursor-not-allowed' : 'bg-[#C4CCE4] text-[#2E2170]'"
-      class="font-bold px-4 sm:px-8 py-12 sm:py-12 rounded-lg w-full text-xs sm:text-sm md:text-base transition-all mt-2"
-      [disabled]="selectedQuotes === 0"
-    >
-      Adicionar ao carrinho
-    </button>
+  <!-- QUERO MODIFICAR AQUI -->
+  <div class="flex flex-col">
+    <app-button styleType="primary" context="hero">Comprar agora</app-button>
+    <app-button class="mt-2" styleType="secondary" context="hero">Adicionar ao carrinho</app-button>
   </div>
 </div>

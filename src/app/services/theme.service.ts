@@ -2,14 +2,13 @@ import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 
 /**
  * Serviço responsável por manipular o tema da aplicação.
- * Ele permite alternar entre o tema escuro e o tema claro,
- * adicionando ou removendo a classe 'dark' no elemento `<body>`.
+ * Ele permite alternar entre o tema customizado e o tema claro,
+ * além de salvar e recuperar a preferência do usuário.
  */
 @Injectable({
   providedIn: 'root', // O serviço estará disponível globalmente em toda a aplicação
 })
 export class ThemeService {
-  // O Renderer2 é usado para modificar o DOM de forma segura e eficiente
   private renderer: Renderer2;
 
   /**
@@ -25,20 +24,47 @@ export class ThemeService {
   }
 
   /**
-   * Altera o tema da aplicação para o modo escuro ou claro.
-   * Quando o parâmetro isDark é `true`, a classe 'dark' é adicionada ao elemento <body>,
-   * ativando o tema escuro. Caso contrário, a classe 'dark' é removida, ativando o tema claro.
+   * Altera o tema da aplicação para o tema customizado ou claro e salva a preferência do usuário.
+   * Quando o parâmetro theme é 'custom', a classe 'custom-theme' é adicionada ao elemento <body>,
+   * ativando o tema customizado. Quando o tema é 'light', a classe 'light-theme' é aplicada.
+   * A preferência do tema é salva no localStorage para persistir entre as sessões do usuário.
    *
-   * @param isDark Booleano que indica se o tema deve ser escuro (true) ou claro (false)
+   * @param theme O tema a ser aplicado. Aceita os valores 'custom' para tema customizado
+   *              e 'light' para tema claro.
    */
-  setTheme(theme: 'light' | 'dark'): void {
-    // Se o tema deve ser escuro, adiciona a classe 'dark' ao <body>
-    if (theme === 'dark') {
-      this.renderer.addClass(document.body, 'dark');
-      return;
-    }
+  setTheme(theme: 'light' | 'custom'): void {
+    // Limpa temas anteriores
+    this.renderer.removeClass(document.body, 'light-theme');
+    this.renderer.removeClass(document.body, 'custom-theme');
 
-    // Caso contrário, remove a classe 'dark' do <body>
-    this.renderer.removeClass(document.body, 'dark');
+    // Armazena a preferência do tema no localStorage
+    localStorage.setItem('theme', theme);
+
+    // Aplica a classe correspondente ao tema
+    if (theme === 'custom') {
+      this.renderer.addClass(document.body, 'custom-theme');
+    } else {
+      this.renderer.addClass(document.body, 'light-theme');
+    }
+  }
+
+  /**
+   * Obtém o tema armazenado no localStorage ou usa o valor padrão ('light') se não houver preferência.
+   * Esse método é chamado na inicialização para definir o tema correto.
+   *
+   * @returns O tema armazenado no localStorage. Pode retornar 'light' ou 'custom'.
+   */
+  getSavedTheme(): 'light' | 'custom' {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme ? (savedTheme as 'light' | 'custom') : 'light';
+  }
+
+  /**
+   * Aplica o tema salvo no localStorage ao carregar a aplicação.
+   * Isso garante que o tema do usuário seja carregado ao acessar o app.
+   */
+  applySavedTheme(): void {
+    const theme = this.getSavedTheme();
+    this.setTheme(theme); // Aplica o tema
   }
 }

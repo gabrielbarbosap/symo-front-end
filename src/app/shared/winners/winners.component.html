@@ -1,0 +1,28 @@
+<div class="bg-white rounded-xl border border-gray-300 shadow-lg p-4 flex flex-col items-center text-center">
+  <!-- Imagem do Ganhador -->
+  <img src="/assets/ganhadora.svg" alt="Ganhador" class="w-24 h-24 object-cover rounded-full mb-4" />
+
+  <!-- Nome do Ganhador -->
+  <h3 class="text-lg font-bold text-[#7A48D6]">Joyce Ca******</h3>
+
+  <!-- Título do Sorteio -->
+  <p class="text-sm font-semibold text-gray-600">Pix do milhão</p>
+
+  <!-- Edição e Data -->
+  <div class="flex flex-row gap-2 mt-2">
+    <div class="bg-[#8C6BFA] text-white text-xs font-semibold px-3 py-1 rounded-full">EDIÇÃO 01</div>
+    <div class="bg-[#C4CCE4] text-[#2E2170] text-xs font-semibold px-3 py-1 rounded-full">12/12/2024 - 19:30</div>
+  </div>
+
+  <!-- Prêmio -->
+  <div class="flex items-center border border-gray-300 rounded-xl p-2 mt-3 w-full">
+    <img src="/assets/ganhadores_premio.svg" alt="Prêmio" class="w-10 h-10 object-cover rounded-xl" />
+    <p class="text-xs text-gray-700 ml-2 text-left">MOTO HONDA 2025 0KM COM CAPACETE 345 CILINDRADAS</p>
+  </div>
+
+  <!-- Botões de Ação -->
+  <div class="flex flex-col w-full mt-4 gap-2">
+    <app-button [context]="'default'" styleType="primary">Ver vídeo</app-button>
+    <app-button [context]="'default'" styleType="secondary">Ganhadores do sorteio</app-button>
+  </div>
+</div>

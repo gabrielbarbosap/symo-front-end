@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
-  selector: 'app-footer',
+  selector: 'app-winners',
   imports: [ButtonComponent],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.css',
+  templateUrl: './winners.component.html',
+  styleUrl: './winners.component.css',
 })
-export class FooterComponent {}
+export class WinnersComponent {}

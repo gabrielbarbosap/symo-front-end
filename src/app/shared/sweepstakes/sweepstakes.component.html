@@ -1,0 +1,50 @@
+<div
+  class="bg-white rounded-xl border border-gray-300 shadow-lg p-5 flex flex-col w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg mx-auto"
+>
+  <!-- Título -->
+  <h3 class="text-lg sm:text-xl font-bold text-[#2E2170] text-left">Pix do Milhão</h3>
+
+  <!-- Informações do Sorteio -->
+  <div class="flex flex-wrap gap-2 mt-3">
+    <span class="bg-[#2E2170] text-white text-[10px] sm:text-xs md:text-sm font-semibold px-2 sm:px-3 py-1 rounded-xl">
+      EDIÇÃO 01
+    </span>
+    <span
+      class="bg-[#C4CCE4] text-[#2E2170] text-[10px] sm:text-xs md:text-sm font-semibold px-2 sm:px-3 py-1 rounded-xl"
+    >
+      12/12/2024 - 19:30
+    </span>
+  </div>
+
+  <!-- Imagem do Sorteio -->
+  <img
+    src="/assets/card_sorteio.svg"
+    alt="Imagem do Sorteio Pix do Milhão"
+    class="w-full h-36 sm:h-40 md:h-44 lg:h-48 object-cover rounded-xl mt-4"
+  />
+
+  <!-- Contador de Tempo + Preço da Cota -->
+  <div
+    class="mt-4 bg-gray-100 text-gray-700 text-xs sm:text-sm font-semibold px-4 py-3 rounded-xl flex flex-col sm:flex-row items-center justify-between w-full gap-3 sm:gap-0"
+  >
+    <!-- Tempo Restante -->
+    <div class="flex flex-col items-center sm:items-start">
+      <span class="text-[#2E2170] text-xs sm:text-sm">Termina em:</span>
+      <app-countdown-timer
+        [endDate]="'2025-02-31 23:59:59'"
+        (countdownFinished)="onCountdownEnd()"
+      ></app-countdown-timer>
+    </div>
+
+    <!-- Preço da Cota -->
+    <div class="flex flex-col items-center sm:items-end">
+      <span class="text-sm sm:text-base font-bold text-[#505050]">Cota:</span>
+      <span class="text-base sm:text-lg font-bold text-[#8C6BFA]">R$ 1,29</span>
+    </div>
+  </div>
+
+  <!-- Seleção de Cotas -->
+  <div class="w-full mt-4">
+    <app-quota-selection [context]="'card'"></app-quota-selection>
+  </div>
+</div>

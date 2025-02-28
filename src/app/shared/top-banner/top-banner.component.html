@@ -1,9 +1,9 @@
 <!-- Barra superior -->
 <div
-  class="w-[1920px] h-[48px] bg-gray-400 dark:bg-dark flex items-center justify-between border border-black px-[200px] py-[8px] text-black dark:text-lightgray font-bold text-xs md:text-sm"
+  class="w-full max-w-full h-[48px] bg-gray-400 dark:bg-dark flex items-center justify-between border border-black px-4 md:px-8 lg:px-16 text-black dark:text-lightgray font-bold text-xs md:text-sm"
 >
   <!-- Container interno -->
-  <div class="w-[1520px] h-[32px] flex items-center justify-between">
+  <div class="w-full max-w-[1520px] h-[32px] flex items-center justify-between mx-auto">
     <!-- Botões de navegação -->
     <div class="flex gap-2">
       <button class="text-lg">
@@ -18,15 +18,11 @@
     </div>
 
     <!-- Texto do aviso -->
-    <p class="hidden sm:block text-center text-primary dark:text-lightgray">
+    <p class="text-center text-primary dark:text-lightgray text-xs sm:text-sm md:text-base w-full md:max-w-[400px]">
       PIX DO MILHÃO! COTAS DISPONÍVEIS ATÉ AS 19:00 DO DIA 12/12/2024
     </p>
 
     <!-- Botão de compra -->
-    <button
-      class="bg-light-terciaria dark:bg-dark-terciaria hover:bg-[#0FB5C0] dark:hover:bg-[#0EAAB4] text-white px-4 py-1 rounded text-sm transition"
-    >
-      Comprar
-    </button>
+    <app-button class="hidden sm:flex" styleType="tertiary">Comprar</app-button>
   </div>
 </div>
