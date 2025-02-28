@@ -6,7 +6,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { HeroComponent } from './shared/hero/hero.component';
 import { SweepstakesGridComponent } from './shared/sweepstakes-grid/sweepstakes-grid.component';
 import { WinnersGridComponent } from './shared/winners-grid/winners-grid.component';
-import { FloatingMenuComponentComponent } from './shared/floating-menu-component/floating-menu-component.component';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +16,6 @@ import { FloatingMenuComponentComponent } from './shared/floating-menu-component
     HeroComponent,
     SweepstakesGridComponent,
     WinnersGridComponent,
-    FloatingMenuComponentComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
