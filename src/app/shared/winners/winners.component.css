@@ -1,4 +1,3 @@
-app-winners {
-  height: 100% !important;
+:host {
   display: flex;
 }

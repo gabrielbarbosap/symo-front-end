@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'tailwindcss';
 
+@theme {
+  --color-gray-text: #91949f;
+  --color-light-purple: #8c6bfa;
+  --color-blue-dark: #2e2170;
+  --breakpoint-mobile: 320px;
+}
+
 html {
   font-family: 'Poppins';
 }

@@ -1,8 +1,8 @@
-<div class="h-110 md:h-70 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
+<div class="md:h-101 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
   <!-- Imagem -->
   <div class="relative flex flex-col rounded-lg overflow-hidden">
     <!-- Imagem do sorteio -->
-    <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full h-full object-cover" />
+    <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full sm:h-full mobile:h-[318px]" />
 
     <!-- Badge de participação -->
     <div class="absolute top-2 left-2 bg-purple-700 text-white text-sm px-3 py-1 rounded-full">
@@ -19,18 +19,25 @@
   <div class="w-full sm:w-2/3 flex flex-col justify-between">
     <!-- Título e Data -->
     <div>
-      <h2 class="text-lg font-bold text-purple-700">Pix do Milhão e mais de milhão</h2>
-      <div class="flex items-center gap-2 mt-1 flex-wrap">
+      <h2 class="font-semibold text-light-purple md:text-xl lg:text-[clamp(1rem,2.5vw,2rem)]">
+        Pix do Milhão e mais de milhão
+      </h2>
+      <div class="flex items-center gap-2 mt-2 flex-wrap h-7">
         <span class="bg-purple-600 text-white px-3 py-1 text-xs rounded-md">EDIÇÃO 01</span>
-        <span class="text-gray-500 text-sm">12/12/2024 - 19:30</span>
+        <span class="text-gray-500 text-xs">12/12/2024 - 19:30</span>
       </div>
     </div>
     <!-- conteúdo card aqui  -->
     <ng-container *ngTemplateOutlet="currentTemplate"> </ng-container>
   </div>
 
-  <div class="h-15 absolute -top-3 md:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs px-4 py-5 rounded-b-full">
+  <!-- <div class="h-15 absolute -top-3 md:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs px-4 py-5 rounded-b-full">
     <span> EM ABERTO</span>
+  </div> -->
+  <div
+    class="h-[94px] w-[113px] absolute -top-3 lg:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs flex items-center justify-center px-4 py-5 rounded-t-[8px] rounded-b-[58px]"
+  >
+    <span>EM ABERTO</span>
   </div>
 </div>
 
