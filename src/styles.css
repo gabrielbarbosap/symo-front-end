@@ -3,8 +3,10 @@
 
 @theme {
   --color-gray-text: #91949f;
+  --colo-gray-light: #b2b7c7;
   --color-light-purple: #8c6bfa;
   --color-blue-dark: #2e2170;
+
   --breakpoint-mobile: 320px;
 }
 
