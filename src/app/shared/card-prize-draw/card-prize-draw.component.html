@@ -1,8 +1,8 @@
-<div class="md:h-101 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
+<div class="md:min-h-101 ms:max-h-40 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
   <!-- Imagem -->
   <div class="relative flex flex-col rounded-lg overflow-hidden">
     <!-- Imagem do sorteio -->
-    <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full sm:h-full mobile:h-[318px]" />
+    <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full sm:min-h-58 lg:min-h-full" />
 
     <!-- Badge de participação -->
     <div class="absolute top-2 left-2 bg-purple-700 text-white text-sm px-3 py-1 rounded-full">
@@ -10,7 +10,7 @@
     </div>
 
     <!-- Contador posicionado na parte inferior -->
-    <div class="absolute bottom-4 w-full flex justify-start px-1">
+    <div class="absolute bottom-1 w-full flex">
       <app-count-down />
     </div>
   </div>
