@@ -19,6 +19,7 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 import { NgpInput } from 'ng-primitives/input';
+import { NgpSelect } from 'ng-primitives/select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
@@ -36,6 +37,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     NgpInput,
     NgpButton,
     NgIcon,
+    NgpSelect,
     SpinnerComponent,
     NgxMaskDirective,
     CommonModule,
@@ -223,5 +225,10 @@ export class RegisterComponent {
   close() {
     this.dialogRef.close();
     this.router.navigate([], { relativeTo: this.route, queryParams: { auth: undefined } });
+  }
+
+  goToLogin() {
+    this.dialogRef.close();
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth: 'login' } });
   }
 }

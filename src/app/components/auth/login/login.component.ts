@@ -139,4 +139,9 @@ export class LoginComponent implements OnInit {
     this.dialogRef.close();
     this.router.navigate([], { relativeTo: this.route, queryParams: { auth: undefined } });
   }
+
+  goToRegister() {
+    this.dialogRef.close();
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth: 'register' } });
+  }
 }
