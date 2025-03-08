@@ -1,17 +1,46 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { TopBannerComponent } from '../top-banner/top-banner.component';
 import { LoginComponent } from '../../components/auth/login/login.component';
+import { NgpDialogManager } from 'ng-primitives/dialog';
+import { RegisterComponent } from '../../components/auth/register/register.component';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
-/**
- * Componente responsável pela exibição da barra de navegação no topo da aplicação.
- * Este componente pode incluir elementos como o título do site, links de navegação e ícones de ações.
- */
 @Component({
   selector: 'app-header',
-  imports: [TopBannerComponent, LoginComponent],
+  imports: [TopBannerComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
-export class HeaderComponent {
-  // Este componente geralmente será utilizado para exibir o cabeçalho com elementos de navegação
+export class HeaderComponent implements OnInit {
+  private dialogManager = inject(NgpDialogManager);
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+
+  ngOnInit() {
+    this.route.queryParams.subscribe((params) => {
+      if (params['auth']) {
+        switch (params['auth']) {
+          case 'login':
+          case 'reset_password':
+            this.openLogin(params);
+            break;
+          case 'register':
+            this.openRegister();
+            break;
+        }
+      }
+    });
+  }
+
+  navigateTo(auth = 'login') {
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth } });
+  }
+
+  openLogin(queryParams?: Params) {
+    this.dialogManager.open(LoginComponent, { data: queryParams || {} });
+  }
+
+  openRegister() {
+    this.dialogManager.open(RegisterComponent);
+  }
 }

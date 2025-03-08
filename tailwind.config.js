@@ -6,7 +6,7 @@ const config = {
   theme: {
     extend: {
       colors: {
-        light: {
+        brand: {
           primary: '#8C6BFA',
           secondary: '#E9EEFF',
           dark: '#2E2170',
