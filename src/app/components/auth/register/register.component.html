@@ -1,0 +1,388 @@
+<div ngpDialogOverlay class="bg-[#2E217099] fixed inset-0 flex items-center justify-center">
+  <div
+    ngpDialog
+    class="bg-white md:border-[#8C6BFA] md:border-solid md:border-2 md:rounded-2xl w-full h-screen overflow-y-scroll md:overflow-auto md:h-auto md:max-w-2xl"
+  >
+    <div class="flex justify-between items-center p-4">
+      <div class="flex items-center gap-2">
+        <ng-icon name="bootstrapPerson" class="!text-[#8C6BFA] !w-6 !h-6" />
+        <span ngpDialogTitle class="text-[#1B0B3B] font-bold">Cadastro</span>
+      </div>
+      <button
+        (click)="close()"
+        ngpButton
+        class="w-8 h-8 cursor-pointer flex items-center justify-center rounded-lg border border-[#8C6BFA] hover:bg-gray-100 text-[#8C6BFA]"
+      >
+        <ng-icon name="bootstrapX" class="!w-full !h-full" />
+      </button>
+    </div>
+
+    <div class="flex justify-center mb-4 md:hidden">
+      <img src="assets/logo_familhao.svg" alt="Familhão Logo" class="h-16 w-auto" />
+    </div>
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()" class="p-4">
+      <div class="mb-6">
+        <h2 class="text-[#1B0B3B] text-2xl font-bold mb-0" ngpDialogDescription>Crie sua conta</h2>
+        <p class="text-[#809FB8] mb-6">Entre com seus dados</p>
+      </div>
+
+      <hr class="border-[#8C6BFA] border-1 w-full mb-4" />
+
+      <div class="md:max-h-[400px] md:overflow-y-scroll">
+        <div formGroupName="personalInfo" class="mb-6">
+          <h3 class="font-semibold text-[#2E2170] mb-3">Dados gerais</h3>
+
+          <div class="md:flex">
+            <div class="mb-8 md:flex md:items-center md:justify-center md:mr-6 md:mb-0">
+              <div class="relative flex items-center justify-center">
+                <div
+                  class="w-30 h-30 border-solid border-4 border-gray-400 rounded-full bg-gray-100 relative flex items-center justify-center"
+                >
+                  @if (photoPreview()) {
+                    <div class="h-29 w-29 rounded-full overflow-hidden">
+                      <img
+                        [src]="photoPreview()"
+                        alt="Pré visualização da sua foto"
+                        class="h-full w-full object-cover"
+                      />
+                    </div>
+                  } @else {
+                    <div class="w-full h-full flex items-center justify-center">
+                      <ng-icon name="bootstrapPerson" class="!w-10 !h-10"></ng-icon>
+                    </div>
+                  }
+                </div>
+
+                <div class="absolute -bottom-4 left-0 right-0 flex items-center justify-center">
+                  <div class="max-w-[120px] w-full">
+                    <input
+                      type="file"
+                      id="photoUpload"
+                      class="hidden"
+                      accept="image/*"
+                      (change)="onFileSelected($event)"
+                    />
+                    <label
+                      for="photoUpload"
+                      class="w-full bg-[#8C6BFA] text-white flex items-center justify-center rounded-xl cursor-pointer py-2 font-medium text-sm"
+                    >
+                      Escolher
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="md:mt-3">
+              <div class="mb-4">
+                <input
+                  type="text"
+                  formControlName="fullName"
+                  placeholder="Nome completo"
+                  class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                  ngpInput
+                />
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4 md:mb-0">
+                <div>
+                  <input
+                    type="text"
+                    formControlName="cpf"
+                    mask="000.000.000-00"
+                    placeholder="CPF"
+                    class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                    ngpInput
+                  />
+                </div>
+                <div class="relative">
+                  <input
+                    type="text"
+                    formControlName="birthDate"
+                    mask="00/00/0000"
+                    placeholder="Data de nascimento"
+                    class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                    ngpInput
+                  />
+                  <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                    <ng-icon name="bootstrapCalendar" class="!w-6 !h-6 z-2" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="contactInfo" class="mb-6">
+          <h3 class="font-semibold text-[#2E2170] mb-3">Dados de contato</h3>
+
+          <div class="mb-4">
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="E-mail"
+              class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+              ngpInput
+            />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <input
+                type="text"
+                formControlName="phone"
+                mask="(00) 0 0000-0000"
+                placeholder="Celular com DDD"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                formControlName="phoneConfirmation"
+                mask="(00) 0 0000-0000"
+                placeholder="Repita o celular com DDD"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="accessInfo" class="mb-6">
+          <h3 class="font-semibold text-[#2E2170] mb-3">Dados de acesso</h3>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="relative">
+              <input
+                ngpInput
+                [type]="showPassword ? 'text' : 'password'"
+                placeholder="Senha"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                formControlName="password"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility('password')"
+                class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center cursor-pointer"
+                ngpButton
+              >
+                <ng-icon class="!w-6 !h-6 z-2" [name]="showPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'" />
+              </button>
+            </div>
+
+            <div class="relative">
+              <input
+                ngpInput
+                [type]="showConfirmPassword ? 'text' : 'password'"
+                placeholder="Repita a senha"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                formControlName="passwordConfirmation"
+              />
+              <button
+                type="button"
+                (click)="togglePasswordVisibility('confirm_password')"
+                class="absolute right-4 top-1/2 -translate-y-1/2 !text-[#2E2170] flex items-center justify-center cursor-pointer"
+                ngpButton
+              >
+                <ng-icon
+                  class="!w-6 !h-6 z-2"
+                  [name]="showConfirmPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div formGroupName="addressInfo" class="mb-6">
+          <h3 class="font-semibold text-[#2E2170] mb-3">Dados de endereço</h3>
+
+          <div class="mb-4 relative">
+            <input
+              type="text"
+              formControlName="zipCode"
+              mask="00000-000"
+              placeholder="CEP"
+              class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+              ngpInput
+            />
+            @if (isLoadingZipCode()) {
+              <div class="absolute inset-y-0 right-0 flex items-center px-3">
+                <ng-template *ngTemplateOutlet="loadingSpinnerInput"></ng-template>
+              </div>
+            }
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="col-span-2">
+              <input
+                type="text"
+                formControlName="street"
+                placeholder="Logradouro"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                formControlName="number"
+                placeholder="Número"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <input
+                type="text"
+                formControlName="complement"
+                placeholder="Complemento"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+            <div>
+              <input
+                type="text"
+                formControlName="neighborhood"
+                placeholder="Bairro"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+                ngpInput
+              />
+            </div>
+          </div>
+
+          <div class="mb-4">
+            <input
+              type="text"
+              formControlName="reference"
+              placeholder="Ponto de referência"
+              class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] placeholder:text-sm"
+              ngpInput
+            />
+          </div>
+
+          <div class="grid grid-cols-3 gap-4 mb-4">
+            <div class="relative">
+              <select
+                ngpSelect
+                formControlName="state"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] focus:outline-none focus:ring-2 focus:ring-brand-primary appearance-none placeholder:text-sm"
+              >
+                <option value="" disabled selected>UF</option>
+                @for (state of states(); track state.uf) {
+                  <option [value]="state.uf">{{ state.uf }}</option>
+                }
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                <ng-icon name="bootstrapChevronDown" class="!h-4 !w-4 text-[#2E2170]"></ng-icon>
+              </div>
+            </div>
+            <div class="col-span-2 relative">
+              <select
+                ngpSelect
+                formControlName="city"
+                class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F] focus:outline-none focus:ring-2 focus:ring-brand-primary appearance-none placeholder:text-sm"
+                [disabled]="isLoadingCities() || cities().length === 0"
+              >
+                <option value="" disabled selected>Cidade</option>
+                @for (city of cities(); track city.id) {
+                  <option [value]="city.name">{{ city.name }}</option>
+                }
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-3 pointer-events-none">
+                @if (isLoadingCities()) {
+                  <ng-container *ngTemplateOutlet="loadingSpinnerInput"></ng-container>
+                } @else {
+                  <ng-icon name="bootstrapChevronDown" class="!h-4 !w-4 text-[#2E2170]"></ng-icon>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-start">
+            <div class="flex items-center h-5">
+              <input
+                type="checkbox"
+                id="terms"
+                formControlName="termsAgreed"
+                class="w-5 h-5 border-gray-600 rounded accent-[#8C6BFA] focus:ring-[#8C6BFA]"
+                ngpInput
+              />
+            </div>
+            <label for="terms" class="ml-3 text-sm">
+              <span class="text-[#2E2170]">Li e concordo com os </span>
+              <a href="#" class="text-[#2E2170] underline font-medium">Termos de Uso</a>
+              <span class="text-[#2E2170]"> e </span>
+              <a href="#" class="text-[#2E2170] underline font-medium">Políticas de privacidade</a>
+            </label>
+          </div>
+
+          <div class="flex items-start mt-3">
+            <div class="flex items-center h-5">
+              <input
+                type="checkbox"
+                id="marketing"
+                formControlName="marketingOptIn"
+                class="w-5 h-5 border-gray-600 rounded accent-[#8C6BFA] focus:ring-[#8C6BFA]"
+                ngpInput
+              />
+            </div>
+            <label for="marketing" class="ml-3 text-sm text-indigo-900">
+              Desejo receber promoções e comunicações via e-mails
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr class="hidden border-[#8C6BFA] border-1 w-full mb-4 md:block" />
+
+      <div class="md:flex md:gap-4">
+        <button
+          class="w-full bg-[#8C6BFA] text-white flex items-center justify-center rounded-xl cursor-pointer py-4 font-medium hover:opacity-80 mb-4 md:mb-0 disabled:cursor-not-allowed"
+          ngpButton
+          [disabled]="isSubmitting()"
+          type="submit"
+        >
+          @if (isSubmitting()) {
+            <app-spinner />
+          } @else {
+            Criar conta
+          }
+        </button>
+
+        <button
+          ngpButton
+          type="button"
+          class="w-full border border-[#8C6BFA] text-[#8C6BFA] rounded-xl py-4 font-medium cursor-pointer hover:bg-gray-100"
+          (click)="goToLogin()"
+        >
+          Fazer login
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<ng-template #loadingSpinnerInput>
+  <svg
+    class="animate-spin h-5 w-5 text-brand-primary"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+  >
+    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+    <path
+      class="opacity-75"
+      fill="currentColor"
+      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+    ></path>
+  </svg>
+</ng-template>
