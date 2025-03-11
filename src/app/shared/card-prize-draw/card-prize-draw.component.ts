@@ -4,7 +4,7 @@ import { SelectedQuotasComponent } from '../selected-quotas/selected-quotas.comp
 import { PurchasedSharesComponent } from '../purchased-shares/purchased-shares.component';
 import { NgTemplateOutlet } from '@angular/common';
 import { WinnersComponent } from '../winners/winners.component';
-import { CountDownComponent } from '../count-down/count-down.component';
+import { TagBadgeComponent } from '../tag-badge/tag-badge.component';
 
 @Component({
   selector: 'app-card-prize-draw',
@@ -14,7 +14,7 @@ import { CountDownComponent } from '../count-down/count-down.component';
     PurchasedSharesComponent,
     WinnersComponent,
     NgTemplateOutlet,
-    CountDownComponent,
+    TagBadgeComponent,
   ],
   templateUrl: './card-prize-draw.component.html',
   styleUrl: './card-prize-draw.component.css',
@@ -29,9 +29,12 @@ export class CardPrizeDrawComponent implements OnChanges {
 
   currentTemplate!: TemplateRef<any>;
 
+  badges: any = [];
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['draw'] && this.draw?.status) {
       this.selectTemplate(this.draw.status);
+      this.tagConfiguration(changes['draw'].currentValue);
     }
   }
 
@@ -52,5 +55,22 @@ export class CardPrizeDrawComponent implements OnChanges {
       default:
         this.currentTemplate = this.comingSoonTemplate;
     }
+  }
+
+  tagConfiguration(draw: any) {
+    const badges: any = [];
+
+    if (draw.badges) {
+      // badges.push()
+      draw.badges.map((data: any) => {
+        badges.push(data);
+        console.log(data, 'badges');
+      });
+
+      this.badges = badges;
+      console.log(badges, 'BADG');
+    }
+
+    // console.log(draw,'DRAW');
   }
 }

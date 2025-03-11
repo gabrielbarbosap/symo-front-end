@@ -46,18 +46,20 @@
       <div class="grid gap-4 mt-2 pb-1" style="grid-template-columns: repeat(auto-fit, minmax(127px, 1fr))">
         <div
           *ngFor="let cota of quotasAvailable"
-          class="relative flex flex-col justify-center items-center border-2 border-purple-500 rounded-lg p-4 text-center bg-white"
+          class="relative flex flex-col justify-center items-center border-2 border-light-purple rounded-lg p-4 text-center bg-white"
         >
           <!-- Botão + posicionado acima da borda -->
           <button
-            class="absolute -top-4 left-3/4 transform -translate-x-1/2 bg-light-purple text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white"
+            class="cursor-pointer absolute -top-4 left-3/4 transform -translate-x-1/2 bg-light-purple text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white"
           >
             +
           </button>
 
-          <p class="text-lg font-semibold text-purple-800 mt-2">{{ cota }} Cotas</p>
+          <p class="text-lg font-semibold text-light-purple mt-2">
+            {{ cota }} <span class="text-blue-dark font-medium">Cotas</span>
+          </p>
           <div class="border border-[#A3AED0] w-full m-auto"></div>
-          <button class="text-purple-600 font-semibold mt-1">Adicionar</button>
+          <button class="text-light-purple font-semibold mt-1">Adicionar</button>
         </div>
       </div>
     </div>
@@ -112,13 +114,13 @@
   <div class="flex flex-col gap-2 xl:flex-row">
     <app-btn-prize-draw
       styleContainer="flex-1"
-      styleBtn="border  border-purple-600 text-white bg-purple-600  md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+      styleBtn="border  border-light-purple text-white bg-light-purple md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
       text="Comprar agora R$ 234,45"
       size="w-full"
     />
     <app-btn-prize-draw
       styleContainer="flex-1"
-      styleBtn="border  border-purple-600 text-[#B2B7C7]  md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+      styleBtn="border  border-light-purple text-light-purple md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
       text="Adicionar ao carrinho"
       size="w-full"
     />
