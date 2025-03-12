@@ -1,12 +1,12 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   NgpDialog,
   NgpDialogTitle,
   NgpDialogDescription,
-  NgpDialogTrigger,
   NgpDialogOverlay,
+  injectDialogRef,
 } from 'ng-primitives/dialog';
 import { NgpButton } from 'ng-primitives/button';
 import {
@@ -22,6 +22,9 @@ import {
   bootstrapFacebook,
 } from '@ng-icons/bootstrap-icons';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
+import { NgpInput } from 'ng-primitives/input';
+import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
+import { ActivatedRoute, Router } from '@angular/router';
 
 type Flow = 'login' | 'forgot_password' | 'reset_password';
 
@@ -31,13 +34,14 @@ type Flow = 'login' | 'forgot_password' | 'reset_password';
     NgpDialog,
     NgpDialogTitle,
     NgpDialogDescription,
-    NgpDialogTrigger,
     NgpDialogOverlay,
+    NgpInput,
     DecimalPipe,
     NgpButton,
     NgIcon,
-    CommonModule,
     SpinnerComponent,
+    NgxMaskDirective,
+    CommonModule,
   ],
   viewProviders: [
     provideIcons({
@@ -53,10 +57,15 @@ type Flow = 'login' | 'forgot_password' | 'reset_password';
       bootstrapFacebook,
     }),
   ],
+  providers: [provideNgxMask()],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  protected readonly dialogRef = injectDialogRef<string>();
+
   showPassword = false;
   showResetPassword = false;
   showConfirmResetPassword = false;
@@ -71,6 +80,10 @@ export class LoginComponent {
   emailSent = 'r4*****@h****.com.br';
 
   socialLogin: 'facebook' | 'google' | 'apple' | '' = '';
+
+  closeDialog() {
+    this.currentFlow = 'login';
+  }
 
   get modalTitle() {
     const titles: Record<Flow, string> = {
@@ -100,6 +113,10 @@ export class LoginComponent {
     return 'Acesse sua conta';
   }
 
+  ngOnInit(): void {
+    console.log(this.dialogRef.data);
+  }
+
   togglePasswordVisibility(type: 'login' | 'reset' | 'confirm_reset' = 'login'): void {
     if (type === 'login') {
       this.showPassword = !this.showPassword;
@@ -116,5 +133,15 @@ export class LoginComponent {
 
   toggleFlow(flow: Flow) {
     this.currentFlow = flow;
+  }
+
+  close() {
+    this.dialogRef.close();
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth: undefined } });
+  }
+
+  goToRegister() {
+    this.dialogRef.close();
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth: 'register' } });
   }
 }
