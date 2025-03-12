@@ -61,16 +61,11 @@ export class CardPrizeDrawComponent implements OnChanges {
     const badges: any = [];
 
     if (draw.badges) {
-      // badges.push()
       draw.badges.map((data: any) => {
         badges.push(data);
-        console.log(data, 'badges');
       });
 
       this.badges = badges;
-      console.log(badges, 'BADG');
     }
-
-    // console.log(draw,'DRAW');
   }
 }
