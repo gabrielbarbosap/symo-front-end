@@ -18,43 +18,51 @@
   <div *ngIf="selectedQuotes > 0" class="text-center">
     <div *ngIf="context === 'card'" class="p-4 rounded-xl">
       <!-- Contador de cotas -->
-      <div class="flex items-center justify-between px-4 py-2 bg-[#F4F5FA] rounded-full">
+      <div class="flex flex-wrap items-center justify-between px-3 sm:px-4 py-2 bg-[#F4F5FA] rounded-3xl">
+        <!-- Botão de diminuir -->
         <button
-          class="w-7 h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
+          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
           (click)="decreaseQuantity()"
         >
-          <span class="text-2xl font-bold">−</span>
+          <span class="text-xl sm:text-2xl font-bold">−</span>
         </button>
 
+        <!-- Seletor de cotas -->
         <div class="flex items-center">
-          <span class="text-[#8C6BFA] text-xl ml-2 font-bold">{{ selectedQuotes }}</span>
-          <span class="text-gray-700 text-lg ml-1">Cotas</span>
+          <span class="text-[#8C6BFA] text-lg sm:text-xl ml-1 sm:ml-2 font-bold">{{ selectedQuotes }}</span>
+          <span class="text-gray-700 text-sm sm:text-lg ml-1">Cotas</span>
         </div>
 
+        <!-- Botão de reset -->
         <button
-          class="w-7 h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-2"
+          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-1 sm:ml-2"
           (click)="resetSelection()"
         >
-          <span class="text-xl font-bold">x</span>
-        </button>
-        <button
-          class="w-7 h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
-          (click)="increaseQuantity()"
-        >
-          <span class="text-2xl font-bold">+</span>
+          <span class="text-lg sm:text-xl font-bold">x</span>
         </button>
 
-        <div class="ml-4 px-4 py-2 bg-[#8C6BFA] text-white rounded-2xl font-bold text-lg">
-          {{ totalPrice | currency: 'BRL' }}
+        <!-- Botão de aumentar -->
+        <button
+          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
+          (click)="increaseQuantity()"
+        >
+          <span class="text-xl sm:text-2xl font-bold">+</span>
+        </button>
+
+        <!-- Preço das cotas (Abaixo no mobile) -->
+        <div class="w-full sm:w-auto mt-2 sm:mt-0 text-center">
+          <div class="px-3 sm:px-4 py-2 bg-[#8C6BFA] text-white rounded-2xl font-bold text-base sm:text-lg">
+            {{ totalPrice | currency: 'BRL' }}
+          </div>
         </div>
       </div>
 
       <!-- Botões de seleção de cotas -->
-      <div class="grid grid-cols-3 gap-2 justify-center my-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 justify-center my-3 sm:my-4">
         <button
           *ngFor="let quota of quotas"
           (click)="selectQuota(quota)"
-          class="px-4 py-2 border border-[#8C6BFA] rounded-full text-[#2E2170] text-sm transition hover:bg-[#2E2170] hover:text-white"
+          class="px-3 sm:px-4 py-1 sm:py-2 border border-[#8C6BFA] rounded-full text-[#2E2170] text-xs sm:text-sm transition hover:bg-[#2E2170] hover:text-white"
           [ngClass]="{ 'bg-[#2E2170] text-white': quota === selectedQuotes }"
         >
           +{{ quota }}
@@ -63,11 +71,11 @@
 
       <!-- Botões de ação -->
       <div class="flex flex-col space-y-2">
-        <app-button class="w-full" styleType="primary" (click)="selectQuota(1)">
+        <app-button class="w-full text-sm sm:text-base" styleType="primary" (click)="selectQuota(1)">
           Comprar agora {{ totalPrice | currency: 'BRL' }}
         </app-button>
         <app-button
-          class="w-full border border-[#8C6BFA] rounded-2xl text-[#8C6BFA] bg-transparent"
+          class="w-full border border-[#8C6BFA] rounded-2xl text-[#8C6BFA] bg-transparent text-sm sm:text-base"
           styleType="secondary"
           (click)="selectQuota(1)"
         >
@@ -103,9 +111,9 @@
           />
 
           <!-- Valor Atual do Slider -->
-          <span class="absolute -top-6 text-[#8C6BFA] font-bold text-lg">
+          <!-- <span class="absolute -top-6 text-[#8C6BFA] font-bold text-lg">
             {{ selectedQuotes }}
-          </span>
+          </span> -->
         </div>
 
         <button
