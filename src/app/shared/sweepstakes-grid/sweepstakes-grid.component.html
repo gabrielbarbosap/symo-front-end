@@ -1,4 +1,4 @@
-<div class="px-12 py-12 m-12">
+<div class="py-12 m-12">
   <div class="flex items-center justify-between flex-wrap">
     <!-- Aplicando flexbox aqui -->
     <div class="flex items-center gap-2">
@@ -6,7 +6,9 @@
       <img src="assets/icons/alvo.svg" alt="Sorteios" />
       <strong>Sorteios 🔥</strong>
     </div>
-    <app-button class="mt-4 md:mt-0" styleType="secondary">Ver todos os sorteios</app-button>
+    <div class="hidden sm:block">
+      <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
+    </div>
   </div>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
     <!-- Adicionando margem superior para espaçamento -->
@@ -14,5 +16,9 @@
     <app-sweepstakes></app-sweepstakes>
     <app-sweepstakes></app-sweepstakes>
     <app-sweepstakes></app-sweepstakes>
+  </div>
+  <!-- Botão só no Mobile -->
+  <div class="block sm:hidden mt-6 text-center">
+    <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
   </div>
 </div>

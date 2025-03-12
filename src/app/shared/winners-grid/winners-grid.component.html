@@ -1,17 +1,27 @@
-<div class="px-12 py-12 m-12">
-  <div class="flex items-center justify-between flex-wrap">
-    <!-- Aplicando flexbox aqui -->
+<div class="py-12 m-12 sm:px-8 sm:py-12">
+  <!-- Cabeçalho -->
+  <div class="flex items-center justify-between gap-2">
     <div class="flex items-center gap-2">
-      <!-- Alinhando o ícone e o título -->
-      <img src="assets/icons/Trophy.svg" alt="Sorteios" />
-      <strong>Ganhadores 🔥</strong>
+      <img src="assets/icons/Trophy.svg" alt="Sorteios" class="w-5 h-5 sm:w-6 sm:h-6" />
+      <strong class="text-sm sm:text-base">Ganhadores 🔥</strong>
     </div>
-    <app-button class="mt-4 md:mt-0" styleType="secondary">Ver todos os sorteios</app-button>
+
+    <!-- Botão só no Desktop (alinhado à direita) -->
+    <div class="hidden sm:block">
+      <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
+    </div>
   </div>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+
+  <!-- Grid de Ganhadores -->
+  <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-3">
     <app-winners></app-winners>
     <app-winners></app-winners>
     <app-winners></app-winners>
     <app-winners></app-winners>
+  </div>
+
+  <!-- Botão só no Mobile -->
+  <div class="block sm:hidden mt-6 text-center">
+    <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
   </div>
 </div>

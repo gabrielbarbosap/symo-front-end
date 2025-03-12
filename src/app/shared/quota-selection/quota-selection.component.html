@@ -5,9 +5,9 @@
     'bg-white': selectedQuotes > 0 || context === 'card',
   }"
 >
-  <div *ngIf="selectedQuotes === 0">
+  <div class="bg-[#E9EEFF] rounded-3xl p-6" *ngIf="selectedQuotes === 0">
     <img src="assets/icons/ticket.svg" alt="Ticket" class="w-8 h-8 mx-auto" />
-    <hr class="my-4 border-gray-300" />
+    <hr class="my-4 border-[#A3AED0]" />
     <p class="mt-2 font-poppins text-[#8C6BFA] font-semibold text-lg leading-5 tracking-tight text-center">
       Você não selecionou nenhuma cota
     </p>
@@ -20,31 +20,31 @@
       <!-- Contador de cotas -->
       <div class="flex items-center justify-between px-4 py-2 bg-[#F4F5FA] rounded-full">
         <button
-          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
+          class="w-7 h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
           (click)="decreaseQuantity()"
         >
           <span class="text-2xl font-bold">−</span>
         </button>
 
         <div class="flex items-center">
-          <span class="text-[#8C6BFA] text-xl font-bold">{{ selectedQuotes }}</span>
+          <span class="text-[#8C6BFA] text-xl ml-2 font-bold">{{ selectedQuotes }}</span>
           <span class="text-gray-700 text-lg ml-1">Cotas</span>
         </div>
 
         <button
-          class="w-10 h-10 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-2"
+          class="w-7 h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-2"
           (click)="resetSelection()"
         >
           <span class="text-xl font-bold">x</span>
         </button>
         <button
-          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
+          class="w-7 h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
           (click)="increaseQuantity()"
         >
           <span class="text-2xl font-bold">+</span>
         </button>
 
-        <div class="ml-4 px-4 py-2 bg-[#8C6BFA] text-white rounded-full font-bold text-lg">
+        <div class="ml-4 px-4 py-2 bg-[#8C6BFA] text-white rounded-2xl font-bold text-lg">
           {{ totalPrice | currency: 'BRL' }}
         </div>
       </div>
@@ -54,7 +54,7 @@
         <button
           *ngFor="let quota of quotas"
           (click)="selectQuota(quota)"
-          class="px-4 py-2 border border-[#8C6BFA] rounded-full text-[#2E2170] text-lg transition hover:bg-[#2E2170] hover:text-white"
+          class="px-4 py-2 border border-[#8C6BFA] rounded-full text-[#2E2170] text-sm transition hover:bg-[#2E2170] hover:text-white"
           [ngClass]="{ 'bg-[#2E2170] text-white': quota === selectedQuotes }"
         >
           +{{ quota }}

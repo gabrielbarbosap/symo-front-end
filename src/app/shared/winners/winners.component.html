@@ -1,28 +1,59 @@
-<div class="bg-white rounded-xl border border-gray-300 shadow-lg p-4 flex flex-col items-center text-center">
+<div
+  class="bg-white rounded-xl border border-gray-300 shadow-lg p-3 sm:p-4 flex flex-col items-center text-center w-full mx-auto"
+>
   <!-- Imagem do Ganhador -->
-  <img src="/assets/ganhadora.svg" alt="Ganhador" class="w-24 h-24 object-cover rounded-full mb-4" />
+  <img
+    src="/assets/ganhadora.svg"
+    alt="Ganhador"
+    class="w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-full mb-3 sm:mb-4"
+  />
 
   <!-- Nome do Ganhador -->
-  <h3 class="text-lg font-bold text-[#7A48D6]">Joyce Ca******</h3>
+  <h3 class="text-base sm:text-lg font-bold text-[#7A48D6] leading-tight">Joyce Ca******</h3>
 
-  <!-- Título do Sorteio -->
-  <p class="text-sm font-semibold text-gray-600">Pix do milhão</p>
+  <div class="bg-[#F4F5FA] rounded-2xl p-3 sm:p-4 w-full">
+    <!-- Título do Sorteio -->
+    <p class="text-[24px] font-semibold text-[#A3AED0]">Pix do milhão</p>
 
-  <!-- Edição e Data -->
-  <div class="flex flex-row gap-2 mt-2">
-    <div class="bg-[#8C6BFA] text-white text-xs font-semibold px-3 py-1 rounded-full">EDIÇÃO 01</div>
-    <div class="bg-[#C4CCE4] text-[#2E2170] text-xs font-semibold px-3 py-1 rounded-full">12/12/2024 - 19:30</div>
-  </div>
+    <!-- Edição e Data -->
+    <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-2">
+      <div
+        class="bg-[#8C6BFA] text-white text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-1 rounded-full text-center"
+      >
+        EDIÇÃO 01
+      </div>
+      <div
+        class="bg-[#C4CCE4] text-[#2E2170] text-[10px] sm:text-xs font-semibold px-2 sm:px-3 py-1 rounded-full text-center"
+      >
+        12/12/2024 - 19:30
+      </div>
+    </div>
 
-  <!-- Prêmio -->
-  <div class="flex items-center border border-gray-300 rounded-xl p-2 mt-3 w-full">
-    <img src="/assets/ganhadores_premio.svg" alt="Prêmio" class="w-10 h-10 object-cover rounded-xl" />
-    <p class="text-xs text-gray-700 ml-2 text-left">MOTO HONDA 2025 0KM COM CAPACETE 345 CILINDRADAS</p>
+    <!-- Prêmio -->
+    <div
+      class="flex flex-col sm:flex-row items-center border border-[#FFB800] rounded-xl p-2 mt-3 w-full text-center sm:text-left"
+    >
+      <img
+        src="/assets/ganhadores_premio.svg"
+        alt="Prêmio"
+        class="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded-xl mx-auto sm:mx-0"
+      />
+      <p class="text-[10px] sm:text-xs text-gray-700 mt-1 sm:mt-0 sm:ml-2">
+        MOTO HONDA 2025 0KM COM CAPACETE 345 CILINDRADAS
+      </p>
+    </div>
   </div>
 
   <!-- Botões de Ação -->
-  <div class="flex flex-col w-full mt-4 gap-2">
-    <app-button [context]="'default'" styleType="primary">Ver vídeo</app-button>
-    <app-button [context]="'default'" styleType="secondary">Ganhadores do sorteio</app-button>
+  <div class="flex flex-col w-full mt-3 sm:mt-4 gap-2">
+    <app-button [context]="'default'" styleType="secondary">
+      <img src="/assets/icons/play.svg" class="w-4 h-4 sm:w-5 sm:h-5" />
+      <span class="text-xs sm:text-sm">Ver vídeo</span>
+    </app-button>
+
+    <app-button [context]="'default'" styleType="primary">
+      <img src="/assets/icons/Trophy (2).svg" class="w-4 h-4 sm:w-5 sm:h-5" />
+      <span class="text-xs sm:text-sm">Ganhadores do sorteio</span>
+    </app-button>
   </div>
 </div>
