@@ -99,8 +99,8 @@ export class RegisterComponent {
         complement: [''],
         neighborhood: ['', [Validators.required]],
         reference: [''],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
+        state: [null, [Validators.required]],
+        city: [null, [Validators.required]],
       }),
       termsAgreed: [false, [Validators.requiredTrue]],
       marketingOptIn: [false],
@@ -155,7 +155,7 @@ export class RegisterComponent {
               street: address.logradouro,
               neighborhood: address.bairro,
               state: address.uf,
-              city: address.localidade,
+              city: address.cidade,
             });
 
             this.loadCities(address.uf);
@@ -178,11 +178,11 @@ export class RegisterComponent {
     });
   }
 
-  loadCities(state: string): void {
+  loadCities(stateId: number): void {
     this.isLoadingCities.set(true);
 
     this.addressService
-      .getCitiesByState(state)
+      .getCitiesByState(stateId)
       .pipe(finalize(() => this.isLoadingCities.set(false)))
       .subscribe({
         next: (cities: City[]) => {
