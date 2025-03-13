@@ -1,0 +1,8 @@
+:host {
+  display: block;
+  width: 620px;
+}
+
+button:nth-child(4) img {
+  padding-top: 12px; /* pt-1 */
+}
