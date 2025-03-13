@@ -1,22 +1,22 @@
 <nav
-  class="mb-6 w-full bg-gradient-to-r from-purple-100 to-purple-200 rounded-full shadow-lg sm:flex items-center justify-between px-4 py-2 mt-8 hidden h-20"
+  class="border-t border-[#E4DFF3] border-b sm:border-none sm:mb-6 m-0 w-full sm:w-[620px] sm:bg-gradient-to-r sm:from-purple-100 sm:to-purple-200 sm:rounded-full sm:shadow-lg flex items-center justify-between sm:px-4 sm:py-2 sm:mt-8 mb-8 h-20"
 >
   <button
     *ngFor="let item of menuItems"
-    class="cursor-pointer w-[100px] h-[64px] flex gap-1 flex-col items-center justify-center text-xs text-gray-700 hover:text-purple-600 transition"
+    class="cursor-pointer w-[100px] min-w-[45px] h-[64px] flex gap-1 flex-col items-center justify-center text-xs text-gray-700 hover:text-purple-600 transition"
   >
     <img [src]="item.icon" [alt]="item.label" />
-    <span *ngIf="!(item.label === 'Seja Nosso Parceiro')">{{
+    <span class="hidden sm:inline-block" *ngIf="!(item.label === 'Seja Nosso Parceiro')">{{
       item.label === 'Seja Nosso Parceiro' ? '' : item.label
     }}</span>
-    <span *ngIf="item.label === 'Seja Nosso Parceiro'"
+    <span class="hidden sm:inline-block" *ngIf="item.label === 'Seja Nosso Parceiro'"
       >Seja Nosso <br />
       Parceiro</span
     >
   </button>
 
   <!-- Carrinho -->
-  <div class="relative cursor-pointer">
+  <div class="relative cursor-pointer top-[-35px] sm:top-0">
     <button
       class="w-[64px] h-[64px] rounded-full bg-gradient-to-r cursor-pointer from-green-400 to-cyan-400 flex items-center justify-center shadow-md"
     >
