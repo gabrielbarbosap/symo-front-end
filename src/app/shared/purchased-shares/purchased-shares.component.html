@@ -1,0 +1,128 @@
+<div class="rounded-lg min-h-full flex flex-col justify-between">
+  <div class="hidden xl:block">
+    <div class="hidden xl:flex bg-gray-100 shadow-md rounded-full items-center px-4 py-1 w-full justify-between h-18">
+      <button
+        class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
+      >
+        ✕
+      </button>
+
+      <button
+        (click)="diminuir()"
+        class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px]"
+      >
+        -
+      </button>
+
+      <div class="flex items-center flex-grow mx-4 relative">
+        <input
+          type="range"
+          min="50"
+          max="1000"
+          [value]="amount"
+          class="w-full accent-purple-500"
+          (input)="updateValue($event)"
+        />
+        <span class="absolute right-0 -top-5 text-purple-500 font-semibold text-xs">
+          {{ amount }}
+        </span>
+      </div>
+
+      <button
+        (click)="increase()"
+        class="cursor-pointer w-8 aspect-square bg-gray-300 rounded-full flex items-center justify-center mr-2 md:w-10 md:max-w-[32px] md:max-h-[32px"
+      >
+        +
+      </button>
+
+      <div
+        class="ml-2 px-4 py-1 bg-purple-500 text-white lg:tex-md rounded-full md:min-w-max cursor-pointer md:text-[13px]"
+      >
+        R$ {{ price | number: '1.2-2' }}
+      </div>
+    </div>
+
+    <div class="cursor-pointer mt-4 overflow-auto max-h-[116px] p-2 hidden xl:block mb-12">
+      <div class="grid gap-4 mt-2 pb-1" style="grid-template-columns: repeat(auto-fit, minmax(127px, 1fr))">
+        <div
+          *ngFor="let cota of quotasAvailable"
+          class="relative flex flex-col justify-center items-center border-2 border-light-purple rounded-lg p-4 text-center bg-white"
+        >
+          <!-- Botão + posicionado acima da borda -->
+          <button
+            class="cursor-pointer absolute -top-4 left-3/4 transform -translate-x-1/2 bg-light-purple text-white w-8 h-8 rounded-full flex items-center justify-center shadow-lg border-2 border-white"
+          >
+            +
+          </button>
+
+          <p class="text-lg font-semibold text-light-purple mt-2">
+            {{ cota }} <span class="text-blue-dark font-medium">Cotas</span>
+          </p>
+          <div class="border border-[#A3AED0] w-full m-auto"></div>
+          <button class="text-light-purple font-semibold mt-1">Adicionar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--MOBILE-->
+
+  <div class="flex flex-col items-center space-y-4 xl:hidden">
+    <!-- Barra de seleção -->
+    <div class="bg-gray-100 shadow-md rounded-full flex items-center px-4 py-1 w-full justify-between">
+      <div class="flex space-x-2">
+        <button class="cursor-pointer w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center">-</button>
+      </div>
+
+      <p class="cursor-pointer w-full pl-2 font-semibold text-gray-700 text-md">
+        <span class="text-purple-700">{{ amount }}</span> Cotas
+      </p>
+
+      <div class="flex space-x-2">
+        <button class="cursor-pointer text-gray-400">✕</button>
+        <button
+          (click)="increase()"
+          class="cursor-pointer w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center"
+        >
+          +
+        </button>
+      </div>
+    </div>
+
+    <!-- Botões rápidos de cotas -->
+    <div class="cursor-pointer flex space-x-2 w-full overflow-x-scroll">
+      <button
+        *ngFor="let cota of extraquotas"
+        (click)="selectQuotas(cota)"
+        [class.bg-purple-900]="quotasSelected === cota"
+        [class.text-white]="quotasSelected === cota"
+        class="cursor-pointer border-2 border-purple-500 text-purple-500 px-3 py-1 rounded-full text-sm font-semibold"
+      >
+        +{{ cota }}
+      </button>
+    </div>
+
+    <!-- Preço Total -->
+    <div
+      class="mb-2 hidden sm:block cursor-pointer w-full text-center bg-ice-white text-light-purple text-lg font-semibold px-6 py-2 rounded-lg"
+    >
+      R$ {{ price }}
+    </div>
+  </div>
+
+  <!--MOBILE-->
+
+  <div class="flex flex-col gap-2 xl:flex-row">
+    <app-btn-prize-draw
+      styleContainer="flex-1"
+      styleBtn="border  border-light-purple text-white bg-light-purple md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+      text="Comprar agora R$ 234,45"
+      size="w-full"
+    />
+    <app-btn-prize-draw
+      styleContainer="flex-1"
+      styleBtn="border  border-light-purple text-light-purple md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+      text="Adicionar ao carrinho"
+      size="w-full"
+    />
+  </div>
+</div>

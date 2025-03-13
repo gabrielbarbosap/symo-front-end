@@ -1,0 +1,36 @@
+<div
+  class="sm:m-auto justify-between flex items-center bg-white rounded-[10px] w-full max-w-[466px] p-[8px_18px] gap-[5%] shadow-md sm:flex-row sm:h-[56px] h-auto"
+>
+  <!-- Ícone e Texto -->
+  <div class="flex items-center gap-1 w-[104px] h-[32px] justify-center sm:justify-start">
+    <svg
+      class="w-6 h-6 text-purple-700"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+    </svg>
+    <span class="text-[clamp(8px,2vw,12px)] w-[104px] font-semibold text-purple-700">SORTEIO TERMINA EM</span>
+  </div>
+
+  <!-- Contagem Regressiva -->
+  <div class="flex items-center gap-[16px] sm:w-auto w-full h-[40px] justify-center sm:justify-start">
+    <span class="text-lg font-bold text-purple-500 w-[60px] text-[clamp(8px,2vw,16px)]">{{ days }} dias</span>
+    <div class="flex items-center gap-[5px]">
+      <div class="bg-purple-500 text-white flex items-center justify-center rounded-[4px] text-xs font-bold">
+        {{ hours }}
+      </div>
+      <span class="text-purple-500 text-xs font-bold">:</span>
+      <div class="bg-purple-500 text-white flex items-center justify-center rounded-[4px] text-xs font-bold">
+        {{ minutes }}
+      </div>
+      <span class="text-purple-500 text-xs font-bold">:</span>
+      <div class="bg-purple-500 text-white flex items-center justify-center rounded-[4px] text-xs font-bold">
+        {{ seconds }}
+      </div>
+    </div>
+  </div>
+</div>
