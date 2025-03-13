@@ -1,0 +1,20 @@
+<div class="border sm:h-full lg:h-61 border-purple-300 rounded-lg p-4 w-full shadow-md lg:mt-10.5 md:lg-4">
+  <p class="text-sm text-gray-text uppercase font-bold size-3.5 w-full mb-2">Vencedor Prêmio Principal</p>
+  <div class="text-lg font-bold text-light-purple w-full mb-3 flex justify-between items-center flex-wrap max-h-max">
+    {{ winnerName }}
+    <div class="bg-yellow-400 text-gray-800 px-3 py-1 text-xs max-w-[110px] rounded flex items-center font-bold">
+      <img src="assets/icons/ticket.svg" alt="ticket" class="mr-1 max-w-4" /><span class="text-blue-dark">{{
+        ticketNumber
+      }}</span>
+    </div>
+  </div>
+  <div class="flex items-center gap-2 mt-2 bg-purple-50 border border-yellow-400 rounded-lg p-2 h-20">
+    <img src="assets/image-carro.png" alt="Prêmio" class="w-12 h-12 rounded-lg object-cover" />
+    <p class="text-xs">{{ prizeDescription }}</p>
+  </div>
+  <app-btn-prize-draw
+    size="w-full"
+    styleBtn="border border-light-purple text-white bg-light-purple mt-2 py-2 ms-sm md:text-[16px] lg:text-lg  text-sm md:text-[11px] md:w-full md:h-[56px]"
+    text=" Ver todos os ganhadores"
+  />
+</div>
