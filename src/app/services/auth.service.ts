@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ENVIRONMENT } from '../../environments/environment.token';
 
-interface Registration {
+export interface Registration {
   user: {
     cpf: string;
     email: string;
@@ -12,14 +12,14 @@ interface Registration {
     senha: string;
   };
   endereco?: {
-    cep: string;
-    logradouro: string;
-    numero: string;
-    complemento: string;
-    bairro: string;
-    ponto_referencia: string;
-    uf: number;
-    cidade: number;
+    cep?: string;
+    logradouro?: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    ponto_referencia?: string;
+    uf?: number;
+    cidade?: number;
   };
 }
 
@@ -52,7 +52,7 @@ export class AuthService {
   private environment = inject(ENVIRONMENT);
 
   public isFromRegister = signal(false);
-  public email = signal('');
+  public phone = signal('');
   public password = signal('');
 
   signup(registration: Registration): Observable<RegistrationResponse> {

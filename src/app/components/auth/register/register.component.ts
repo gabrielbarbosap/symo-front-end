@@ -25,7 +25,7 @@ import { finalize } from 'rxjs';
 import { AddressService, State, City, Address } from '../../../services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
-import { AuthService } from '../../../services/auth.service';
+import { AuthService, Registration } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -64,6 +64,8 @@ export class RegisterComponent {
   private router = inject(Router);
   protected readonly dialogRef = injectDialogRef<string>();
   private authService = inject(AuthService);
+
+  protected readonly TOGGLE_API_ADDRRES_SEARCH = false;
 
   registrationForm: FormGroup;
   photoPreview = signal<string | null>(null);
@@ -114,13 +116,13 @@ export class RegisterComponent {
     this.loadStates();
 
     this.registrationForm.get('addressInfo.zipCode')?.valueChanges.subscribe((zipCode) => {
-      if (zipCode && zipCode.length >= 8) {
+      if (zipCode && zipCode.length >= 8 && this.TOGGLE_API_ADDRRES_SEARCH) {
         this.searchAddressByZipCode(zipCode);
       }
     });
 
     this.registrationForm.get('addressInfo.state')?.valueChanges.subscribe((state) => {
-      if (state) {
+      if (state && this.TOGGLE_API_ADDRRES_SEARCH) {
         this.loadCities(state);
       }
     });
@@ -224,32 +226,45 @@ export class RegisterComponent {
       const formDate = this.registrationForm.value.personalInfo.birthDate.split('/');
       const date = `${formDate[2]}-${formDate[1]}-${formDate[0]}`;
 
-      this.authService
-        .signup({
-          user: {
-            celular: this.registrationForm.value.contactInfo.phone,
-            cpf: this.registrationForm.value.personalInfo.cpf,
-            data_nascimento: date,
-            email: this.registrationForm.value.contactInfo.email,
-            senha: this.registrationForm.value.contactInfo.password,
-          },
-        })
-        .subscribe({
-          next: () => {
-            this.isSubmitting.set(false);
+      const payload: Registration = {
+        user: {
+          celular: this.registrationForm.value.contactInfo.phone,
+          cpf: this.registrationForm.value.personalInfo.cpf,
+          data_nascimento: date,
+          email: this.registrationForm.value.contactInfo.email,
+          senha: this.registrationForm.value.contactInfo.password,
+        },
+      };
 
-            this.authService.email.set(this.registrationForm.value.contactInfo.email);
-            this.authService.password.set(this.registrationForm.value.contactInfo.password);
-            this.authService.isFromRegister.set(true);
+      if (this.registrationForm.value.addressInfo.zipCode) {
+        payload['endereco'] = {
+          bairro: this.registrationForm.value.addressInfo.neighborhood,
+          cep: this.registrationForm.value.addressInfo.zipCode,
+          cidade: this.registrationForm.value.city,
+          uf: this.registrationForm.value.state,
+          complemento: this.registrationForm.value.complement,
+          ponto_referencia: this.registrationForm.value.reference,
+          logradouro: this.registrationForm.value.street,
+          numero: this.registrationForm.value.number,
+        };
+      }
 
-            this.goToLogin();
-          },
-          error: (err) => {
-            this.isSubmitting.set(false);
-            console.error('Error registering', err);
-            this.toast.error('Ocorreu um erro ao fazer o cadastro. Por favor tente novamente mais tarde');
-          },
-        });
+      this.authService.signup(payload).subscribe({
+        next: () => {
+          this.isSubmitting.set(false);
+
+          this.authService.phone.set(this.registrationForm.value.contactInfo.email);
+          this.authService.password.set(this.registrationForm.value.contactInfo.password);
+          this.authService.isFromRegister.set(true);
+
+          this.goToLogin();
+        },
+        error: (err) => {
+          this.isSubmitting.set(false);
+          console.error('Error registering', err);
+          this.toast.error('Ocorreu um erro ao fazer o cadastro. Por favor tente novamente mais tarde');
+        },
+      });
 
       return;
     }
