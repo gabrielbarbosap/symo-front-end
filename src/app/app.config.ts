@@ -4,6 +4,7 @@ import { provideEnvironmentNgxMask } from 'ngx-mask';
 
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
+import { provideHotToastConfig } from '@ngxpert/hot-toast';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -11,5 +12,6 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideEnvironmentNgxMask(),
+    provideHotToastConfig(),
   ],
 };
