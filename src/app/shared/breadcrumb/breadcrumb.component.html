@@ -1,0 +1,13 @@
+<nav class="flex items-center space-x-2 text-gray-600 text-[16px] mb-7">
+  <ng-container *ngFor="let item of breadcrumbs; let last = last">
+    <ng-container *ngIf="!last; else lastItem">
+      <a [routerLink]="item.url" class="text-gray-700 hover:text-gray-900 transition-colors duration-300">
+        {{ item.label }}
+      </a>
+      <span class="mx-2 text-gray-400">/</span>
+    </ng-container>
+    <ng-template #lastItem>
+      <span class="text-gray-800 font-semibold">{{ item.label }}</span>
+    </ng-template>
+  </ng-container>
+</nav>
