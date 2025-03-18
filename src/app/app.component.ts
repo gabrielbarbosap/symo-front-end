@@ -1,20 +1,27 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from './shared/header/header.component';
+// import { HeaderComponent } from './shared/header/header.component';
 import { ThemeService } from './services/theme.service';
 import { FooterComponent } from './shared/footer/footer.component';
-import { HeroComponent } from './shared/hero/hero.component';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/header/header.component';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, HeaderComponent, FooterComponent, HeroComponent],
+  imports: [RouterOutlet, FooterComponent, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'symo';
+
   constructor(private themeService: ThemeService) {}
 
-  toggleTheme(isDark: boolean) {
-    this.themeService.setTheme(isDark ? 'dark' : 'light');
+  /**
+   * Alterna entre os temas 'custom' e 'light'.
+   *
+   * @param isCustom - Se true, aplica o tema customizado, caso contrário, aplica o tema claro.
+   */
+  toggleTheme(isCustom: boolean) {
+    this.themeService.setTheme(isCustom ? 'custom' : 'light');
   }
 }

@@ -1,0 +1,54 @@
+<div
+  class="flex flex-col items-center bg-[#2E2170] rounded-lg p-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl mx-auto"
+>
+  <!-- Progresso (Alterna entre Barra e Círculo) -->
+  <div class="w-full flex flex-col items-center mb-4 justify-between">
+    <!-- Barra de Progresso (Mobile e Tablet) -->
+    <div class="lg:hidden w-full h-4 bg-[#E9EEFF] rounded-full relative">
+      <div class="h-full bg-[#8C6BFA] rounded-full transition-all duration-500" style="width: 75%"></div>
+      <span class="absolute inset-0 flex justify-center items-center text-white font-bold text-sm">75%</span>
+    </div>
+
+    <!-- Círculo de Progresso (Desktop) -->
+    <div class="hidden lg:flex items-center justify-center relative text-white w-20 h-20 mb-4">
+      <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+        <!-- Trilha do círculo -->
+        <circle cx="50" cy="50" r="40" stroke="#E9EEFF" stroke-width="5" fill="none"></circle>
+
+        <!-- Progresso dinâmico -->
+        <circle
+          cx="50"
+          cy="50"
+          r="40"
+          stroke="#8C6BFA"
+          stroke-width="10"
+          fill="none"
+          stroke-dasharray="251.2"
+          stroke-dashoffset="calc(251.2 - (75 / 100) * 251.2)"
+          class="transition-all duration-500"
+        ></circle>
+      </svg>
+
+      <!-- Texto do Progresso -->
+      <span
+        class="absolute inset-0 flex flex-col items-center justify-center font-bold text-xs sm:text-sm md:text-base"
+      >
+        <span class="text-white text-sm sm:text-lg md:text-xl">75%</span>
+        <span class="text-white text-[8px] sm:text-[10px] md:text-xs leading-none">VENDIDO</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Contador -->
+  <div class="w-full flex flex-col items-center mt-4 sm:mt-0 justify-between">
+    <!-- Dias Restantes -->
+    <span class="text-white text-lg sm:text-xl md:text-2xl font-bold">12 dias</span>
+
+    <!-- Contador Regressivo -->
+    <div class="flex gap-1 sm:gap-2 mt-2 sm:mt-0 text-xs sm:text-sm md:text-base font-bold">
+      <span class="bg-[#8C6BFA] text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md shadow-md">12</span> :
+      <span class="bg-[#8C6BFA] text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md shadow-md">34</span> :
+      <span class="bg-[#8C6BFA] text-white px-2 sm:px-3 py-1 sm:py-2 rounded-md shadow-md">03</span>
+    </div>
+  </div>
+</div>

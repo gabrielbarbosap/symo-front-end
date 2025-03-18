@@ -1,0 +1,160 @@
+<div
+  class="rounded-2xl text-center"
+  [ngClass]="{
+    'bg-[#E9EEFF]': selectedQuotes === 0 && context === 'hero',
+    'bg-white': selectedQuotes > 0 || context === 'card',
+  }"
+>
+  <div class="bg-[#E9EEFF] rounded-3xl p-6" *ngIf="selectedQuotes === 0">
+    <img src="assets/icons/ticket.svg" alt="Ticket" class="w-8 h-8 mx-auto" />
+    <hr class="my-4 border-[#A3AED0]" />
+    <p class="mt-2 font-poppins text-[#8C6BFA] font-semibold text-lg leading-5 tracking-tight text-center">
+      Você não selecionou nenhuma cota
+    </p>
+    <br />
+    <app-button class="mt-4 mx-auto w-full" styleType="primary" (click)="selectQuota(1)"> Selecionar cotas </app-button>
+  </div>
+
+  <div *ngIf="selectedQuotes > 0" class="text-center">
+    <div *ngIf="context === 'card'" class="p-4 rounded-xl">
+      <!-- Contador de cotas -->
+      <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-nowrap items-center justify-between px-3 sm:px-4 py-2 bg-[#F4F5FA] rounded-4xl">
+          <!-- Botão de diminuir -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
+            (click)="decreaseQuantity()"
+          >
+            <span class="text-xl sm:text-2xl font-bold">−</span>
+          </button>
+
+          <!-- Seletor de cotas -->
+          <div class="flex items-center">
+            <span class="text-[#8C6BFA] text-lg sm:text-xl ml-1 sm:ml-2 font-bold">{{ selectedQuotes }}</span>
+            <span class="text-gray-700 text-sm sm:text-lg ml-1">Cotas</span>
+          </div>
+
+          <!-- Botão de reset -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-1 sm:ml-2"
+            (click)="resetSelection()"
+          >
+            <span class="text-lg sm:text-xl font-bold">x</span>
+          </button>
+
+          <!-- Botão de aumentar -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
+            (click)="increaseQuantity()"
+          >
+            <span class="text-xl sm:text-2xl font-bold">+</span>
+          </button>
+
+          <!-- Preço das cotas (Abaixo no mobile) -->
+        </div>
+        <div class="w-full sm:w-auto mt-2 text-center">
+          <div class="px-3 sm:px-4 py-2 bg-[#8C6BFA] text-white rounded-2xl font-bold text-base sm:text-lg">
+            {{ totalPrice | currency: 'BRL' }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Botões de seleção de cotas -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-2 justify-center my-3 sm:my-4">
+        <button
+          *ngFor="let quota of quotas"
+          (click)="selectQuota(quota)"
+          class="px-3 sm:px-4 py-1 sm:py-2 border border-[#8C6BFA] rounded-full text-[#2E2170] text-xs sm:text-sm transition hover:bg-[#2E2170] hover:text-white"
+          [ngClass]="{ 'bg-[#2E2170] text-white': quota === selectedQuotes }"
+        >
+          +{{ quota }}
+        </button>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="flex flex-col space-y-2">
+        <app-button class="w-full text-sm sm:text-base" styleType="primary" (click)="selectQuota(1)">
+          Comprar agora {{ totalPrice | currency: 'BRL' }}
+        </app-button>
+        <app-button
+          class="w-full border border-[#8C6BFA] rounded-2xl text-[#8C6BFA] bg-transparent text-sm sm:text-base"
+          styleType="secondary"
+          (click)="selectQuota(1)"
+        >
+          Adicionar ao carrinho
+        </app-button>
+      </div>
+    </div>
+
+    <div *ngIf="context === 'hero'" class="w-full mx-auto">
+      <div class="flex items-center justify-between bg-[#F8F5FF] rounded-3xl px-4 py-2 relative">
+        <button
+          class="mr-1 w-10 h-10 flex items-center justify-center rounded-3xl border border-[#8C6BFA] text-[#8C6BFA] hover:bg-[#8C6BFA] hover:text-white transition"
+          (click)="resetSelection()"
+        >
+          <span class="text-xl font-bold">x</span>
+        </button>
+        <button
+          class="w-10 h-10 flex items-center justify-center rounded-3xl border border-[#8C6BFA] text-[#8C6BFA] hover:bg-[#8C6BFA] hover:text-white transition"
+          (click)="decreaseQuantity()"
+        >
+          <span class="text-2xl font-bold">-</span>
+        </button>
+
+        <div class="relative flex-1 mx-4">
+          <input
+            id="quota-slider"
+            type="range"
+            min="1"
+            max="700"
+            [(ngModel)]="selectedQuotes"
+            (input)="updateQuotaState()"
+            class="w-full h-2 bg-gray-200 rounded-xl appearance-none cursor-pointer transition-all [&::-webkit-slider-runnable-track]:bg-[#E9EEFF] [&::-webkit-slider-runnable-track]:rounded-xl [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:bg-[#8C6BFA] [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-white [&::-moz-range-thumb]:w-4 [&::-moz-range-thumb]:h-4 [&::-moz-range-thumb]:bg-[#8C6BFA] [&::-moz-range-thumb]:rounded-full"
+          />
+
+          <!-- Valor Atual do Slider -->
+          <!-- <span class="absolute -top-6 text-[#8C6BFA] font-bold text-lg">
+            {{ selectedQuotes }}
+          </span> -->
+        </div>
+
+        <button
+          class="w-10 h-10 flex items-center justify-center rounded-full border border-[#8C6BFA] text-[#8C6BFA] hover:bg-[#8C6BFA] hover:text-white transition"
+          (click)="increaseQuantity()"
+        >
+          <span class="text-2xl font-bold">+</span>
+        </button>
+
+        <div class="ml-4 bg-[#8C6BFA] text-white px-4 py-2 rounded-full font-bold whitespace-nowrap">
+          {{ totalPrice | currency: 'BRL' }}
+        </div>
+      </div>
+
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4 mt-5">
+        <button
+          *ngFor="let quota of quotas"
+          (click)="selectQuota(quota)"
+          class="relative flex flex-col items-center justify-center gap-2 rounded-[16px] border border-[#8C6BFA] cursor-pointer p-[24px] bg-white hover:shadow-md transition"
+        >
+          <!-- Botão de Adição -->
+          <span
+            class="absolute -top-3 right-4 flex items-center justify-center w-[28px] h-[28px] rounded-[20px] bg-[#8C6BFA] text-white font-bold text-lg p-[6px]"
+          >
+            +
+          </span>
+
+          <!-- Valor da Cota -->
+          <div class="flex items-center gap-1">
+            <span class="text-[#8C6BFA] font-semibold text-sm md:text-xl">{{ quota }}</span>
+            <span class="text-[#2E2170] font-semibold text-sm md:text-lg">Cotas</span>
+          </div>
+
+          <hr class="w-full border-gray-300" />
+
+          <!-- Label Responsivo -->
+          <span class="text-[#8C6BFA] font-medium text-xs md:text-sm"> Adicionar </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

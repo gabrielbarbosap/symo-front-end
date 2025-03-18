@@ -1,9 +1,9 @@
+import { ButtonComponent } from '../button/button.component';
 import { Component, Input } from '@angular/core';
-import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.component';
 
 @Component({
   selector: 'app-winners',
-  imports: [BtnPrizeDrawComponent],
+  imports: [ButtonComponent],
   templateUrl: './winners.component.html',
   styleUrl: './winners.component.css',
 })

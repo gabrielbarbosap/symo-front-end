@@ -2,12 +2,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { TopBannerComponent } from '../top-banner/top-banner.component';
 import { LoginComponent } from '../../components/auth/login/login.component';
 import { NgpDialogManager } from 'ng-primitives/dialog';
-import { RegisterComponent } from '../../components/auth/register/register.component';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-header',
-  imports: [TopBannerComponent],
+  imports: [TopBannerComponent, ButtonComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })
@@ -41,6 +41,6 @@ export class HeaderComponent implements OnInit {
   }
 
   openRegister() {
-    this.dialogManager.open(RegisterComponent);
+    // this.dialogManager.open(RegisterComponent);
   }
 }
