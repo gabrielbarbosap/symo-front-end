@@ -10,6 +10,10 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
+  {
+    path: 'bag',
+    loadComponent: () => import('./pages/bag/bag.component').then((m) => m.BagComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 
