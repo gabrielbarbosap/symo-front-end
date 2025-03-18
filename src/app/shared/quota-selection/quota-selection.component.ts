@@ -23,7 +23,7 @@ export class QuotaSelectionComponent implements OnInit {
   totalPrice: number = 0;
   progress: number = 0;
   uuid: string = '';
-  quotas: any = [200, 400, 600, 1000, 5000, 10000]; // Exemplo de quotas
+  quotas: any = [10, 20, 50, 100, 200]; // Exemplo de quotas
 
   /**
    * Injeta o serviço QuotaService para gerenciar o estado das cotas.

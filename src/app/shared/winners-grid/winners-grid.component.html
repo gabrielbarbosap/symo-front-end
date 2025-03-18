@@ -1,4 +1,4 @@
-<div class="px-[200px]">
+<div class="px-12 sm:px-[200px] mt-5">
   <!-- Cabeçalho -->
   <div class="flex items-center justify-between gap-2">
     <div class="flex items-center gap-2">
@@ -6,22 +6,22 @@
       <strong class="text-sm sm:text-base">Ganhadores 🔥</strong>
     </div>
 
-    <!-- Botão só no Desktop (alinhado à direita) -->
+    <!-- Botão Desktop -->
     <div class="hidden sm:block">
-      <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
+      <app-button class="w-full sm:w-auto" styleType="secondary"> Ver todos os sorteios </app-button>
     </div>
   </div>
 
   <!-- Grid de Ganhadores -->
-  <div class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 mt-3">
-    <app-winners></app-winners>
-    <app-winners></app-winners>
-    <app-winners></app-winners>
-    <app-winners></app-winners>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-6 mt-3">
+    <app-winners class="h-full"></app-winners>
+    <app-winners class="h-full"></app-winners>
+    <app-winners class="h-full"></app-winners>
+    <app-winners class="h-full"></app-winners>
   </div>
 
-  <!-- Botão só no Mobile -->
-  <div class="block sm:hidden mt-6 text-center">
-    <app-button class="w-full sm:w-auto" styleType="secondary">Ver todos os sorteios</app-button>
+  <!-- Botão Mobile -->
+  <div class="block sm:hidden mt-4 text-center">
+    <app-button class="w-full" styleType="secondary"> Ver todos os sorteios </app-button>
   </div>
 </div>

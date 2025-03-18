@@ -1,5 +1,5 @@
 <div
-  class="p-4 rounded-xl text-center"
+  class="rounded-2xl text-center"
   [ngClass]="{
     'bg-[#E9EEFF]': selectedQuotes === 0 && context === 'hero',
     'bg-white': selectedQuotes > 0 || context === 'card',
@@ -18,39 +18,41 @@
   <div *ngIf="selectedQuotes > 0" class="text-center">
     <div *ngIf="context === 'card'" class="p-4 rounded-xl">
       <!-- Contador de cotas -->
-      <div class="flex flex-wrap items-center justify-between px-3 sm:px-4 py-2 bg-[#F4F5FA] rounded-3xl">
-        <!-- Botão de diminuir -->
-        <button
-          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
-          (click)="decreaseQuantity()"
-        >
-          <span class="text-xl sm:text-2xl font-bold">−</span>
-        </button>
+      <div class="flex flex-row justify-between items-center">
+        <div class="flex flex-nowrap items-center justify-between px-3 sm:px-4 py-2 bg-[#F4F5FA] rounded-4xl">
+          <!-- Botão de diminuir -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-[#2E2170]"
+            (click)="decreaseQuantity()"
+          >
+            <span class="text-xl sm:text-2xl font-bold">−</span>
+          </button>
 
-        <!-- Seletor de cotas -->
-        <div class="flex items-center">
-          <span class="text-[#8C6BFA] text-lg sm:text-xl ml-1 sm:ml-2 font-bold">{{ selectedQuotes }}</span>
-          <span class="text-gray-700 text-sm sm:text-lg ml-1">Cotas</span>
+          <!-- Seletor de cotas -->
+          <div class="flex items-center">
+            <span class="text-[#8C6BFA] text-lg sm:text-xl ml-1 sm:ml-2 font-bold">{{ selectedQuotes }}</span>
+            <span class="text-gray-700 text-sm sm:text-lg ml-1">Cotas</span>
+          </div>
+
+          <!-- Botão de reset -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-1 sm:ml-2"
+            (click)="resetSelection()"
+          >
+            <span class="text-lg sm:text-xl font-bold">x</span>
+          </button>
+
+          <!-- Botão de aumentar -->
+          <button
+            class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
+            (click)="increaseQuantity()"
+          >
+            <span class="text-xl sm:text-2xl font-bold">+</span>
+          </button>
+
+          <!-- Preço das cotas (Abaixo no mobile) -->
         </div>
-
-        <!-- Botão de reset -->
-        <button
-          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-transparent text-gray-700 ml-1 sm:ml-2"
-          (click)="resetSelection()"
-        >
-          <span class="text-lg sm:text-xl font-bold">x</span>
-        </button>
-
-        <!-- Botão de aumentar -->
-        <button
-          class="w-6 h-6 sm:w-7 sm:h-7 flex items-center justify-center rounded-full bg-[#B2B7C7] text-gray-700"
-          (click)="increaseQuantity()"
-        >
-          <span class="text-xl sm:text-2xl font-bold">+</span>
-        </button>
-
-        <!-- Preço das cotas (Abaixo no mobile) -->
-        <div class="w-full sm:w-auto mt-2 sm:mt-0 text-center">
+        <div class="w-full sm:w-auto mt-2 text-center">
           <div class="px-3 sm:px-4 py-2 bg-[#8C6BFA] text-white rounded-2xl font-bold text-base sm:text-lg">
             {{ totalPrice | currency: 'BRL' }}
           </div>
