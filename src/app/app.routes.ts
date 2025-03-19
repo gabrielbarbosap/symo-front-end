@@ -10,6 +10,10 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
+  {
+    path: 'wallet',
+    loadComponent: () => import('./pages/wallet/wallet.component').then((m) => m.WalletComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 

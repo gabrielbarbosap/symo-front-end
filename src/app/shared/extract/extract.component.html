@@ -1,0 +1,26 @@
+<div class="bg-white shadow-md rounded-lg p-6 mb-6 w-full mx-auto">
+  <div class="flex flex-col text-sm items-start justify-between">
+    <!-- Título -->
+    <h2 class="text-2xl font-bold mb-6 text-gray-800">Extrato</h2>
+
+    <!-- Filtros -->
+    <div class="grid grid-cols-4 sm:flex gap-3 mb-6">
+      <button class="bg-purple-600 text-white px-5 py-2 rounded-lg font-medium w-full sm:w-auto">Todos</button>
+      <button class="border border-purple-500 text-purple-500 px-5 py-2 rounded-lg font-medium w-full sm:w-auto">
+        <img src="" alt="" />
+      </button>
+      <button class="border border-purple-500 text-purple-500 px-5 py-2 rounded-lg font-medium w-full sm:w-auto">
+        Saídas
+      </button>
+      <button
+        class="border border-gray-300 text-gray-500 px-5 py-2 rounded-lg font-medium flex items-center justify-center gap-2 w-full sm:w-auto"
+      >
+        <img src="/assets/icons/CalendarBlank.svg" class="w-4 h-4" alt="Ícone calendário" />
+        Período
+      </button>
+    </div>
+  </div>
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+</div>
