@@ -11,6 +11,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
   {
+    path: 'wallet',
+    loadComponent: () => import('./pages/wallet/wallet.component').then((m) => m.WalletComponent),
+  },
+  {
     path: 'bag',
     loadComponent: () => import('./pages/bag/bag.component').then((m) => m.BagComponent),
   },
