@@ -24,6 +24,9 @@ export class NavigationComponent {
       case 0:
         this.router.navigate(['/prize-draw']);
         break;
+      case 1:
+        this.router.navigate(['/winners']);
+        break;
     }
   }
 }
