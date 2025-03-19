@@ -14,6 +14,10 @@ export const routes: Routes = [
     path: 'bag',
     loadComponent: () => import('./pages/bag/bag.component').then((m) => m.BagComponent),
   },
+  {
+    path: 'winners',
+    loadComponent: () => import('./pages/winners-page/winners-page.component').then((m) => m.WinnersPageComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 
