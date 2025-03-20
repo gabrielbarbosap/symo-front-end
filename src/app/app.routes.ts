@@ -10,6 +10,11 @@ export const routes: Routes = [
     path: '',
     loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
   },
+  {
+    path: 'quota-sale',
+    loadComponent: () =>
+      import('./pages/quota-sale-page/quota-sale-page.component').then((m) => m.QuotaSalePageComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 

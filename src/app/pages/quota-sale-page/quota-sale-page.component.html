@@ -1,0 +1,28 @@
+<main class="min-h-screen mt-[70px] sm:p-[0px] md:px-[30px] lg:px-[50px] xl:[200px]">
+  <div>
+    <div [(ngpTabsetValue)]="selectedTab" ngpTabset>
+      <div ngpTabList>
+        <button class="cursor-pointer" ngpTabButton ngpTabButtonValue="award">Prêmios | Guanhadores</button>
+        <button class="cursor-pointer" ngpTabButton ngpTabButtonValue="title">Títulos</button>
+        <button class="cursor-pointer" ngpTabButton ngpTabButtonValue="regulation">Regulamento</button>
+      </div>
+
+      <div ngpTabPanel ngpTabPanelValue="award">
+        <app-prize-and-winners />
+      </div>
+
+      <div ngpTabPanel ngpTabPanelValue="title">
+        <app-quota-sale />
+      </div>
+
+      <div ngpTabPanel ngpTabPanelValue="regulation">
+        <p>
+          Praesent vehicula erat ac massa egestas viverra. Pellentesque urna magna, consectetur convallis ante vel,
+          posuere aliquet arcu. Duis eu nulla id sapien lobortis bibendum eget vel velit. Donec sed nisi ac lacus
+          placerat iaculis. Donec blandit eros sit amet nibh accumsan cursus. Morbi sit amet ex et enim tempus porttitor
+          non eu erat.
+        </p>
+      </div>
+    </div>
+  </div>
+</main>
