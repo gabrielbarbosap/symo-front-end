@@ -14,45 +14,50 @@
 
   <!-- Saldos -->
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-4 sm:gap-6 h-auto mb-6 mt-6 items-center">
-    <!-- Saldo Total -->
-    <!-- QUERO QUE VIRE UM ACORDION, ABERTO PELA IMAGEM, NO MOBILE!  -->
-    <div class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center">
+    <!-- Cartão de Saldo (com clique para redirecionar) -->
+    <a
+      href="/wallet/total"
+      class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center cursor-pointer"
+    >
       <div>
         <p class="text-gray-600 text-xs sm:text-sm">Saldo Total</p>
-        <strong class="text-lg sm:text-xl text-light-purple">R$ 23.098.290,34</strong>
+        <strong class="text-lg sm:text-xl text-light-purple sm:block">R$ 23.098.290,34</strong>
       </div>
       <img src="assets/icons/ArrowRight.svg" alt="Acessar" class="w-4 h-4 sm:w-5 sm:h-5" />
-    </div>
+    </a>
 
-    <!-- Saldo de Comissões -->
-    <!-- QUERO QUE VIRE UM ACORDION, ABERTO PELA IMAGEM, NO MOBILE!  -->
-    <div class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center">
+    <a
+      href="/wallet/comissoes"
+      class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center cursor-pointer"
+    >
       <div>
         <p class="text-gray-600 text-xs sm:text-sm">Saldo de comissões</p>
-        <strong class="text-lg sm:text-xl text-light-purple">R$ 23.098.290,34</strong>
+        <strong class="text-lg sm:text-xl text-light-purple hidden sm:block">R$ 23.098.290,34</strong>
       </div>
       <img src="assets/icons/ArrowRight.svg" alt="Acessar" class="w-4 h-4 sm:w-5 sm:h-5" />
-    </div>
+    </a>
 
-    <!-- Saldo de Bônus -->
-    <!-- QUERO QUE VIRE UM ACORDION, ABERTO PELA IMAGEM, NO MOBILE!  -->
-    <div class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center">
+    <a
+      href="/wallet/bonus"
+      class="p-4 bg-gray-light border border-[#A3AED0] rounded-2xl flex justify-between items-center cursor-pointer"
+    >
       <div>
         <p class="text-gray-600 text-xs sm:text-sm">Saldo de bônus</p>
-        <strong class="text-lg sm:text-xl text-light-purple">R$ 23.098.290,34</strong>
+        <strong class="text-lg sm:text-xl text-light-purple hidden sm:block">R$ 23.098.290,34</strong>
       </div>
       <img src="assets/icons/ArrowRight.svg" alt="Acessar" class="w-4 h-4 sm:w-5 sm:h-5" />
-    </div>
+    </a>
 
-    <!-- Saldo Sacável -->
-    <!-- QUERO QUE VIRE UM ACORDION, ABERTO PELA IMAGEM, NO MOBILE!  -->
-    <div class="bg-blue-dark text-white p-4 rounded-lg flex justify-between items-center">
+    <a
+      href="/wallet/sacavel"
+      class="bg-blue-dark text-white p-4 rounded-lg flex justify-between items-center cursor-pointer"
+    >
       <div>
         <p class="text-xs sm:text-sm">Saldo sacável</p>
-        <strong class="text-light-purple text-lg sm:text-xl">R$ 23.098.290,34</strong>
+        <strong class="text-light-purple text-lg sm:text-xl hidden sm:block">R$ 23.098.290,34</strong>
       </div>
       <img src="assets/icons/ArrowRight.svg" alt="Acessar" class="w-4 h-4 sm:w-5 sm:h-5" />
-    </div>
+    </a>
 
     <!-- Botões -->
     <app-button [context]="'wallet'" styleType="primary" class="w-full sm:w-auto">Depositar</app-button>
