@@ -1,10 +1,41 @@
 import { Component } from '@angular/core';
 import { AwardsComponent } from '../awards/awards.component';
+import { RankingDailyCardComponent } from '../ranking-daily-card/ranking-daily-card.component';
 
 @Component({
   selector: 'app-prize-and-winners',
-  imports: [AwardsComponent, AwardsComponent],
+  imports: [AwardsComponent, AwardsComponent, RankingDailyCardComponent],
   templateUrl: './prize-and-winners.component.html',
   styleUrl: './prize-and-winners.component.css',
 })
-export class PrizeAndWinnersComponent {}
+export class PrizeAndWinnersComponent {
+  premios = [
+    {
+      date: '18/01',
+      status: 'PREMIADO',
+      winners: [
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM 16V COM RODAS', position: 1 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 2 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 3 },
+      ],
+    },
+    {
+      date: '19/01',
+      status: 'PREMIADO',
+      winners: [
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 1 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 2 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 3 },
+      ],
+    },
+    {
+      date: '20/01',
+      status: 'PREMIADO',
+      winners: [
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM 16V COM RODAS', position: 1 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 2 },
+        { name: 'Bruna S*******', tickets: 32568, prize: 'NISSAN KICKS ACTIVE 0 KM', position: 3 },
+      ],
+    },
+  ];
+}

@@ -16,7 +16,11 @@
   >
     Rankings
   </h2>
-
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+    @for (premio of premios; track $index) {
+      <app-ranking-daily-card [data]="premio"> </app-ranking-daily-card>
+    }
+  </div>
   <h2
     class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-blue-dark pb-2"
   >
