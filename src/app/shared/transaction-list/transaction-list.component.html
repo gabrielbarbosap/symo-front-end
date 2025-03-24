@@ -20,15 +20,23 @@
       <img *ngIf="transacao.tipo === 'deposito'" src="/assets/icons/seta_baixo.svg" alt="Ícone depósito" />
     </span>
 
-    <!-- Descrição -->
-    <div>
+    <!-- Descrição + Status "Processando" -->
+    <div class="flex flex-row items-center gap-2">
       <p class="text-sm text-gray-700 font-bold">Nº 99439593922332</p>
       <p class="text-sm text-light-purple">{{ transacao.descricao }}</p>
+
+      <!-- Status "PROCESSANDO" ajustado -->
+      <span
+        *ngIf="transacao.status === 'processando'"
+        class="bg-[#C4CCE4] text-gray-700 text-xs font-semibold min-w-[100px] h-[24px] flex items-center justify-center rounded-md px-2"
+      >
+        PROCESSANDO
+      </span>
     </div>
   </div>
 
-  <!-- Valor e Status -->
-  <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end mt-2 sm:mt-0">
+  <!-- Valor -->
+  <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
     <div class="text-right">
       <p
         [class.text-red-500]="transacao.valor < 0"
@@ -37,9 +45,6 @@
       >
         {{ transacao.valor | currency: 'BRL' }}
       </p>
-      <span *ngIf="transacao.status === 'processando'" class="bg-gray-300 text-xs px-2 py-1 rounded-md">
-        PROCESSANDO
-      </span>
     </div>
     <img class="w-5 h-5" src="assets/icons/ArrowRight.svg" alt="Abrir" />
   </div>
