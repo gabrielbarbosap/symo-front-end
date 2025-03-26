@@ -1,9 +1,9 @@
-import { NgClass, NgFor } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, Signal, signal } from '@angular/core';
 
 @Component({
   selector: 'app-quota-sale',
-  imports: [NgClass, NgFor],
+  imports: [NgClass],
   templateUrl: './quota-sale.component.html',
   styleUrl: './quota-sale.component.css',
 })
@@ -14,4 +14,18 @@ export class QuotaSaleComponent {
     numero: '04059694',
     ativo: i === 10, // Apenas um item destacado
   }));
+
+  titulos2 = Array.from({ length: 10 });
+
+  select: Signal<number[]> = signal([]);
+
+  selectTicket(id: any) {
+    if (this.select().includes(id)) {
+      const remove = this.select().indexOf(id);
+      this.select().splice(remove, 1);
+    } else {
+      this.select().push(id);
+    }
+    console.log(id);
+  }
 }

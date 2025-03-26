@@ -1,19 +1,46 @@
-<div class="container mx-auto p-4">
-  <h2 class="text-2xl font-bold text-gray-800">Meus títulos</h2>
-
-  <div class="flex items-center space-x-2 text-lg text-gray-600">
+<div class="p-2 w-full">
+  <h2 class="text-[28px] font-bold text-blue-dark">Meus títulos</h2>
+  <hr class="text-[1px] text-light-purple my-[16px]" />
+  <div class="flex items-center space-x-2 text-xl text-blue-dark mb-[16px]">
     <span class="font-semibold">Títulos</span>
-    <span class="text-blue-500 cursor-pointer hover:underline">({{ totalTitulos() }})</span>
+    <span class="text-light-purple cursor-pointer hover:underline">({{ select().length ? titulos.length : '0' }})</span>
   </div>
 
-  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 mt-4">
-    <div
-      *ngFor="let titulo of titulos"
-      class="flex items-center justify-center border rounded-lg p-2 text-purple-600 border-purple-500 hover:bg-purple-100 transition-all cursor-pointer"
-      [ngClass]="{ 'bg-yellow-500 text-white border-yellow-600': titulo.ativo }"
-    >
-      <span class="text-xl">🎟</span>
-      <span class="ml-2 font-medium">{{ titulo.numero }}</span>
-    </div>
+  <!-- <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 mt-4">
+    @for(titulo of titulos; track $index){
+      <div
+        (click)="selectTicket(titulo.id)"
+        class="flex items-center justify-center border rounded-lg p-2 text-blue-dark border-light-purple transition-all cursor-pointer"
+        [ngClass]="{ 'bg-[#FFB800] border-[#FFB800]': select().includes(titulo.id)}"
+      >
+         <img class="w-[20px] h-[20px]" src="assets/icons/ticket_branco.svg" alt="ticket">
+        <span class="ml-2 font-medium">{{ titulo.numero }}</span>
+      </div>
+
+    }
+
+
+  </div> -->
+  <div class="flex flex-wrap gap-1 justify-center md:justify-start">
+    @for (t of titulos2; track $index) {
+      <div class="border border-light-purple rounded-lg p-2 text-center md:w-[131px] w-[111px]">
+        <img
+          class="text-light-purple font-bold text-sm mb-1 m-auto w-[32px] h-[32px]"
+          src="assets/icons/ticket.svg"
+          alt="ticket"
+        />
+
+        <div class="text-light-purple font-medium text-[11px] mb-1">Título</div>
+        <div class="text-light-purple font-bold text-lg mb-6">124564845</div>
+        <div class="space-y-2">
+          @for (t of titulos2; track $index) {
+            <div class="border border-light-purple rounded-md py-1 text-sm text-blue-dark cursor-pointer">04059694</div>
+          }
+          <!-- Repita conforme necessário -->
+        </div>
+      </div>
+    }
   </div>
+
+  <!-- Repita os cartões acima quantas vezes quiser -->
 </div>
