@@ -4,7 +4,7 @@ import { QuotaSaleComponent } from '../../shared/quota-sale/quota-sale.component
 import { PrizeAndWinnersComponent } from '../../shared/prize-and-winners/prize-and-winners.component';
 import { RegulationComponent } from '../../shared/regulation/regulation.component';
 
-type Tab = 'overview' | 'features' | 'pricing';
+type Tab = 'award' | 'title' | 'regulation';
 
 @Component({
   selector: 'app-quota-sale-page',
@@ -21,5 +21,5 @@ type Tab = 'overview' | 'features' | 'pricing';
   styleUrl: './quota-sale-page.component.css',
 })
 export class QuotaSalePageComponent {
-  readonly selectedTab = signal<Tab>('overview');
+  readonly selectedTab = signal<Tab>('award');
 }
