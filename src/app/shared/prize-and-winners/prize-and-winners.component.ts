@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { AwardsComponent } from '../awards/awards.component';
 import { RankingDailyCardComponent } from '../ranking-daily-card/ranking-daily-card.component';
+import { TagBadgeComponent } from '../tag-badge/tag-badge.component';
+import { RankingListItemComponent } from '../ranking-list-item/ranking-list-item.component';
 
 @Component({
   selector: 'app-prize-and-winners',
-  imports: [AwardsComponent, AwardsComponent, RankingDailyCardComponent],
+  imports: [AwardsComponent, AwardsComponent, RankingDailyCardComponent, TagBadgeComponent, RankingListItemComponent],
   templateUrl: './prize-and-winners.component.html',
   styleUrl: './prize-and-winners.component.css',
 })

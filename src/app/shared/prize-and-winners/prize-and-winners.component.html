@@ -1,29 +1,184 @@
-<div class="max-w-full mx-auto">
-  <h2
-    class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-blue-dark pb-2"
-  >
-    Prêmios
-  </h2>
-  <app-awards
-    [imageUrl]="'assets/image 48 (1).png'"
-    [title]="'Nissan Kicks Active 0 km'"
-    [subtitle]="'Prêmio Principal'"
-    [position]="'1º'"
-  />
+<div class="max-w-full mx-auto border border-red-700">
+  <section class="border border-red-500 bg-white rounded-[16px] mb-[35px] px-[20px] py-[32px]">
+    <h2
+      class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-[#EBEDF6] pb-[16px]"
+    >
+      Prêmios
+    </h2>
+    <app-awards
+      [imageUrl]="'assets/image 48 (1).png'"
+      [title]="'Nissan Kicks Active 0 km'"
+      [subtitle]="'Prêmio Principal'"
+      [position]="'1º'"
+    />
+  </section>
 
-  <h2
-    class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-blue-dark pb-2"
-  >
-    Rankings
-  </h2>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
-    @for (premio of premios; track $index) {
-      <app-ranking-daily-card [data]="premio"> </app-ranking-daily-card>
-    }
-  </div>
-  <h2
-    class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-blue-dark pb-2"
-  >
-    Outros Prêmios
-  </h2>
+  <section class="bg-white rounded-[16px] mb-[35px] px-[20px] py-[32px]">
+    <h2
+      class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-[#EBEDF6] pb-2"
+    >
+      Rankings
+    </h2>
+
+    <h2 class="text-xl font-medium text-blue-dark pt-[16px]">Ranking diário</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-4">
+      @for (premio of premios; track $index) {
+        <app-ranking-daily-card [data]="premio"> </app-ranking-daily-card>
+      }
+    </div>
+
+    <h2 class="text-xl font-medium text-blue-dark py-[16px]">Ranking geral</h2>
+
+    <section class="flex flex-col xl:flex xl:flex-row">
+      <div class="h-[508px] gap-4 flex flex-1 flex-col xl:flex xl:flex-row items-center justify-between">
+        <!-- card -->
+        <div
+          class="w-full h-[248px] md:h-[199px] xl:max-w-[268px] xl:h-[452px] border border-light-purple rounded-[16px] p-[24px] flex xl:flex xl:flex-col justify-start relative"
+        >
+          <div
+            class="border border-cyan-600 rounded-full w-[48px] h-[48px] bg-blue-dark flex justify-around items-center absolute top-[-14px]"
+          >
+            <img src="assets/icons/ranking.svg" alt="" />
+          </div>
+
+          <div class="relative flex xl:felx xl:flex-col w-full">
+            <div class="flex justify-start xl:justify-center items-start md:items-center">
+              <img
+                class="min-w-[150px] h-[120px] md:h-[150px] xl:w-[180px] xl:h-[180px]"
+                src="assets/ganhadora.svg"
+                alt=""
+              />
+            </div>
+            <div class="w-full ml-[4px] md:ml-[16px] xl:ml-[0px] flex flex-col justify-start md:justify-end">
+              <h2 class="text-[16px] text-blue-dark font-bold text-start xl:text-center mt-0 xl:mt-[16px] mb-[4px]">
+                2º lugar
+              </h2>
+
+              <div class="flex xl:flex xl:flex-col justify-between xl:justify-center items-center flex-wrap">
+                <div class="min-w-[225px] flex flex-col md:flex md:flex-row xl:flex xl:flex-col mb-[4px]">
+                  <h3 class="text-start md:text-center text-light-purple font-bold">Bruno Rafael</h3>
+                  <p class="text-start md:text-center text-light-purple font-bold">S********</p>
+                </div>
+                <app-tag-badge bgColor="#B2B7C7" text="32568 bilhetes" color="#2E2170" />
+              </div>
+
+              <div
+                class="absolute right-0 top-[123px] md:static h-[80px] xl:h-[86px] w-full xl:max-w-[220px] border border-light-purple mt-2 xl:mt-[16px] flex justify-start xl:justify-center items-center rounded-[16px]"
+              >
+                <img src="assets/image-carro.png" alt="item" />
+                <p class="text-[12px] font-normal text-blue-dark w-[242px] xl:max-w-[132px] ml-[6px]">
+                  Moto honda 2025 0km com capacete 345 Cilindradas
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card -->
+        <!-- card 2 -->
+        <div
+          class="w-full h-[248px] md:h-[199px] xl:h-full bg-light-purple xl:max-w-[268px] border border-light-purple rounded-[16px] p-[24px] flex xl:flex xl:flex-col justify-start relative"
+        >
+          <div
+            class="border border-cyan-600 rounded-full w-[48px] h-[48px] bg-blue-dark flex justify-around items-center absolute top-[-14px]"
+          >
+            <img src="assets/icons/ranking.svg" alt="" />
+          </div>
+
+          <div class="relative flex xl:felx xl:flex-col w-full">
+            <div class="flex justify-start xl:justify-center items-start md:items-center">
+              <img
+                class="min-w-[150px] h-[120px] md:h-[150px] xl:w-[180px] xl:h-[180px]"
+                src="assets/ganhadora.svg"
+                alt=""
+              />
+            </div>
+            <div class="w-full ml-[4px] md:ml-[16px] xl:ml-[0px] flex flex-col justify-start md:justify-end">
+              <h2 class="text-[16px] text-white font-bold text-start xl:text-center mt-0 xl:mt-[16px] mb-[4px]">
+                1º lugar
+              </h2>
+
+              <div class="flex xl:flex xl:flex-col justify-between xl:justify-center items-center flex-wrap">
+                <div class="min-w-[225px] flex flex-col md:flex md:flex-row xl:flex xl:flex-col mb-[4px]">
+                  <h3 class="text-start md:text-center text-blue-dark font-bold">Bruno Rafael</h3>
+                  <p class="text-start md:text-center text-blue-dark font-bold">S********</p>
+                </div>
+                <app-tag-badge bgColor="#B2B7C7" text="32568 bilhetes" color="#2E2170" />
+              </div>
+
+              <div
+                class="absolute right-0 top-[123px] md:static h-[80px] xl:h-[86px] w-full xl:max-w-[220px] border border-white mt-2 xl:mt-[16px] flex justify-start xl:justify-center items-center rounded-[16px]"
+              >
+                <img src="assets/image-carro.png" alt="item" />
+                <p class="text-[12px] font-normal text-blue-dark w-[242px] xl:max-w-[132px] ml-[6px]">
+                  Moto honda 2025 0km com capacete 345 Cilindradas
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card 2 -->
+        <!-- card3 -->
+        <div
+          class="w-full h-[248px] md:h-[199px] xl:max-w-[268px] xl:h-[452px] border border-light-purple rounded-[16px] p-[24px] flex xl:flex xl:flex-col justify-start relative"
+        >
+          <div
+            class="border border-cyan-600 rounded-full w-[48px] h-[48px] bg-blue-dark flex justify-around items-center absolute top-[-14px]"
+          >
+            <img src="assets/icons/ranking.svg" alt="" />
+          </div>
+
+          <div class="relative flex xl:felx xl:flex-col w-full">
+            <div class="flex justify-start xl:justify-center items-start md:items-center">
+              <img
+                class="min-w-[150px] h-[120px] md:h-[150px] xl:w-[180px] xl:h-[180px]"
+                src="assets/ganhadora.svg"
+                alt=""
+              />
+            </div>
+            <div class="w-full ml-[4px] md:ml-[16px] xl:ml-[0px] flex flex-col justify-start md:justify-end">
+              <h2 class="text-[16px] text-blue-dark font-bold text-start xl:text-center mt-0 xl:mt-[16px] mb-[4px]">
+                3º lugar
+              </h2>
+
+              <div class="flex xl:flex xl:flex-col justify-between xl:justify-center items-center flex-wrap">
+                <div class="min-w-[225px] flex flex-col md:flex md:flex-row xl:flex xl:flex-col mb-[4px]">
+                  <h3 class="text-start md:text-center text-light-purple font-bold">Bruno Rafael</h3>
+                  <p class="text-start md:text-center text-light-purple font-bold">S********</p>
+                </div>
+                <app-tag-badge bgColor="#B2B7C7" text="32568 bilhetes" color="#2E2170" />
+              </div>
+
+              <div
+                class="absolute right-0 top-[123px] md:static h-[80px] xl:h-[86px] w-full xl:max-w-[220px] border border-light-purple mt-2 xl:mt-[16px] flex justify-start xl:justify-center items-center rounded-[16px]"
+              >
+                <img src="assets/image-carro.png" alt="item" />
+                <p class="text-[12px] font-normal text-blue-dark w-[242px] xl:max-w-[132px] ml-[6px]">
+                  Moto honda 2025 0km com capacete 345 Cilindradas
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- card3 -->
+      </div>
+      <!-- card  -->
+
+      <div class="w-full flex-1 flex flex-col xl:min-w-[530px] py-[16px] px-[24px] gap-2">
+        <app-ranking-list-item />
+        <app-ranking-list-item />
+        <app-ranking-list-item />
+        <app-ranking-list-item />
+        <app-ranking-list-item />
+        <app-ranking-list-item />
+      </div>
+    </section>
+  </section>
+
+  <section class="bg-white rounded-[16px] mb-[35px] px-[20px] py-[32px]">
+    <h2
+      class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-[#EBEDF6] pb-[16px]"
+    >
+      Outros prêmios
+    </h2>
+  </section>
 </div>
