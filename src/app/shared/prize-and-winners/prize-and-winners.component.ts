@@ -3,10 +3,20 @@ import { AwardsComponent } from '../awards/awards.component';
 import { RankingDailyCardComponent } from '../ranking-daily-card/ranking-daily-card.component';
 import { TagBadgeComponent } from '../tag-badge/tag-badge.component';
 import { RankingListItemComponent } from '../ranking-list-item/ranking-list-item.component';
+import { OtherPrizesComponent } from '../other-prizes/other-prizes.component';
+import { HeaderDesckMobaleComponent } from '../header-desck-mobale/header-desck-mobale.component';
 
 @Component({
   selector: 'app-prize-and-winners',
-  imports: [AwardsComponent, AwardsComponent, RankingDailyCardComponent, TagBadgeComponent, RankingListItemComponent],
+  imports: [
+    AwardsComponent,
+    AwardsComponent,
+    RankingDailyCardComponent,
+    TagBadgeComponent,
+    RankingListItemComponent,
+    HeaderDesckMobaleComponent,
+    OtherPrizesComponent,
+  ],
   templateUrl: './prize-and-winners.component.html',
   styleUrl: './prize-and-winners.component.css',
 })
