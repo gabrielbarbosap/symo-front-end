@@ -6,22 +6,19 @@
     <span class="text-light-purple cursor-pointer hover:underline">({{ select().length ? titulos.length : '0' }})</span>
   </div>
 
-  <!-- <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 mt-4">
-    @for(titulo of titulos; track $index){
+  <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-3 mt-4">
+    @for (titulo of titulos; track $index) {
       <div
         (click)="selectTicket(titulo.id)"
         class="flex items-center justify-center border rounded-lg p-2 text-blue-dark border-light-purple transition-all cursor-pointer"
-        [ngClass]="{ 'bg-[#FFB800] border-[#FFB800]': select().includes(titulo.id)}"
+        [ngClass]="{ 'bg-[#FFB800] border-[#FFB800]': select().includes(titulo.id) }"
       >
-         <img class="w-[20px] h-[20px]" src="assets/icons/ticket_branco.svg" alt="ticket">
+        <img class="w-[20px] h-[20px]" src="assets/icons/ticket_branco.svg" alt="ticket" />
         <span class="ml-2 font-medium">{{ titulo.numero }}</span>
       </div>
-
     }
-
-
-  </div> -->
-  <div class="flex flex-wrap gap-1 justify-center md:justify-start">
+  </div>
+  <!-- <div class="flex flex-wrap gap-1 justify-center md:justify-start">
     @for (t of titulos2; track $index) {
       <div class="border border-light-purple rounded-lg p-2 text-center md:w-[131px] w-[111px]">
         <img
@@ -36,11 +33,11 @@
           @for (t of titulos2; track $index) {
             <div class="border border-light-purple rounded-md py-1 text-sm text-blue-dark cursor-pointer">04059694</div>
           }
-          <!-- Repita conforme necessário -->
+
         </div>
       </div>
     }
-  </div>
+  </div> -->
 
   <!-- Repita os cartões acima quantas vezes quiser -->
 </div>

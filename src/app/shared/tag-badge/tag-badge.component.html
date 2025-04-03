@@ -1,5 +1,15 @@
-<span
+<div
   [ngStyle]="{ backgroundColor: bgColor(), color: color(), padding: size() }"
-  class="px-3 py-1 text-xs rounded-md"
-  >{{ text() }}</span
+  class="px-3 py-1 text-xs rounded-md flex justify-center max-h-[28px] items-center gap-1"
 >
+  @if (isIcon()) {
+    <div>
+      <img
+        class="min-w-[20px] max-w[20px] max-h-[20px] min-h-[20px] xl:w-full xl:h-full"
+        src="assets/icons/ticket.svg"
+        alt="ticket"
+      />
+    </div>
+  }
+  <span class="text-center">{{ text() }}</span>
+</div>

@@ -1,9 +1,26 @@
-<section>
-  <div>
-    <img src="" alt="" />
-  </div>
+<div
+  [ngClass]="isbgPurple ? 'bg-light-purple' : 'bg-white border border-[#B2B7C7]'"
+  class="bg-light-purple rounded-[8px] w-full xl:max-w-[474px] flex items-center h-full md:h-[80px] gap-2 px-[8px] py-[12px] justify-between"
+>
+  <div class="flex items-center">
+    <div class="min-w-[48px] h-[48px] bg-ice-white rounded-full flex justify-center items-center">
+      <img src="/assets/icons/selo.svg" alt="" />
+    </div>
 
-  <div>
-    <p></p>
+    <div class="pl-[16px]">
+      <p
+        [ngClass]="isbgPurple ? 'text-ice-white' : 'text-[#2E2170]'"
+        class="text-[12px] font-normal min-w-[106px] md:min-w-[160px]"
+      >
+        Moto honda 2025 0km com capacete 345 Cilindradas
+      </p>
+      <span class="text-[12px] text-white font-bold">José Carolos S********</span>
+    </div>
   </div>
-</section>
+  <div class="flex flex-col gap-1 justify-center">
+    @if (isTag) {
+      <app-tag-badge text="04059694" color="#fff" bgColor="#2E2170" [isIcon]="true" />
+    }
+    <app-tag-badge text="Premiado" color="#2E2170" bgColor="#E9EEFF" />
+  </div>
+</div>

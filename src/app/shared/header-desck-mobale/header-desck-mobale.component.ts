@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.component';
 
 @Component({
@@ -8,5 +8,6 @@ import { BtnPrizeDrawComponent } from '../btn-prize-draw/btn-prize-draw.componen
   imports: [BtnPrizeDrawComponent],
 })
 export class HeaderDesckMobaleComponent {
+  @Input() headerText = '';
   constructor() {}
 }

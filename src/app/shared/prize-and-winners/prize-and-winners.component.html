@@ -1,5 +1,5 @@
-<div class="max-w-full mx-auto border border-red-700">
-  <section class="border border-red-500 bg-white rounded-[16px] mb-[35px] px-[20px] py-[32px]">
+<div class="max-w-full mx-auto">
+  <section class="bg-white rounded-[16px] mb-[35px] px-[20px] py-[32px]">
     <h2
       class="text-[28px] leading-[30px] font-bold tracking-tight text-blue-dark border-b-[2px] border-opacity-40 border-[#EBEDF6] pb-[16px]"
     >
@@ -124,7 +124,7 @@
           <div
             class="border border-cyan-600 rounded-full w-[48px] h-[48px] bg-blue-dark flex justify-around items-center absolute top-[-14px]"
           >
-            <img src="/public/assets/icons/" alt="" />
+            <img src="assets/icons/ranking.svg" alt="" />
           </div>
 
           <div class="relative flex xl:felx xl:flex-col w-full">
@@ -169,7 +169,6 @@
         <app-ranking-list-item />
         <app-ranking-list-item />
         <app-ranking-list-item />
-        <app-ranking-list-item />
       </div>
     </section>
   </section>
@@ -180,10 +179,41 @@
     >
       Outros prêmios
     </h2>
-    <app-header-desck-mobale />
+    <app-header-desck-mobale headerText="Cotas Premiadas" />
 
-    <div>
-      <app-other-prizes />
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+      <app-other-prizes [isbgPurple]="true" [isTag]="true" />
+      <app-other-prizes [isbgPurple]="true" [isTag]="true" />
+      <app-other-prizes [isbgPurple]="true" [isTag]="true" />
+      <app-other-prizes [isbgPurple]="true" [isTag]="true" />
+      <app-other-prizes [isbgPurple]="true" [isTag]="true" />
+
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
+      <app-other-prizes [isTag]="true" />
     </div>
+
+    <section class="bg-white rounded-[16px] mb-[35px] py-[32px]">
+      <app-header-desck-mobale headerText="Jogadas Premiadas" />
+
+      <div class="grid grid-cols-1 xl:grid-cols-3 gap-4">
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+        <app-other-prizes [isbgPurple]="true" />
+        <app-other-prizes />
+      </div>
+    </section>
   </section>
 </div>
