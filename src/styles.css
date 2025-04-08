@@ -3,7 +3,8 @@
 
 @theme {
   --color-gray-text: #91949f;
-  --colo-gray-light: #b2b7c7;
+  --color-gray-dark: #b2b7c7;
+  --color-gray-light: #ebedf6;
   --color-light-purple: #8c6bfa;
   --color-blue-dark: #2e2170;
   --color-ice-white: #e9eeff;

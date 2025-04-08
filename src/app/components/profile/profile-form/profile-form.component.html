@@ -1,0 +1,79 @@
+<div class="flex flex-col mx-auto w-full sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl">
+  <h2 class="text-xl font-semibold text-blue-dark mb-6 text-center sm:text-left">Minha conta</h2>
+
+  <div class="bg-white border border-light-purple rounded-xl shadow-md p-6 md:p-8">
+    <div class="space-y-8">
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Dados gerais</h3>
+        <div class="flex flex-col md:flex-row md:items-start gap-6">
+          <div class="relative flex justify-center">
+            <div class="relative w-24 h-24 sm:w-32 sm:h-32">
+              <img src="assets/ganhadora.svg" class="w-full h-full object-cover rounded-full" alt="Foto do usuário" />
+              <div
+                class="absolute bottom-4 right-0 translate-x-1/4 translate-y-1/4 bg-light-purple rounded-lg p-4 shadow-md hidden sm:block"
+              >
+                <img src="assets/icons/Trash.svg" alt="Ícone de Lixeira" class="w-4 h-4 sm:w-5 sm:h-5 text-white" />
+              </div>
+              <button
+                class="absolute bottom-0 left-1/2 -translate-x-1/2 bg-purple-500 text-white py-2 px-4 rounded-lg w-24 sm:hidden text-sm"
+              >
+                Excluir
+              </button>
+            </div>
+          </div>
+
+          <div class="grid gap-4 w-full">
+            <input type="text" placeholder="Nome completo" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+            <div class="flex flex-col sm:flex-row sm:gap-4">
+              <input type="text" placeholder="CPF" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+              <input type="date" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full mt-0" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Dados de contato</h3>
+        <div class="grid gap-4 md:grid-cols-2">
+          <input type="email" placeholder="E-mail" class="input bg-gray-light rounded-xl p-3 sm:p-4 w-full" />
+          <input type="text" placeholder="Celular com DDD" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+          <input
+            type="text"
+            placeholder="Repita o Celular com DDD"
+            class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full md:col-span-2"
+          />
+        </div>
+      </div>
+
+      <div>
+        <h3 class="text-lg font-semibold text-gray-700 mb-4">Dados de endereço</h3>
+        <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          <input type="text" placeholder="CEP" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+          <input type="text" placeholder="Logradouro" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+          <input type="text" placeholder="Número" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+          <input
+            type="text"
+            placeholder="Complemento"
+            class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full md:col-span-2 lg:col-span-1"
+          />
+          <input type="text" placeholder="Bairro" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+          <input
+            type="text"
+            placeholder="Ponto de referência"
+            class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full md:col-span-2 lg:col-span-2"
+          />
+          <select class="input bg-gray-light rounded-xl p-3 sm:p-4 w-full">
+            <option>UF</option>
+          </select>
+          <input type="text" placeholder="Cidade" class="bg-gray-light input rounded-xl p-3 sm:p-4 w-full" />
+        </div>
+      </div>
+
+      <div>
+        <button class="w-full bg-purple-500 text-white py-3 rounded-lg hover:bg-purple-700 transition">
+          Salvar alterações
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

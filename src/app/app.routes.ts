@@ -22,6 +22,10 @@ export const routes: Routes = [
     path: 'winners',
     loadComponent: () => import('./pages/winners-page/winners-page.component').then((m) => m.WinnersPageComponent),
   },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 
