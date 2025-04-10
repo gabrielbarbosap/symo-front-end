@@ -27,6 +27,9 @@ export class NavigationComponent {
       case 1:
         this.router.navigate(['/winners']);
         break;
+      case 2:
+        this.router.navigate(['/quota-sale']);
+        break;
     }
   }
 }

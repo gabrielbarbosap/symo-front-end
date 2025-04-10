@@ -26,6 +26,11 @@ export const routes: Routes = [
     path: 'profile',
     loadComponent: () => import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
   },
+  {
+    path: 'quota-sale',
+    loadComponent: () =>
+      import('./pages/quota-sale-page/quota-sale-page.component').then((m) => m.QuotaSalePageComponent),
+  },
   { path: '**', redirectTo: '' },
 ];
 

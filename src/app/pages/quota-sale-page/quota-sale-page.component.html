@@ -1,0 +1,54 @@
+<main class="min-h-screen mt-[70px] sm:p-[0px] md:px-[30px] lg:px-[50px] xl:[200px]">
+  <div>
+    <div id="ngpTabset" [(ngpTabsetValue)]="selectedTab" ngpTabset>
+      <div class="hidden sm:flex" ngpTabList>
+        <button class="cursor-pointer ngpTabButton" ngpTabButton ngpTabButtonValue="award">
+          Prêmios <span class="hidden md:inline">|</span> <span class="inline md:hidden">e</span>
+          <br class="inline md:hidden" />
+          Guanhadores
+        </button>
+        <button class="cursor-pointer ngpTabButton" ngpTabButton ngpTabButtonValue="title">Títulos</button>
+        <button class="cursor-pointer ngpTabButton" ngpTabButton ngpTabButtonValue="regulation">Regulamento</button>
+      </div>
+
+      <div ngpTabList class="flex justify-evenly items-center flex-wrap !gap-2 sm:hidden text-light-purple">
+        <div
+          ngpTabButton
+          ngpTabButtonValue="award"
+          class="img-fill w-[116px] h-[122px] flex flex-col justify-center items-center border border-light-purple rounded-2xl cursor-pointer hover:bg-light-purple hover:text-white pt-3"
+        >
+          <img class="text-light-purple img-fill" src="assets/icons/calice-nav.svg" alt="icone calice" />
+
+          <span class="text-center text-[14px] font-bold relative top-[10px]">Prêmios e Ganhadores</span>
+        </div>
+        <div
+          ngpTabButton
+          ngpTabButtonValue="title"
+          class="min-w-[116px] h-[122px] flex flex-col justify-center items-center border border-light-purple rounded-2xl cursor-pointer hover:bg-light-purple hover:text-white"
+        >
+          <img class="text-light-purple mb-[16px]" src="/assets/icons/titulo.svg" alt="icone ticket" />
+          <span class="text-center text-[14px] font-bold">Meus Títulos</span>
+        </div>
+        <div
+          ngpTabButton
+          ngpTabButtonValue="regulation"
+          class="min-w-[116px] h-[122px] flex flex-col justify-center items-center border border-light-purple rounded-2xl cursor-pointer hover:bg-light-purple hover:text-white"
+        >
+          <img class="text-light-purple mb-[16px]" src="assets/icons/doc.svg" alt="" />
+          <span class="text-center text-[14px] font-bold">Regulamento</span>
+        </div>
+      </div>
+      <div ngpTabPanel ngpTabPanelValue="award">
+        <app-prize-and-winners />
+      </div>
+
+      <div ngpTabPanel ngpTabPanelValue="title">
+        <app-quota-sale />
+      </div>
+
+      <div ngpTabPanel ngpTabPanelValue="regulation">
+        <app-regulation />
+      </div>
+    </div>
+  </div>
+</main>

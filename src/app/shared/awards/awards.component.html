@@ -1,0 +1,39 @@
+<div class="max-w-full mx-auto">
+  <!-- Título opcional do prêmio -->
+  <h3 class="text-lg font-semibold text-blue-dark mb-4 py-[16px]">{{ subtitle }}</h3>
+
+  <div
+    class="max-w-[350px] md:max-w-[100%] max-h-max p-4 flex flex-col md:flex-row items-center shadow-lg rounded-[16px] overflow-hidden bg-white border border-gray-200 m-auto"
+  >
+    <!-- Lado esquerdo: Indicador roxo -->
+    <div
+      class="hidden md:w-[64px] min-h-[232px] md:flex items-center justify-center bg-light-purple text-white text-lg font-bold rounded-l-[16px] px-4 py-2"
+    >
+      <span>{{ position }}</span>
+    </div>
+
+    <div class="bg-light-purple m-4 md:hidden flex justify-center items-center rounded-[10px] w-[96%] h-[56px]">
+      <span class="text-white size-[30px] font-extrabold">{{ position }}</span>
+    </div>
+    <!-- Imagem do carro -->
+    <img [src]="imageUrl" alt="Carro" class="w-[300px] h-[200px] object-cover rounded-[8px] m-4" />
+
+    <!-- Conteúdo -->
+    <div class="flex w-full flex-col ml-10 mr-[32px] text-center md:text-left">
+      <h2
+        class="text-start max-h-[100px] align-start overflow-hidden text-[30px] lg:text-[40px] font-bold text-blue-dark leading-tight"
+      >
+        {{ title }}
+      </h2>
+      <div class="mt-2 mb-4 flex justify-start">
+        <app-tag-badge text="Disponível" color="#FFF" bgColor="#8C6BFA" />
+      </div>
+      <app-btn-prize-draw
+        styleContainer="flex-1"
+        styleBtn="border  border-light-purple text-light-purple md:text-[13px] md:w-full md:h-[44px] mobile:h-[37px]  md:min-w-[50%]  truncate md:px-2 mobile:text-[14px] lg:text-base"
+        text="Comprar mais números"
+        size="max-w-[400px]"
+      />
+    </div>
+  </div>
+</div>
