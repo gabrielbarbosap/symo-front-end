@@ -4,6 +4,8 @@ import { QuotaService } from '../../services/quota.service';
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
 import { FormsModule } from '@angular/forms';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 
 /**
  * Componente para a seleção de cotas de um sorteio específico.
@@ -11,7 +13,12 @@ import { FormsModule } from '@angular/forms';
  * das cotas selecionadas para o sorteio.
  */
 @Component({
-  imports: [NgIf, NgFor, ButtonComponent, NgClass, FormsModule, CurrencyPipe],
+  imports: [NgIf, NgFor, ButtonComponent, NgClass, FormsModule, CurrencyPipe, NgIcon],
+  viewProviders: [
+    provideIcons({
+      bootstrapTicket,
+    }),
+  ],
   selector: 'app-quota-selection',
   templateUrl: './quota-selection.component.html',
   styleUrls: ['./quota-selection.component.css'],
@@ -24,6 +31,7 @@ export class QuotaSelectionComponent implements OnInit {
   progress: number = 0;
   uuid: string = '';
   quotas: any = [10, 20, 50, 100, 200]; // Exemplo de quotas
+  showAdvanced = false;
 
   /**
    * Injeta o serviço QuotaService para gerenciar o estado das cotas.
@@ -59,6 +67,8 @@ export class QuotaSelectionComponent implements OnInit {
    */
   selectQuota(amount: number): void {
     this.selectedQuotes += amount;
+    this.showAdvanced = true;
+
     this.updateQuotaState();
   }
 
