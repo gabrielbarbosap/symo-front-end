@@ -6,10 +6,17 @@ import { QuotaService } from '../../services/quota.service';
 import { QuotaSelectionComponent } from '../quota-selection/quota-selection.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { ButtonComponent } from '../button/button.component';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, QuotaSelectionComponent, ProgressComponent, ButtonComponent],
+  imports: [CommonModule, FormsModule, QuotaSelectionComponent, ProgressComponent, ButtonComponent, NgIcon],
+  viewProviders: [
+    provideIcons({
+      bootstrapTicket,
+    }),
+  ],
   selector: 'app-hero-banner',
   templateUrl: './hero-banner.component.html',
   styleUrls: ['./hero-banner.component.css'],
