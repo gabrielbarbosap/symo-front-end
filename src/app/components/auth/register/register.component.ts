@@ -113,7 +113,7 @@ export class RegisterComponent {
       marketingOptIn: [false],
     });
 
-    this.loadStates();
+    // this.loadStates();
 
     this.registrationForm.get('addressInfo.zipCode')?.valueChanges.subscribe((zipCode) => {
       if (zipCode && zipCode.length >= 8 && this.TOGGLE_API_ADDRRES_SEARCH) {
@@ -207,7 +207,6 @@ export class RegisterComponent {
   onSubmit(): void {
     if (this.registrationForm.valid) {
       this.isSubmitting.set(true);
-      console.log('Form valid', this.registrationForm.value);
 
       const password = this.registrationForm.value.accessInfo.password;
       const confirmPassword = this.registrationForm.value.accessInfo.passwordConfirmation;
@@ -253,8 +252,7 @@ export class RegisterComponent {
         next: () => {
           this.isSubmitting.set(false);
 
-          this.authService.phone.set(this.registrationForm.value.contactInfo.email);
-          this.authService.password.set(this.registrationForm.value.contactInfo.password);
+          this.authService.phone.set(this.registrationForm.value.contactInfo.phone);
           this.authService.isFromRegister.set(true);
 
           this.goToLogin();

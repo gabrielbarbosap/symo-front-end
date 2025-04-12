@@ -32,7 +32,6 @@ interface RegistrationResponse {
 
 interface Login {
   identifier: string;
-  password: string;
 }
 
 interface LoginResponse {
