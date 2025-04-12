@@ -33,7 +33,7 @@
         <!-- Main Content -->
         <div class="max-w-2xl mx-auto p-4 pt-0">
           <h1 ngpDialogDescription class="text-[#1B0B3B] text-2xl font-bold mb-0">{{ contentTitle }}</h1>
-          <p class="text-[#809FB8] mb-6">Entre com seu número de celular e senha.</p>
+          <p class="text-[#809FB8] mb-6">Entre com seu número de celular.</p>
 
           @if (hasCheckout) {
             <!-- Purchase Details -->
@@ -72,7 +72,7 @@
           }
 
           <!-- Form -->
-          <form class="mt-6">
+          <form class="mt-6" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="mb-4">
               <div class="relative">
                 <input
@@ -81,6 +81,7 @@
                   type="tel"
                   placeholder="Celular com DDD"
                   class="w-full p-4 bg-[#EBEDF6] rounded-xl text-[#1B0B3B] placeholder-[#91949F]"
+                  formControlName="identifier"
                 />
                 <button
                   type="button"
@@ -93,7 +94,7 @@
               <span class="text-xs font-semibold text-[#8C6BFA] mt-1">Exemplo: (XX) XXXXX-XXXX</span>
             </div>
 
-            <div class="relative mb-4">
+            <!-- <div class="relative mb-4">
               <input
                 ngpInput
                 [type]="showPassword ? 'text' : 'password'"
@@ -108,28 +109,33 @@
               >
                 <ng-icon class="!w-6 !h-6 z-2" [name]="showPassword ? 'bootstrapEyeFill' : 'bootstrapEyeSlashFill'" />
               </button>
-            </div>
+            </div> -->
 
-            <button
+            <!-- <button
               type="button"
               class="text-sm text-[#809FB8] cursor-pointer mb-4"
               ngpButton
               (click)="toggleFlow('forgot_password')"
             >
               Esqueci minha senha
-            </button>
+            </button> -->
 
             <button
               ngpButton
               type="submit"
-              class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80"
+              class="w-full bg-[#8C6BFA] text-white rounded-xl cursor-pointer py-4 font-medium hover:opacity-80 flex items-center justify-center"
+              [disabled]="isSubmitting()"
             >
-              Entrar
+              @if (isSubmitting()) {
+                <app-spinner />
+              } @else {
+                Entrar
+              }
             </button>
           </form>
 
           <!-- Social Login -->
-          <div class="flex justify-center gap-4 my-6">
+          <!-- <div class="flex justify-center gap-4 my-6">
             <button
               class="w-12 h-12 flex items-center justify-center rounded-xl cursor-pointer border border-[#8C6BFA] hover:bg-gray-100 disabled:cursor-not-allowed"
               ngpButton
@@ -163,11 +169,11 @@
                 <ng-icon name="bootstrapApple" class="!w-4 !h-4 !text-[#8C6BFA]" />
               }
             </button>
-          </div>
+          </div> -->
 
           <!-- Create Account -->
           <button
-            class="w-full border border-[#8C6BFA] text-[#8C6BFA] rounded-xl py-4 font-medium cursor-pointer hover:bg-gray-100"
+            class="w-full border border-[#8C6BFA] text-[#8C6BFA] rounded-xl py-4 font-medium cursor-pointer hover:bg-gray-100 mt-6"
             ngpButton
             (click)="goToRegister()"
           >

@@ -19,12 +19,13 @@ import {
 } from '@ng-icons/bootstrap-icons';
 import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 import { NgpInput } from 'ng-primitives/input';
-import { NgpSelect } from 'ng-primitives/select';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { finalize } from 'rxjs';
 import { AddressService, State, City, Address } from '../../../services/address.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { AuthService, Registration } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -37,7 +38,7 @@ import { ActivatedRoute, Router } from '@angular/router';
     NgpInput,
     NgpButton,
     NgIcon,
-    NgpSelect,
+    // NgpSelect,
     SpinnerComponent,
     NgxMaskDirective,
     CommonModule,
@@ -62,6 +63,9 @@ export class RegisterComponent {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   protected readonly dialogRef = injectDialogRef<string>();
+  private authService = inject(AuthService);
+
+  protected readonly TOGGLE_API_ADDRRES_SEARCH = false;
 
   registrationForm: FormGroup;
   photoPreview = signal<string | null>(null);
@@ -74,6 +78,8 @@ export class RegisterComponent {
   showConfirmPassword = false;
 
   isSubmitting = signal(false);
+
+  toast = inject(HotToastService);
 
   constructor() {
     this.registrationForm = this.fb.group({
@@ -92,30 +98,31 @@ export class RegisterComponent {
         password: ['', [Validators.required, Validators.minLength(6)]],
         passwordConfirmation: ['', [Validators.required]],
       }),
+      // Validators.required
       addressInfo: this.fb.group({
-        zipCode: ['', [Validators.required]],
-        street: ['', [Validators.required]],
-        number: ['', [Validators.required]],
+        zipCode: ['', []],
+        street: ['', []],
+        number: ['', []],
         complement: [''],
-        neighborhood: ['', [Validators.required]],
+        neighborhood: ['', []],
         reference: [''],
-        state: ['', [Validators.required]],
-        city: ['', [Validators.required]],
+        state: [null, []],
+        city: [null, []],
       }),
       termsAgreed: [false, [Validators.requiredTrue]],
       marketingOptIn: [false],
     });
 
-    this.loadStates();
+    // this.loadStates();
 
     this.registrationForm.get('addressInfo.zipCode')?.valueChanges.subscribe((zipCode) => {
-      if (zipCode && zipCode.length >= 8) {
+      if (zipCode && zipCode.length >= 8 && this.TOGGLE_API_ADDRRES_SEARCH) {
         this.searchAddressByZipCode(zipCode);
       }
     });
 
     this.registrationForm.get('addressInfo.state')?.valueChanges.subscribe((state) => {
-      if (state) {
+      if (state && this.TOGGLE_API_ADDRRES_SEARCH) {
         this.loadCities(state);
       }
     });
@@ -155,7 +162,7 @@ export class RegisterComponent {
               street: address.logradouro,
               neighborhood: address.bairro,
               state: address.uf,
-              city: address.localidade,
+              city: address.cidade,
             });
 
             this.loadCities(address.uf);
@@ -163,6 +170,7 @@ export class RegisterComponent {
         },
         error: (error) => {
           console.error('Error fetching address:', error);
+          this.toast.error('Ocorreu um erro ao buscar os dados, tente novamente mais tarde.');
         },
       });
   }
@@ -174,11 +182,12 @@ export class RegisterComponent {
       },
       error: (error) => {
         console.error('Error loading states:', error);
+        this.toast.error('Ocorreu um erro ao carregar os estados, tente novamente mais tarde.');
       },
     });
   }
 
-  loadCities(state: string): void {
+  loadCities(state: number): void {
     this.isLoadingCities.set(true);
 
     this.addressService
@@ -190,27 +199,88 @@ export class RegisterComponent {
         },
         error: (error) => {
           console.error('Error loading cities:', error);
+          this.toast.error('Ocorreu um erro ao carregar as cidade, tente novamente mais tarde.');
         },
       });
   }
 
   onSubmit(): void {
     if (this.registrationForm.valid) {
-      console.log('Form valid', this.registrationForm.value);
-    } else {
-      Object.keys(this.registrationForm.controls).forEach((key) => {
-        const control = this.registrationForm.get(key);
-        control?.markAsTouched();
+      this.isSubmitting.set(true);
 
-        if (control instanceof FormGroup) {
-          Object.keys(control.controls).forEach((childKey) => {
-            control.get(childKey)?.markAsTouched();
-          });
-        }
+      const password = this.registrationForm.value.accessInfo.password;
+      const confirmPassword = this.registrationForm.value.accessInfo.passwordConfirmation;
+
+      if (password !== confirmPassword) {
+        this.toast.info('As senhas não conferem');
+      }
+
+      const phone = this.registrationForm.value.contactInfo.phone;
+      const phoneConfirmation = this.registrationForm.value.contactInfo.phoneConfirmation;
+
+      if (phone !== phoneConfirmation) {
+        this.toast.info('Os telefones não conferem');
+      }
+
+      const formDate = this.registrationForm.value.personalInfo.birthDate.split('/');
+      const date = `${formDate[2]}-${formDate[1]}-${formDate[0]}`;
+
+      const payload: Registration = {
+        user: {
+          celular: this.registrationForm.value.contactInfo.phone,
+          cpf: this.registrationForm.value.personalInfo.cpf,
+          data_nascimento: date,
+          email: this.registrationForm.value.contactInfo.email,
+          senha: this.registrationForm.value.accessInfo.password,
+        },
+      };
+
+      if (this.registrationForm.value.addressInfo.zipCode) {
+        payload['endereco'] = {
+          bairro: this.registrationForm.value.addressInfo.neighborhood,
+          cep: this.registrationForm.value.addressInfo.zipCode,
+          cidade: this.registrationForm.value.city,
+          uf: this.registrationForm.value.state,
+          complemento: this.registrationForm.value.complement,
+          ponto_referencia: this.registrationForm.value.reference,
+          logradouro: this.registrationForm.value.street,
+          numero: this.registrationForm.value.number,
+        };
+      }
+
+      this.authService.signup(payload).subscribe({
+        next: () => {
+          this.isSubmitting.set(false);
+
+          this.authService.phone.set(this.registrationForm.value.contactInfo.phone);
+          this.authService.isFromRegister.set(true);
+
+          this.toast.success('Cadastro realizado com sucesso');
+
+          this.goToLogin();
+        },
+        error: (err) => {
+          this.isSubmitting.set(false);
+          console.error('Error registering', err);
+          this.toast.error('Ocorreu um erro ao fazer o cadastro. Por favor tente novamente mais tarde');
+        },
       });
 
-      console.log('Form invalid');
+      return;
     }
+
+    Object.keys(this.registrationForm.controls).forEach((key) => {
+      const control = this.registrationForm.get(key);
+      control?.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        Object.keys(control.controls).forEach((childKey) => {
+          control.get(childKey)?.markAsTouched();
+        });
+      }
+    });
+
+    this.toast.info('Formulário inválido. Verfique se os dados estão corretos');
   }
 
   togglePasswordVisibility(type: 'password' | 'confirm_password' = 'password'): void {

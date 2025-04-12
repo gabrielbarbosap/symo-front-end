@@ -1,5 +1,5 @@
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import {
   NgpDialog,
@@ -25,6 +25,10 @@ import { SpinnerComponent } from '../../../shared/spinner/spinner.component';
 import { NgpInput } from 'ng-primitives/input';
 import { NgxMaskDirective, provideNgxMask } from 'ngx-mask';
 import { ActivatedRoute, Router } from '@angular/router';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../../services/auth.service';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { switchMap } from 'rxjs';
 
 type Flow = 'login' | 'forgot_password' | 'reset_password';
 
@@ -42,6 +46,7 @@ type Flow = 'login' | 'forgot_password' | 'reset_password';
     SpinnerComponent,
     NgxMaskDirective,
     CommonModule,
+    ReactiveFormsModule,
   ],
   viewProviders: [
     provideIcons({
@@ -66,6 +71,8 @@ export class LoginComponent implements OnInit {
   private router = inject(Router);
   protected readonly dialogRef = injectDialogRef<string>();
 
+  private authService = inject(AuthService);
+
   showPassword = false;
   showResetPassword = false;
   showConfirmResetPassword = false;
@@ -80,6 +87,17 @@ export class LoginComponent implements OnInit {
   emailSent = 'r4*****@h****.com.br';
 
   socialLogin: 'facebook' | 'google' | 'apple' | '' = '';
+
+  loginForm: FormGroup;
+  isSubmitting = signal(false);
+
+  toast = inject(HotToastService);
+
+  constructor() {
+    this.loginForm = new FormGroup({
+      identifier: new FormControl(this.authService.phone() ?? '', [Validators.required]),
+    });
+  }
 
   closeDialog() {
     this.currentFlow = 'login';
@@ -143,5 +161,32 @@ export class LoginComponent implements OnInit {
   goToRegister() {
     this.dialogRef.close();
     this.router.navigate([], { relativeTo: this.route, queryParams: { auth: 'register' } });
+  }
+
+  onSubmit() {
+    this.isSubmitting.set(true);
+
+    const payload = {
+      identifier: this.loginForm.value.identifier.replace(/\D/g, ''),
+    };
+
+    this.authService
+      .signin(payload)
+      .pipe(switchMap(() => this.authService.getProfile()))
+      .subscribe({
+        next: () => {
+          this.isSubmitting.set(false);
+
+          this.toast.success('Login realizado com sucesso');
+
+          this.close();
+        },
+        error: (err) => {
+          this.authService.logout();
+          this.isSubmitting.set(false);
+          console.error('Error signing in', err);
+          this.toast.error('Ocorreu um erro ao fazer o login. Por favor tente novamente mais tarde');
+        },
+      });
   }
 }

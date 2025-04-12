@@ -23,6 +23,8 @@
     "@floating-ui/dom": "^1.6.0",
     "@ng-icons/bootstrap-icons": "^30.2.0",
     "@ng-icons/core": "^30.2.0",
+    "@ngneat/overview": "6.1.1",
+    "@ngxpert/hot-toast": "^4.1.2",
     "@tailwindcss/postcss": "^4.0.3",
     "ng-primitives": "^0.19.0",
     "ngx-mask": "^19.0.6",
