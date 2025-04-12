@@ -64,7 +64,7 @@ export class QuotaService {
   }
 
   // Preço por cota
-  private pricePerQuota: number = 1.29;
+  private pricePerQuota: number = 3.0;
 }
 
 /**

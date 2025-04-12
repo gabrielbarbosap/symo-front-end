@@ -22,7 +22,7 @@ import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
   styleUrls: ['./hero-banner.component.css'],
 })
 export class HeroBannerComponent implements OnInit {
-  @Input() title: string = 'Pix do Milhão e mais de milhão';
+  @Input() title: string = 'Caroço da Sorte: 3.000,00 Reais no seu bolso';
   @Input() edition: string = 'Edição 01';
   @Input() date: string = '12/12/2024 - 19:30';
   @Input() price: number = 2.29;
