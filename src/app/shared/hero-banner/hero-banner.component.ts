@@ -23,9 +23,9 @@ import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 })
 export class HeroBannerComponent implements OnInit {
   @Input() title: string = 'Caroço da Sorte: 3.000,00 Reais no seu bolso';
-  @Input() edition: string = 'Edição 01';
-  @Input() date: string = '12/12/2024 - 19:30';
-  @Input() price: number = 2.29;
+  @Input() edition: string = 'EDIÇÃO 01';
+  @Input() date: string = '17/05/2025 – 19:00 ';
+  @Input() price: number = 3;
   @Input() soldPercentage: number = 75;
   @Input() daysLeft: number = 12;
   @Input() hours: number = 12;
