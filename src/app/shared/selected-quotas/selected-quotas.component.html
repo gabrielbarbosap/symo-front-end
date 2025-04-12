@@ -1,8 +1,8 @@
 <div class="bg-blue-100 mt-4 rounded-lg hidden lg:block w-full md:h-49.5">
   <div class="px-12 py-5 h-full">
     <div class="flex justify-between items-center">
-      <h2 class="font-bold text-lg text-blue-dark">Cotas selecionadas</h2>
-      <a class="text-light-purple text-sm font-medium">Mostrar todas</a>
+      <h2 class="font-bold text-lg text-blue-dark">Títulos selecionados</h2>
+      <a class="text-light-purple text-sm font-medium">Mostrar todos</a>
     </div>
 
     <div class="flex mt-4 mb-8 overflow-y-scroll max-h-[32px] flex-wrap scrollbar-thin gap-1">
@@ -16,17 +16,17 @@
     <app-btn-prize-draw
       size="w-full"
       styleBtn="border border-ight-purple text-white bg-light-purple mt-4 py-2 ms-sm  lg:text-lg  text-sm md:text-[14px] md:w-full md:h-[45px]"
-      text="Selecionar mais cotas"
+      text="Selecionar mais títulos"
     />
   </div>
 </div>
 
 <!--Mobile-->
 <div class="mt-1 bg-blue-50 p-3 rounded-lg text-center w-full mx-auto block lg:hidden">
-  <p class="text-light-purple font-semibold text-base">Cotas selecionados</p>
+  <p class="text-light-purple font-semibold text-base">Títulos selecionados</p>
 
   <div class="bg-white p-3 rounded-lg flex justify-between items-center mt-2">
-    <span class="text-blue-dark font-semibold">{{ quotasSelected.length }} cotas</span>
+    <span class="text-blue-dark font-semibold">{{ quotasSelected.length }} títulos</span>
     <a class="text-light-purple text-sm font-medium cursor-pointer" (click)="showQuotas()">Mostrar</a>
   </div>
 </div>

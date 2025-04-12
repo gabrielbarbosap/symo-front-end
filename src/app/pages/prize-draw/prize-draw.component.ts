@@ -16,7 +16,7 @@ export class PrizeDrawComponent {
       badges: [
         { text: 'Edição 01', color: '#FFFFFF', bgColor: '#2E2170' },
         { text: '12/12/2024 - 19:30', color: '#2E2170', bgColor: '#C4CCE4' },
-        { text: 'Cota R$ 2,29', color: '#2E2170', bgColor: '#12D1DE' },
+        { text: 'Título R$ 2,29', color: '#2E2170', bgColor: '#12D1DE' },
       ],
     },
     {
@@ -24,7 +24,7 @@ export class PrizeDrawComponent {
       badges: [
         { text: 'Edição 01', color: '#FFFFFF', bgColor: '#2E2170' },
         { text: '12/12/2024 - 19:30', color: '#2E2170', bgColor: '#C4CCE4' },
-        { text: 'Cota R$ 2,29', color: '#2E2170', bgColor: '#12D1DE' },
+        { text: 'Título R$ 2,29', color: '#2E2170', bgColor: '#12D1DE' },
       ],
     },
     {
