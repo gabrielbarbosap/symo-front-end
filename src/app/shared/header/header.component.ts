@@ -60,6 +60,10 @@ export class HeaderComponent implements OnInit {
     this.dialogManager.open(RegisterComponent);
   }
 
+  openProfile() {
+    this.router.navigate(['/profile']);
+  }
+
   openLogout() {
     this.dialogManager.open(LogoutComponent);
   }
