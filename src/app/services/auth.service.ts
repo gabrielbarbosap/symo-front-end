@@ -43,6 +43,16 @@ interface LoginResponse {
   expiresAt: string;
 }
 
+// TODO: Modificar response
+interface ProfileResponse {
+  id: number;
+  nome: string;
+  email: string;
+  telefone: string;
+  dataNascimento: string;
+  cpf: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -53,6 +63,9 @@ export class AuthService {
   public isFromRegister = signal(false);
   public phone = signal('');
   public password = signal('');
+
+  public profile = signal<ProfileResponse | null>(null);
+  public isLoggedIn = signal(false);
 
   signup(registration: Registration): Observable<RegistrationResponse> {
     return this.http.post<RegistrationResponse>(`${this.environment.apiUrl}/signup`, registration);
@@ -66,7 +79,18 @@ export class AuthService {
     );
   }
 
+  getProfile(): Observable<ProfileResponse> {
+    return this.http.get<ProfileResponse>(`${this.environment.apiUrl}/profile`).pipe(
+      tap((response) => {
+        this.profile.set(response);
+        this.isLoggedIn.set(true);
+      })
+    );
+  }
+
   logout() {
     localStorage.removeItem('token');
+    this.isLoggedIn.set(false);
+    this.profile.set(null);
   }
 }

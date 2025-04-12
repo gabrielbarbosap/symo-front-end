@@ -28,6 +28,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { HotToastService } from '@ngxpert/hot-toast';
+import { switchMap } from 'rxjs';
 
 type Flow = 'login' | 'forgot_password' | 'reset_password';
 
@@ -167,20 +168,23 @@ export class LoginComponent implements OnInit {
       identifier: this.loginForm.value.identifier.replace(/\D/g, ''),
     };
 
-    console.log(payload);
+    this.authService
+      .signin(payload)
+      .pipe(switchMap(() => this.authService.getProfile()))
+      .subscribe({
+        next: () => {
+          this.isSubmitting.set(false);
 
-    this.authService.signin(payload).subscribe({
-      next: (response) => {
-        this.isSubmitting.set(false);
-        console.log(response);
+          this.toast.success('Login realizado com sucesso');
 
-        this.dialogRef.close();
-      },
-      error: (err) => {
-        this.isSubmitting.set(false);
-        console.error('Error signing in', err);
-        this.toast.error('Ocorreu um erro ao fazer o login. Por favor tente novamente mais tarde');
-      },
-    });
+          this.close();
+        },
+        error: (err) => {
+          this.authService.logout();
+          this.isSubmitting.set(false);
+          console.error('Error signing in', err);
+          this.toast.error('Ocorreu um erro ao fazer o login. Por favor tente novamente mais tarde');
+        },
+      });
   }
 }

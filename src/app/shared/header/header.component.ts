@@ -1,9 +1,11 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, computed, inject, OnInit } from '@angular/core';
 import { TopBannerComponent } from '../top-banner/top-banner.component';
 import { LoginComponent } from '../../components/auth/login/login.component';
 import { NgpDialogManager } from 'ng-primitives/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { RegisterComponent } from '../../components/auth/register/register.component';
+import { AuthService } from '../../services/auth.service';
+import { LogoutComponent } from '../../components/auth/logout/logout.component';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +17,18 @@ export class HeaderComponent implements OnInit {
   private dialogManager = inject(NgpDialogManager);
   private route = inject(ActivatedRoute);
   private router = inject(Router);
+
+  public authService = inject(AuthService);
+
+  firstLetter = computed(() => {
+    const profile = this.authService.profile();
+
+    if (profile) {
+      return (profile.nome.charAt(0) || profile.email.charAt(0)).toUpperCase();
+    }
+
+    return '';
+  });
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -30,6 +44,8 @@ export class HeaderComponent implements OnInit {
         }
       }
     });
+
+    this.fetchProfile();
   }
 
   navigateTo(auth = 'login') {
@@ -42,5 +58,13 @@ export class HeaderComponent implements OnInit {
 
   openRegister() {
     this.dialogManager.open(RegisterComponent);
+  }
+
+  openLogout() {
+    this.dialogManager.open(LogoutComponent);
+  }
+
+  fetchProfile() {
+    this.authService.getProfile().subscribe();
   }
 }
