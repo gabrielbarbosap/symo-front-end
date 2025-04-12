@@ -164,6 +164,8 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    this.isSubmitting.set(true);
+
     const payload = {
       identifier: this.loginForm.value.identifier.replace(/\D/g, ''),
     };
