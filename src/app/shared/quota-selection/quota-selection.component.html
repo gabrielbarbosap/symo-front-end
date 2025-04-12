@@ -39,7 +39,13 @@
       <!-- Quantidade de cotas -->
       <div class="flex items-center gap-1 text-lg font-semibold">
         <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
-        <span class="text-[#2E2170]">Títulos</span>
+        <span class="text-[#2E2170]">
+          @if (selectedQuotes === 1) {
+            Título
+          } @else {
+            Títulos
+          }
+        </span>
       </div>
 
       <!-- Botão reset -->
