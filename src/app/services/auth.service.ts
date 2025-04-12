@@ -68,6 +68,13 @@ export class AuthService {
   public isLoggedIn = signal(false);
 
   signup(registration: Registration): Observable<RegistrationResponse> {
+    return of({
+      cpf: '1234567890',
+      email: 'john.doe@example.com',
+      celular: '1234567890',
+      dataNascimento: '2021-01-01',
+    }).pipe(delay(2000));
+
     return this.http.post<RegistrationResponse>(`${this.environment.apiUrl}/signup`, registration);
   }
 
@@ -89,6 +96,8 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.environment.apiUrl}/auth`, auth).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
+        this.phone.set('');
+        this.password.set('');
       })
     );
   }
@@ -125,5 +134,7 @@ export class AuthService {
     localStorage.removeItem('token');
     this.isLoggedIn.set(false);
     this.profile.set(null);
+    this.phone.set('');
+    this.password.set('');
   }
 }

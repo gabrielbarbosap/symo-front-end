@@ -95,7 +95,7 @@ export class LoginComponent implements OnInit {
 
   constructor() {
     this.loginForm = new FormGroup({
-      identifier: new FormControl('', [Validators.required]),
+      identifier: new FormControl(this.authService.phone() ?? '', [Validators.required]),
     });
   }
 

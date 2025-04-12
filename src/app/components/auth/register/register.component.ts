@@ -255,6 +255,8 @@ export class RegisterComponent {
           this.authService.phone.set(this.registrationForm.value.contactInfo.phone);
           this.authService.isFromRegister.set(true);
 
+          this.toast.success('Cadastro realizado com sucesso');
+
           this.goToLogin();
         },
         error: (err) => {
