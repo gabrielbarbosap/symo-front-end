@@ -215,8 +215,8 @@ export class RegisterComponent {
         this.toast.info('As senhas não conferem');
       }
 
-      const phone = this.registrationForm.value.accessInfo.password;
-      const phoneConfirmation = this.registrationForm.value.accessInfo.passwordConfirmation;
+      const phone = this.registrationForm.value.contactInfo.phone;
+      const phoneConfirmation = this.registrationForm.value.contactInfo.phoneConfirmation;
 
       if (phone !== phoneConfirmation) {
         this.toast.info('Os telefones não conferem');
@@ -231,7 +231,7 @@ export class RegisterComponent {
           cpf: this.registrationForm.value.personalInfo.cpf,
           data_nascimento: date,
           email: this.registrationForm.value.contactInfo.email,
-          senha: this.registrationForm.value.contactInfo.password,
+          senha: this.registrationForm.value.accessInfo.password,
         },
       };
 

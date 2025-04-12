@@ -23,6 +23,25 @@ export interface Registration {
   };
 }
 
+export interface UpdateProfile {
+  user: {
+    cpf: string;
+    email: string;
+    celular: string;
+    data_nascimento: string;
+  };
+  endereco?: {
+    cep?: string;
+    logradouro?: string;
+    numero?: string;
+    complemento?: string;
+    bairro?: string;
+    ponto_referencia?: string;
+    uf?: number;
+    cidade?: number;
+  };
+}
+
 interface RegistrationResponse {
   cpf: string;
   email: string;
@@ -108,9 +127,9 @@ export class AuthService {
         id: 1,
         nome: 'John Doe',
         email: 'john.doe@example.com',
-        telefone: '1234567890',
-        dataNascimento: '2021-01-01',
-        cpf: '1234567890',
+        telefone: '12345678901',
+        dataNascimento: '2021-12-31',
+        cpf: '12345678901',
       }).pipe(
         delay(2000),
         tap((response) => {
@@ -128,6 +147,25 @@ export class AuthService {
         this.isLoggedIn.set(true);
       })
     );
+  }
+
+  updateProfile(profile: UpdateProfile): Observable<ProfileResponse> {
+    return of({
+      id: 1,
+      nome: 'Bear Doe',
+      email: 'bear.doe@example.com',
+      telefone: '12345678901',
+      dataNascimento: '2021-12-31',
+      cpf: '12345678901',
+    })
+      .pipe(delay(2000))
+      .pipe(
+        tap((response) => {
+          this.profile.set(response);
+        })
+      );
+
+    return this.http.put<ProfileResponse>(`${this.environment.apiUrl}/profile`, profile);
   }
 
   logout() {

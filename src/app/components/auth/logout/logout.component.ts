@@ -40,5 +40,7 @@ export class LogoutComponent {
     this.close();
 
     this.toast.success('Logout realizado com sucesso');
+
+    this.router.navigate(['/']);
   }
 }
