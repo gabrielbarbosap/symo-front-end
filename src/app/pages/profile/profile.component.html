@@ -1,0 +1,65 @@
+<!-- Main Container -->
+<div class="w-full pb-10">
+  <div class="gap-2 mt-[70px] px-4 lg:px-[200px] mx-auto">
+    <!-- Breadcrumb -->
+    <nav class="text-gray-500 flex items-center space-x-2 text-xs sm:text-sm">
+      <a href="/" class="hover:underline">Home</a>
+      <span>/</span>
+      <a href="/perfil" class="hover:underline font-semibold">Meu perfil</a>
+    </nav>
+
+    <!-- Title -->
+    <div class="flex items-center justify-center mt-4 mb-6 border-b border-gray-300">
+      <img src="assets/icons/UserCircle.svg" alt="Perfil" class="w-5 h-5 sm:w-6 sm:h-6" />
+      <span class="ml-3 text-base sm:text-lg font-semibold">Meu perfil</span>
+    </div>
+
+    <!-- Layout Responsivo: Sidebar no Desktop / Tabs no Mobile -->
+    <div class="bg-white shadow-md rounded-lg p-4 flex flex-col lg:flex-row">
+      <!-- Sidebar (Desktop) / Tabs (Mobile) -->
+      <div class="lg:w-1/4 border-[#b2b7c7] border-b lg:border-b-0 lg:border-r">
+        <div class="flex lg:flex-col space-x-6 lg:space-x-0 lg:space-y-4">
+          <button
+            class="p-2 w-full text-left text-blue-dark hover:text-light-purple hover:bg-gray-100 rounded transition-all"
+            [class.font-semibold]="activeTab === 'account'"
+            [class.text-light-purple]="activeTab === 'account'"
+            (click)="setActiveTab('account')"
+          >
+            Minha conta
+          </button>
+          <button
+            class="p-2 w-full text-left text-blue-dark hover:text-light-purple hover:bg-gray-100 rounded transition-all text-sm sm:text-base sm:whitespace-nowrap whitespace-normal"
+            [class.font-semibold]="activeTab === 'security'"
+            [class.text-light-purple]="activeTab === 'security'"
+            (click)="setActiveTab('security')"
+          >
+            <span class="block sm:inline">Segurança e</span>
+            <span class="block sm:inline">privacidade</span>
+          </button>
+
+          <button
+            class="p-2 w-full text-left text-blue-dark hover:text-light-purple hover:bg-gray-100 rounded transition-all"
+            [class.font-semibold]="activeTab === 'orders'"
+            [class.text-light-purple]="activeTab === 'orders'"
+            (click)="setActiveTab('orders')"
+          >
+            Minhas compras
+          </button>
+        </div>
+      </div>
+
+      <!-- Conteúdo da Tab -->
+      <div class="lg:w-3/4 p-4">
+        <div *ngIf="activeTab === 'account'">
+          <app-profile-form></app-profile-form>
+        </div>
+        <div *ngIf="activeTab === 'security'">
+          <app-security-form></app-security-form>
+        </div>
+        <div *ngIf="activeTab === 'orders'">
+          <app-purchases></app-purchases>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

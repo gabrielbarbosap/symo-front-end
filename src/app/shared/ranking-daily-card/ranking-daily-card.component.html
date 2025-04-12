@@ -1,0 +1,47 @@
+<div
+  class="border border-light-purple p-[16px] rounded-2xl max-w-[475px] sm:h-[539px] md:h-[584px] xl:h-[475px] shadow-md hover:shadow-lg transition-all bg-white"
+>
+  <!-- Cabeçalho -->
+  <div class="flex items-center justify-between m-2 md:mb-5">
+    <div class="flex items-center gap-2 bg-soft-blue w-[231px] h-[48px] rounded-lg mx-auto md:mx-0">
+      <div class="text-xl font-bold text-blue-dark flex items-center gap-3 justify-center py-3 w-full">
+        <img src="assets/icons/calendar.svg" alt="" />
+        <span>{{ data.date }}</span>
+        <div>
+          <app-tag-badge bgColor="#8C6BFA" color="#E9EEFF" text="Premiado" size="4px" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="pb-2 text-base text-blue-dark border-b-1 border-blue-haze">Vencedores</div>
+  <!-- Lista de Vencedores -->
+  <div class="space-y-3 mt-3 sm:h-[400px] md:h-[440px] xl:h-[320px] flex flex-col">
+    @for (winner of data.winners; track $index) {
+      <div class="py-3 rounded-md gap-3 min-h-[60px] items-center flex flex-col xl:flex-row">
+        <div
+          class="text-sm font-bold flex flex-row w-full xl:max-w-max xl:flex-col gap-1 justify-start xl:justify-center items-center"
+        >
+          <img src="/assets/icons/selo.svg" alt="" />
+          <span class="text-blue-dark text-center">{{ winner.position }}º LUGAR</span>
+        </div>
+
+        <div class="flex w-full gap-1">
+          <img src="/assets/ganhadora.svg" class="w-12 h-12 bg-gray-300 rounded-full" />
+
+          <div class="flex-1">
+            <div class="flex justify-between items-start xl:items-center flex-col xl:flex-row">
+              <p class="text-lg font-bold text-light-purple">{{ winner.name }}</p>
+              <span class="text-xs font-bold px-2 py-1 text-blue-dark rounded bg-[#B2B7C7]">
+                {{ winner.tickets }} BILHETES
+              </span>
+            </div>
+            <p class="text-xs text-light-purple">{{ winner.prize }}</p>
+          </div>
+        </div>
+      </div>
+      @if (!(data.winners.length - 1 === $index)) {
+        <hr class="text-ice-white border-[2px]" />
+      }
+    }
+  </div>
+</div>

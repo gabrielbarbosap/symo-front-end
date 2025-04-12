@@ -11,4 +11,6 @@ export class TagBadgeComponent {
   text = input<string>('');
   color = input<string>('');
   bgColor = input<string>('');
+  size = input<string>('');
+  isIcon = input<boolean>(false);
 }

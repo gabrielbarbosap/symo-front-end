@@ -1,9 +1,9 @@
-<div class="w-full pt-[158px] relative">
-  <!-- Banner de Fundo -->
-  <div
-    class="w-full h-[70vh] lg:h-[60vh] md:h-[50vh] sm:h-[40vh] xs:h-[35vh] min-h-[300px] bg-no-repeat bg-center sm:bg-contain bg-cover"
-    style="background-image: url('/assets/banner.svg')"
-  ></div>
-  <!-- Componente HeroBanner -->
-  <app-hero-banner class=""></app-hero-banner>
+<div class="w-full">
+  <!-- Banner para mobile -->
+  <img *ngIf="isMobile" src="assets/banner.png" alt="Banner Mobile" />
+
+  <!-- Banner para desktop -->
+  <img *ngIf="!isMobile" src="assets/bannerC.png" alt="Banner Desktop" />
+
+  <app-hero-banner></app-hero-banner>
 </div>

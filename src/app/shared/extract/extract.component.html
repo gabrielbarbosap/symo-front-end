@@ -1,0 +1,35 @@
+<div class="bg-white shadow-md rounded-lg p-4 sm:p-6 mb-6 w-full mx-auto">
+  <div class="flex flex-row items-center justify-between text-sm gap-2 sm:gap-4 whitespace-nowrap">
+    <!-- Título -->
+    <h2 class="text-lg sm:text-2xl font-bold text-gray-800">Extrato</h2>
+
+    <!-- Filtros -->
+    <div class="flex flex-row items-center justify-end gap-2 sm:gap-3 w-auto overflow-x-auto">
+      <button
+        class="px-4 bg-purple-600 text-white rounded-[10px] font-medium w-[100px] sm:w-[120px] h-[32px] border border-transparent"
+      >
+        Todos
+      </button>
+      <button
+        class="px-4 border border-purple-500 text-purple-500 rounded-[10px] font-medium w-[100px] sm:w-[120px] h-[32px]"
+      >
+        Entradas
+      </button>
+      <button
+        class="px-4 border border-purple-500 text-purple-500 rounded-[10px] font-medium w-[100px] sm:w-[120px] h-[32px]"
+      >
+        Saídas
+      </button>
+      <button
+        class="border border-gray-300 text-gray-500 rounded-[10px] font-medium w-[110px] sm:w-[120px] h-[32px] flex items-center justify-center gap-[6px] sm:gap-[10px] px-4"
+      >
+        <img src="/assets/icons/CalendarBlank.svg" class="w-4 h-4" alt="Ícone calendário" />
+        Período
+      </button>
+    </div>
+  </div>
+
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+  <app-transaction-list [transacoes]="transacoes"></app-transaction-list>
+</div>

@@ -1,0 +1,92 @@
+<!-- Wrapper geral -->
+<div
+  class="w-full rounded-xl mb-6"
+  [ngClass]="{
+    'bg-[#f0e8f9] px-4 py-6': !showAdvanced,
+    'p-0': showAdvanced,
+  }"
+>
+  <!-- Layout INICIAL -->
+  <ng-container *ngIf="!showAdvanced; else layoutAvancado">
+    <div class="flex items-center justify-center gap-3 mb-5 text-[#1d054c]">
+      <ng-icon name="bootstrapTicket" class="!text-[#1d054c] !w-7 !h-7"></ng-icon>
+      <div class="w-px h-7 bg-[#4b0faa] opacity-30"></div>
+      <span class="text-lg text-left font-semibold text-[#1d054c] leading-tight">
+        Você não selecionou<br />nenhuma cota
+      </span>
+    </div>
+
+    <button
+      class="w-full h-12 bg-[#4b0faa] text-white font-semibold text-sm rounded-[12px] hover:opacity-90 transition"
+      (click)="selectQuota(1)"
+    >
+      Selecionar cotas
+    </button>
+  </ng-container>
+
+  <!-- Layout AVANÇADO -->
+  <ng-template #layoutAvancado>
+    <!-- Linha de controle de cotas -->
+    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <!-- Botão - -->
+      <button
+        class="w-[48px] h-[48px] rounded-full bg-[#1d054c] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        (click)="decreaseQuantity()"
+      >
+        −
+      </button>
+
+      <!-- Quantidade de cotas -->
+      <div class="flex items-center gap-1 text-lg font-semibold">
+        <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
+        <span class="text-[#2E2170]">Cotas</span>
+      </div>
+
+      <!-- Botão reset -->
+      <button class="text-[#999] text-xl font-bold" (click)="resetSelection(); showAdvanced = false">×</button>
+
+      <!-- Botão + -->
+      <button
+        class="w-[48px] h-[48px] rounded-full bg-[#295f1d] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        (click)="increaseQuantity()"
+      >
+        +
+      </button>
+
+      <!-- Preço total -->
+      <div class="ml-auto bg-[#4b0faa] text-white px-4 py-2 rounded-xl font-bold text-sm">
+        {{ totalPrice | currency: 'BRL' }}
+      </div>
+    </div>
+
+    <!-- Botões rápidos -->
+    <div class="grid grid-cols-3 sm:grid-cols-5 gap-3 mb-6">
+      <button
+        *ngFor="let quota of quotas"
+        (click)="selectQuota(quota)"
+        [ngClass]="{
+          'bg-[#4b0faa] text-white': quota === selectedQuotes,
+          'bg-transparent border border-[#4b0faa] text-[#4b0faa]': quota !== selectedQuotes,
+        }"
+        class="h-[40px] px-5 rounded-full font-semibold text-sm transition"
+      >
+        +{{ quota }}
+      </button>
+    </div>
+
+    <!-- Ações -->
+    <div class="flex flex-col w-full gap-3">
+      <button
+        class="w-full h-12 bg-[#7fea18] text-[#4b0faa] font-bold rounded-[16px] text-base hover:brightness-105 transition"
+      >
+        Comprar agora {{ totalPrice | currency: 'BRL' }}
+      </button>
+
+      <button
+        class="w-full h-12 border-2 border-[#4b0faa] text-[#4b0faa] font-bold bg-transparent rounded-[16px] text-base hover:bg-[#f0e8f9] transition"
+      >
+        Adicionar ao carrinho
+      </button>
+    </div>
+  </ng-template>
+</div>

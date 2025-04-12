@@ -3,13 +3,22 @@
 
 @theme {
   --color-gray-text: #91949f;
-  --colo-gray-light: #b2b7c7;
+  --color-gray-dark: #b2b7c7;
+  --color-gray-light: #ebedf6;
   --color-light-purple: #8c6bfa;
   --color-blue-dark: #2e2170;
   --color-ice-white: #e9eeff;
+  --color-tercearia: #12d1de;
+  --color-tercearia-hover: #5ee7ed;
+  --color-soft-blue: #f2f5fd;
+  --color-blue-haze: #a3aed0;
   --breakpoint-mobile: 320px;
 }
 
 html {
   font-family: 'Poppins';
+}
+
+body {
+  background: #f4f5fa;
 }

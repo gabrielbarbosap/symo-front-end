@@ -1,0 +1,127 @@
+<div class="mt-16 lg:px-48 px-4">
+  <!-- Breadcrumb -->
+  <app-breadcrumb
+    [breadcrumbs]="[
+      { label: 'Home', url: '/' },
+      { label: 'Sorteios', url: '/sorteio' },
+      { label: 'Nº 99439593922332', url: '/sorteio/99439593922332' },
+    ]"
+  ></app-breadcrumb>
+
+  <!-- Conteúdo Principal -->
+  <div class="flex flex-col items-center justify-center mt-8 text-center px-4 sm:px-8">
+    <img src="assets/icons/ticket-check.svg" alt="Ticket" class="w-36 h-32 sm:w-20 sm:h-20 mb-4" />
+    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">Sua compra foi realizada com sucesso!</h3>
+    <p class="text-gray-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto">
+      Veja todas as cotas adquiridas e as suas chances de ganhar.
+    </p>
+  </div>
+
+  <!-- Informações da compra -->
+  <div
+    class="flex flex-row sm:flex-row sm:items-center justify-between bg-white rounded-xl border border-[#D1D8EE] py-4 px-6 sm:py-5 sm:px-16 mt-8 text-center sm:text-left"
+  >
+    <h1 class="text-light-purple text-lg sm:text-xl font-semibold break-words">Nº 99439593922332</h1>
+    <p class="text-gray-700 text-sm sm:text-base mt-2 sm:mt-0">12/12/2024 12:23</p>
+  </div>
+
+  <!-- Título para a seção de Sorteios -->
+  <div class="mt-8">
+    <h2 class="text-lg font-semibold text-gray-800">Sorteios</h2>
+  </div>
+
+  <!-- Detalhes da compra -->
+  <div class="mt-8 mb-8 space-y-8 lg:grid lg:grid-cols-3 lg:gap-6">
+    <!-- Sorteios -->
+    <div class="border border-light-purple rounded-3xl bg-white p-6 space-y-6 lg:col-span-2">
+      <!-- Primeiro Sorteio -->
+      <div class="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-4">
+        <div class="flex items-center space-x-4">
+          <img src="assets/bag_Product_Cart.svg" alt="Pix do Milhão" class="w-36 h-32" />
+          <div>
+            <h3 class="text-lg font-semibold">Pix do Milhão</h3>
+            <p class="bg-gray-light text-blue-dark text-sm">12/12/2024 - 19:30</p>
+            <span class="text-xs bg-tercearia text-blue-dark px-2 py-1 rounded">123 Giros na Roleta</span>
+          </div>
+        </div>
+        <div class="flex items-center border border-light-purple rounded-lg">
+          <img src="assets/bag_banner_roleta.svg" alt="Roleta" class="w-36 h-32" />
+          <div>
+            <h3 class="text-lg font-semibold">Pix do Milhão</h3>
+            <p class="bg-gray-light text-blue-dark text-sm">12/12/2024 - 19:30</p>
+            <span class="text-xs bg-tercearia text-blue-dark px-2 py-1 rounded">123 Giros na Roleta</span>
+            <div class="m-1">
+              <app-button [context]="'default'" [styleType]="'tertiary'">Girar</app-button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Componente Tickets -->
+      <app-tickets></app-tickets>
+    </div>
+
+    <!-- Detalhes do pagamento -->
+    <div class="bg-white rounded-xl p-6 space-y-6">
+      <!-- Título para a seção de Detalhes do pagamento -->
+      <div class="mt-8">
+        <h2 class="text-lg font-semibold text-gray-800">Detalhes</h2>
+      </div>
+      <div class="text-gray-600 text-sm space-y-2">
+        <!-- Subtotal -->
+        <div class="flex justify-between">
+          <span>Subtotal (2 itens)</span>
+          <span class="font-semibold">R$ 2.014,95</span>
+        </div>
+
+        <!-- Cotas -->
+        <div class="flex justify-between">
+          <span>Pix do Milhão (123 cotas)</span>
+          <span class="font-semibold">R$ 123,00</span>
+        </div>
+
+        <!-- Descontos -->
+        <div class="flex justify-between">
+          <span>Descontos</span>
+          <span class="text-light-purple">-R$ 1.000,00</span>
+        </div>
+
+        <!-- Linha divisória -->
+        <hr class="my-2 text-[#DFE6F6]" />
+
+        <!-- Total -->
+        <div class="flex justify-between text-lg font-semibold">
+          <span>Total</span>
+          <span>R$ 1.014,95</span>
+        </div>
+      </div>
+
+      <!-- Forma de pagamento -->
+      <div class="mt-4 p-3 bg-[#DFE6F6] rounded-lg">
+        <h3 class="text-sm font-semibold text-blue-dark">Forma de pagamento</h3>
+        <div class="flex items-center">
+          <img src="assets/icons/pix.svg" alt="Pix" />
+          <p class="ml-2 text-light-purple font-medium">PIX</p>
+        </div>
+      </div>
+      <!-- Linha divisória -->
+      <hr class="my-2 text-[#DFE6F6]" />
+      <!-- Total -->
+      <div class="flex flex-col text-lg">
+        <span class="font-semibold">Comprador</span>
+        <div class="flex flex-row justify-between">
+          <p>Nome</p>
+          <p class="font-semibold text-sm">Rafael Oliveira Santos</p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>CPF</p>
+          <p class="font-semibold text-sm">009. **********435</p>
+        </div>
+        <div class="flex flex-row justify-between">
+          <p>Telefone</p>
+          <p class="font-semibold text-sm">(41) 999******1</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
