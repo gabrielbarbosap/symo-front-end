@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ENVIRONMENT } from '../../environments/environment.token';
 
 export interface Registration {
@@ -59,6 +59,14 @@ export class AuthService {
   }
 
   signin(auth: Login): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.environment.apiUrl}/auth`, auth);
+    return this.http.post<LoginResponse>(`${this.environment.apiUrl}/auth`, auth).pipe(
+      tap((response) => {
+        localStorage.setItem('token', response.token);
+      })
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
   }
 }
