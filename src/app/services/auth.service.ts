@@ -27,9 +27,9 @@ export interface Registration {
 export interface UpdateProfile {
   user: {
     nome: string;
-    cpf: string;
-    email: string;
-    celular: string;
+    cpf?: string;
+    email?: string;
+    celular?: string;
     data_nascimento: string;
   };
   endereco?: {
@@ -68,7 +68,6 @@ interface ProfileResponse {
   id: number;
   nome: string;
   email: string;
-  telefone: string;
   dataNascimento: string;
   cpf: string;
   celular: string;
@@ -112,7 +111,7 @@ export class AuthService {
   }
 
   updateProfile(profile: UpdateProfile): Observable<ProfileResponse> {
-    return this.http.put<ProfileResponse>(`${this.environment.apiUrl}/user/profile`, profile);
+    return this.http.patch<ProfileResponse>(`${this.environment.apiUrl}/user/profile`, profile);
   }
 
   logout() {
