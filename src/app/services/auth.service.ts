@@ -1,10 +1,11 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { delay, Observable, of, tap, throwError } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { ENVIRONMENT } from '../../environments/environment.token';
 
 export interface Registration {
   user: {
+    nome: string;
     cpf: string;
     email: string;
     celular: string;
@@ -25,9 +26,10 @@ export interface Registration {
 
 export interface UpdateProfile {
   user: {
-    cpf: string;
-    email: string;
-    celular: string;
+    nome: string;
+    cpf?: string;
+    email?: string;
+    celular?: string;
     data_nascimento: string;
   };
   endereco?: {
@@ -62,14 +64,13 @@ interface LoginResponse {
   expiresAt: string;
 }
 
-// TODO: Modificar response
 interface ProfileResponse {
   id: number;
   nome: string;
   email: string;
-  telefone: string;
   dataNascimento: string;
   cpf: string;
+  celular: string;
 }
 
 @Injectable({
@@ -87,31 +88,10 @@ export class AuthService {
   public isLoggedIn = signal(false);
 
   signup(registration: Registration): Observable<RegistrationResponse> {
-    return of({
-      cpf: '1234567890',
-      email: 'john.doe@example.com',
-      celular: '1234567890',
-      dataNascimento: '2021-01-01',
-    }).pipe(delay(2000));
-
     return this.http.post<RegistrationResponse>(`${this.environment.apiUrl}/signup`, registration);
   }
 
   signin(auth: Login): Observable<LoginResponse> {
-    return of({
-      type: 'Bearer',
-      name: 'John Doe',
-      token: '1234567890',
-      abilities: ['read', 'write'],
-      lastUsedAt: '2021-01-01 12:00:00',
-      expiresAt: '2021-01-01 12:00:00',
-    }).pipe(
-      delay(2000),
-      tap((response) => {
-        localStorage.setItem('token', response.token);
-      })
-    );
-
     return this.http.post<LoginResponse>(`${this.environment.apiUrl}/auth`, auth).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
@@ -122,26 +102,7 @@ export class AuthService {
   }
 
   getProfile(): Observable<ProfileResponse> {
-    if (localStorage.getItem('token')) {
-      return of({
-        id: 1,
-        nome: 'John Doe',
-        email: 'john.doe@example.com',
-        telefone: '12345678901',
-        dataNascimento: '2021-12-31',
-        cpf: '12345678901',
-      }).pipe(
-        delay(2000),
-        tap((response) => {
-          this.profile.set(response);
-          this.isLoggedIn.set(true);
-        })
-      );
-    }
-
-    return throwError(() => new Error('Token not found'));
-
-    return this.http.get<ProfileResponse>(`${this.environment.apiUrl}/profile`).pipe(
+    return this.http.get<ProfileResponse>(`${this.environment.apiUrl}/user/profile`).pipe(
       tap((response) => {
         this.profile.set(response);
         this.isLoggedIn.set(true);
@@ -150,22 +111,7 @@ export class AuthService {
   }
 
   updateProfile(profile: UpdateProfile): Observable<ProfileResponse> {
-    return of({
-      id: 1,
-      nome: 'Bear Doe',
-      email: 'bear.doe@example.com',
-      telefone: '12345678901',
-      dataNascimento: '2021-12-31',
-      cpf: '12345678901',
-    })
-      .pipe(delay(2000))
-      .pipe(
-        tap((response) => {
-          this.profile.set(response);
-        })
-      );
-
-    return this.http.put<ProfileResponse>(`${this.environment.apiUrl}/profile`, profile);
+    return this.http.put<ProfileResponse>(`${this.environment.apiUrl}/user/profile`, profile);
   }
 
   logout() {

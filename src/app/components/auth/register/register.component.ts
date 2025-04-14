@@ -213,6 +213,8 @@ export class RegisterComponent {
 
       if (password !== confirmPassword) {
         this.toast.info('As senhas não conferem');
+        this.isSubmitting.set(false);
+        return;
       }
 
       const phone = this.registrationForm.value.contactInfo.phone;
@@ -220,13 +222,16 @@ export class RegisterComponent {
 
       if (phone !== phoneConfirmation) {
         this.toast.info('Os telefones não conferem');
+        this.isSubmitting.set(false);
+        return;
       }
 
-      const formDate = this.registrationForm.value.personalInfo.birthDate.split('/');
-      const date = `${formDate[2]}-${formDate[1]}-${formDate[0]}`;
+      const formDate = this.registrationForm.value.personalInfo.birthDate;
+      const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
 
       const payload: Registration = {
         user: {
+          nome: this.registrationForm.value.personalInfo.fullName,
           celular: this.registrationForm.value.contactInfo.phone,
           cpf: this.registrationForm.value.personalInfo.cpf,
           data_nascimento: date,

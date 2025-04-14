@@ -73,14 +73,14 @@ export class ProfileFormComponent implements OnInit {
     this.profileForm = this.fb.group({
       personalInfo: this.fb.group({
         fullName: ['', [Validators.required]],
-        cpf: ['', [Validators.required]],
+        cpf: [{ value: '', disabled: true }, [Validators.required]],
         birthDate: ['', [Validators.required]],
         photo: [null],
       }),
       contactInfo: this.fb.group({
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.required]],
-        phoneConfirmation: ['', [Validators.required]],
+        email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
+        phone: [{ value: '', disabled: true }, [Validators.required]],
+        phoneConfirmation: [{ value: '', disabled: true }, [Validators.required]],
       }),
       // Validators.required
       addressInfo: this.fb.group({
@@ -120,13 +120,13 @@ export class ProfileFormComponent implements OnInit {
         this.profileForm.patchValue({
           personalInfo: {
             fullName: profile.nome,
-            cpf: profile.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4'),
-            birthDate: profile.dataNascimento.split('-').reverse().join('/'),
+            cpf: profile.cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, '$1.$2.$3-$4') ?? '',
+            birthDate: profile.dataNascimento.split('T')?.[0]?.split('-').reverse().join('/') ?? '',
           },
           contactInfo: {
             email: profile.email,
-            phone: profile.telefone,
-            phoneConfirmation: profile.telefone,
+            phone: profile.celular,
+            phoneConfirmation: profile.celular,
           },
         });
 
@@ -220,22 +220,31 @@ export class ProfileFormComponent implements OnInit {
     if (this.profileForm.valid) {
       this.isSubmitting.set(true);
 
+      /*
       const phone = this.profileForm.value.contactInfo.phone;
       const phoneConfirmation = this.profileForm.value.contactInfo.phoneConfirmation;
 
       if (phone !== phoneConfirmation) {
         this.toast.info('Os telefones não conferem');
+        this.isSubmitting.set(false);
+        return;
       }
+        */
 
-      const formDate = this.profileForm.value.personalInfo.birthDate.split('/');
-      const date = `${formDate[2]}-${formDate[1]}-${formDate[0]}`;
+      const formDate = this.profileForm.value.personalInfo.birthDate;
+      let date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+
+      if (formDate.includes('/')) {
+        date = formDate.split('/').reverse().join('-');
+      }
 
       const payload: UpdateProfile = {
         user: {
-          celular: this.profileForm.value.contactInfo.phone,
-          cpf: this.profileForm.value.personalInfo.cpf,
+          nome: this.profileForm.value.personalInfo.fullName,
+          // celular: this.profileForm.value.contactInfo.phone,
+          // cpf: this.profileForm.value.personalInfo.cpf,
           data_nascimento: date,
-          email: this.profileForm.value.contactInfo.email,
+          // email: this.profileForm.value.contactInfo.email,
         },
       };
 
