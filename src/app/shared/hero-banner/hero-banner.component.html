@@ -1,21 +1,54 @@
 <!-- Contêiner Principal -->
-<div class="mx-auto shadow-2xs bg-white p-6 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 mt-[-6vh] mb-8">
+<!-- <div class="mx-auto shadow-2xs bg-white p-6 sm:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 mt-[-6vh] mb-8">
   <app-progress class="flex items-stretch"></app-progress>
   <div class="flex flex-col items-center text-center w-full max-w-md mx-auto py-2">
-    <!-- Título -->
     <h2 class="text-3xl sm:text-3xl font-bold text-left text-[#4b0faa] leading-tight mb-3">
       Caroço da Sorte: 3.000,00 Reais no seu bolso
     </h2>
 
-    <!-- Tags de edição, data e preço -->
     <div class="flex flex-wrap justify-start gap-2 mb-6 w-full">
       <span class="bg-[#1d054c] text-white px-3 py-1 rounded text-xs font-bold"> EDIÇÃO 01 </span>
       <span class="bg-[#f0e8f9] text-[#1d054c] px-3 py-1 rounded text-xs font-semibold"> 17/05/2025 – 19:00 </span>
       <span class="bg-[#7fea18] text-[#1d054c] px-3 py-1 rounded text-xs font-semibold">
-        Cota <span class="font-bold">R$ 3,00</span>
+        TÍTULO <span class="font-bold">R$ 3,00</span>
       </span>
     </div>
 
     <app-quota-selection class="w-full"></app-quota-selection>
+  </div>
+</div> -->
+
+<!-- Contêiner Principal -->
+<div
+  class="mx-auto px-4 pb-4 shadow-2xs bg-white md:rounded-3xl md:p-6 flex flex-col md:flex-row gap-4 sm:gap-6 mt-[-4vh] md:mt-[-8vh] mb-8 z-50 md:relative md:max-w-[90%]"
+>
+  <app-progress class="flex items-stretch"></app-progress>
+  <div class="flex-1 flex flex-col mt-2">
+    <h2 class="text-xl sm:text-2xl md:text-3xl font-bold text-[#8C6BFA] mb-4">
+      {{ title }}
+    </h2>
+    <div class="flex flex-wrap gap-2 mb-4">
+      <span class="bg-[#2E2170] px-2 sm:px-3 py-1 rounded text-white text-xs sm:text-sm font-bold">
+        {{ edition }}
+      </span>
+      <span class="bg-[#C4CCE4] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm text-[#2E2170] font-bold">
+        {{ date }}
+      </span>
+      <span class="bg-[#12D1DE] text-[#2E2170] px-2 sm:px-3 py-1 rounded text-xs sm:text-sm">
+        TÍTULO <span class="font-bold">{{ price | currency: 'BRL' }}</span>
+      </span>
+    </div>
+
+    <app-quota-selection class="mt-4" [context]="'hero'"></app-quota-selection>
+  </div>
+
+  <div class="flex flex-col md:justify-between mt-5 md:mt-0">
+    <app-button styleType="primary" context="hero">
+      Comprar agora <br />
+      @if (totalPrice > 0) {
+        <span class="font-bold text-lg">{{ totalPrice | currency: 'BRL' }}</span>
+      }
+    </app-button>
+    <app-button class="mt-2" styleType="secondary" context="hero">Adicionar ao carrinho</app-button>
   </div>
 </div>
