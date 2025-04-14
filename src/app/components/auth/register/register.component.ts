@@ -227,6 +227,7 @@ export class RegisterComponent {
 
       const payload: Registration = {
         user: {
+          nome: this.registrationForm.value.personalInfo.fullName,
           celular: this.registrationForm.value.contactInfo.phone,
           cpf: this.registrationForm.value.personalInfo.cpf,
           data_nascimento: date,

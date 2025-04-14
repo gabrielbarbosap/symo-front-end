@@ -232,6 +232,7 @@ export class ProfileFormComponent implements OnInit {
 
       const payload: UpdateProfile = {
         user: {
+          nome: this.profileForm.value.personalInfo.fullName,
           celular: this.profileForm.value.contactInfo.phone,
           cpf: this.profileForm.value.personalInfo.cpf,
           data_nascimento: date,
