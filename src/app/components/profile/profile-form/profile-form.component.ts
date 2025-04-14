@@ -232,7 +232,11 @@ export class ProfileFormComponent implements OnInit {
         */
 
       const formDate = this.profileForm.value.personalInfo.birthDate;
-      const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+      let date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+
+      if (formDate.includes('/')) {
+        date = formDate.split('/').reverse().join('-');
+      }
 
       const payload: UpdateProfile = {
         user: {

@@ -111,7 +111,7 @@ export class AuthService {
   }
 
   updateProfile(profile: UpdateProfile): Observable<ProfileResponse> {
-    return this.http.patch<ProfileResponse>(`${this.environment.apiUrl}/user/profile`, profile);
+    return this.http.put<ProfileResponse>(`${this.environment.apiUrl}/user/profile`, profile);
   }
 
   logout() {
