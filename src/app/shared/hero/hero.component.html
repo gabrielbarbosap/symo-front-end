@@ -1,9 +1,11 @@
 <div class="w-full">
-  <!-- Banner para mobile -->
-  <img *ngIf="isMobile" src="assets/banner.png" alt="Banner Mobile" />
+  <div class="flex justify-center items-center bg-[#45009D]">
+    <!-- Banner para mobile -->
+    <img *ngIf="isMobile" src="assets/banner.png" alt="Banner Mobile" />
 
-  <!-- Banner para desktop -->
-  <img *ngIf="!isMobile" src="assets/bannerC.png" alt="Banner Desktop" />
+    <!-- Banner para desktop -->
+    <img *ngIf="!isMobile" src="assets/bannerC.png" alt="Banner Desktop" />
+  </div>
 
   <app-hero-banner></app-hero-banner>
 </div>
