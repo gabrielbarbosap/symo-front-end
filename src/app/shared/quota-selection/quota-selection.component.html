@@ -7,7 +7,7 @@
   }"
 >
   <!-- Layout INICIAL -->
-  <ng-container *ngIf="!showAdvanced; else layoutAvancado">
+  <ng-container *ngIf="!showAdvanced || !isMobile; else layoutAvancado">
     <div class="flex items-center justify-center gap-3 mb-5 text-[#1d054c]">
       <ng-icon name="bootstrapTicket" class="!text-[#1d054c] !w-7 !h-7"></ng-icon>
       <div class="w-px h-7 bg-[#4b0faa] opacity-30"></div>

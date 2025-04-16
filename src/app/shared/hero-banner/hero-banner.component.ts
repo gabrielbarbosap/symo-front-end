@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { QuotaService } from '../../services/quota.service';
@@ -8,6 +8,7 @@ import { ProgressComponent } from '../progress/progress.component';
 import { ButtonComponent } from '../button/button.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
+import { LoteryItem } from '../../services/lotery.service';
 
 @Component({
   standalone: true,
@@ -31,7 +32,11 @@ export class HeroBannerComponent implements OnInit {
   @Input() hours: number = 12;
   @Input() minutes: number = 34;
   @Input() seconds: number = 3;
+  @Input() isMobile: boolean = false;
 
+  @Input() lotery!: LoteryItem;
+
+  @Output() dataLotery = new EventEmitter<any>();
   @Input()
   uuid!: string; // Identificação do sorteio
 
@@ -47,6 +52,37 @@ export class HeroBannerComponent implements OnInit {
     this.quotaService.getQuotaState$(this.uuid).subscribe((state) => {
       this.selectedQuotes = state.selectedQuotes;
     });
+    this.getLottery();
+  }
+
+  getLottery(): void {
+    console.log(this.lotery);
+    this.title = this.lotery.descricao;
+    this.price = this.lotery.valor;
+    this.date = this.formatDate(this.lotery.dataSorteio ?? '');
+    this.soldPercentage = this.calculateSoldPercentage(this.lotery.numeroInicial, this.lotery.numeroFinal);
+  }
+
+  private formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return (
+      date.toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+      }) +
+      ' – ' +
+      date.toLocaleTimeString('pt-BR', {
+        hour: '2-digit',
+        minute: '2-digit',
+      })
+    );
+  }
+
+  private calculateSoldPercentage(inicial: number, final: number): number {
+    const vendidos = 3750;
+    const total = final - inicial;
+    return Math.round((vendidos / total) * 100);
   }
 
   get selectedQuotes(): number {

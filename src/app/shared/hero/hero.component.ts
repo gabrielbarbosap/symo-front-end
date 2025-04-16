@@ -1,6 +1,7 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { HeroBannerComponent } from '../hero-banner/hero-banner.component';
 import { CommonModule } from '@angular/common';
+import { LoteryItem } from '../../services/lotery.service';
 
 @Component({
   selector: 'app-hero',
@@ -10,8 +11,10 @@ import { CommonModule } from '@angular/common';
 })
 export class HeroComponent implements OnInit {
   isMobile = false;
+  @Input() lotery!: LoteryItem;
 
   ngOnInit() {
+    console.log(this.lotery);
     this.checkScreenSize();
   }
 
