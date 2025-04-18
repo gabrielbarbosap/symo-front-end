@@ -29,14 +29,20 @@
     </div>
     <span class="text-[10px] tracking-wide">SORTEIO TERMINA EM</span>
 
-    <span class="text-xl font-bold">12 dias</span>
+    <span class="text-xl font-bold">{{ diasRestantes }} dias</span>
 
-    <div class="flex gap-[2px] text-sm font-semibold text-[#2E2170]">
-      <span class="bg-white px-3 py-[6px] rounded-md">12</span>
-      <span class="text-white px-1">:</span>
-      <span class="bg-white px-3 py-[6px] rounded-md">34</span>
-      <span class="text-white px-1">:</span>
-      <span class="bg-white px-3 py-[6px] rounded-md">03</span>
+    <div class="flex gap-[2px] items-center justify-center text-sm font-semibold text-[#2E2170]">
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ horas }}
+      </span>
+      <span class="text-white">:</span>
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ minutos }}
+      </span>
+      <span class="text-white">:</span>
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ segundos }}
+      </span>
     </div>
   </div>
 </div>
