@@ -20,7 +20,7 @@
       <div class="lg:w-1/4 border-[#b2b7c7] border-b lg:border-b-0 lg:border-r">
         <div class="flex lg:flex-col space-x-6 lg:space-x-0 lg:space-y-4">
           <button
-            class="p-2 w-full text-blue-dark hover:text-light-purple hover:bg-gray-100 rounded transition-all text-center md:text-left"
+            class="p-2 w-full text-blue-dark text-sm md:text-base hover:text-light-purple hover:bg-gray-100 rounded transition-all text-center md:text-left"
             [class.font-semibold]="activeTab === 'account'"
             [class.text-light-purple]="activeTab === 'account'"
             (click)="setActiveTab('account')"
@@ -39,7 +39,7 @@
           </button> -->
 
           <button
-            class="p-2 w-full text-blue-dark hover:text-light-purple hover:bg-gray-100 rounded transition-all text-center md:text-left"
+            class="p-2 w-full text-blue-dark text-sm md:text-base hover:text-light-purple hover:bg-gray-100 rounded transition-all text-center md:text-left"
             [class.font-semibold]="activeTab === 'orders'"
             [class.text-light-purple]="activeTab === 'orders'"
             (click)="setActiveTab('orders')"
