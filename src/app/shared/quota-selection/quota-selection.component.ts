@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { v4 as uuidv4 } from 'uuid'; // Importando o gerador de UUID v4
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { v4 as uuidv4 } from 'uuid';
 import { QuotaService } from '../../services/quota.service';
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { ButtonComponent } from '../button/button.component';
@@ -7,11 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 
-/**
- * Componente para a seleção de cotas de um sorteio específico.
- * Permite ao usuário selecionar um número de cotas e atualizar o estado
- * das cotas selecionadas para o sorteio.
- */
 @Component({
   imports: [NgIf, NgFor, ButtonComponent, NgClass, FormsModule, CurrencyPipe, NgIcon],
   viewProviders: [
@@ -24,36 +19,27 @@ import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
   styleUrls: ['./quota-selection.component.css'],
 })
 export class QuotaSelectionComponent implements OnInit {
-  @Input() context: 'hero' | 'card' = 'hero'; // Define onde o componente está sendo usado
+  @Input() context: 'hero' | 'card' = 'hero';
+  @Input() isMobile: boolean = false;
+  @Output() totalPriceEmit = new EventEmitter<any>();
 
   selectedQuotes: number = 0;
   totalPrice: number = 0;
   progress: number = 0;
   uuid: string = '';
-  quotas: any = [1, 2, 3, 5, 10, 20]; // Exemplo de quotas
-  showAdvanced = false;
+  quotas: any = [1, 2, 3, 5, 10, 20];
+  showAdvanced = true;
 
-  /**
-   * Injeta o serviço QuotaService para gerenciar o estado das cotas.
-   * @param quotaService Serviço para manipulação das cotas.
-   */
+  maxQuota = 20;
+
   constructor(private quotaService: QuotaService) {}
 
-  /**
-   * Gera um UUID único para o sorteio.
-   * Esse UUID pode ser utilizado para identificar de forma única
-   * os dados relacionados ao sorteio atual.
-   */
   private generateUUID(): void {
-    this.uuid = uuidv4(); // Gerando um UUID único com a função v4 do uuid
+    this.uuid = uuidv4();
   }
 
-  /**
-   * Subscrição aos observables do QuotaService para receber os valores
-   * atualizados de cotas, preço e progresso para o sorteio com o UUID fornecido.
-   */
   ngOnInit(): void {
-    this.generateUUID(); // Gerar o UUID ao inicializar o componente
+    this.generateUUID();
     this.quotaService.getQuotaState$(this.uuid).subscribe((state) => {
       this.selectedQuotes = state.selectedQuotes;
       this.totalPrice = state.totalPrice;
@@ -61,43 +47,27 @@ export class QuotaSelectionComponent implements OnInit {
     });
   }
 
-  /**
-   * Método para atualizar o número de cotas selecionadas.
-   * @param amount Número de cotas a adicionar
-   */
   selectQuota(amount: number): void {
-    this.selectedQuotes += amount;
+    this.selectedQuotes = amount;
     this.showAdvanced = true;
-
     this.updateQuotaState();
   }
 
-  /**
-   * Método para limpar as cotas selecionadas.
-   */
   resetSelection(): void {
     this.selectedQuotes = 0;
     this.updateQuotaState();
   }
 
-  /**
-   * Atualiza o estado das cotas com o valor atual de `selectedQuotes` no serviço.
-   */
   public updateQuotaState(): void {
     this.quotaService.updateSelectedQuotes(this.uuid, this.selectedQuotes);
+    this.totalPriceEmit.emit(this.totalPrice);
   }
 
-  /**
-   * Aumenta a quantidade de cotas em 1.
-   */
   increaseQuantity(): void {
     this.selectedQuotes++;
     this.updateQuotaState();
   }
 
-  /**
-   * Diminui a quantidade de cotas em 1, garantindo que nunca seja menor que 0.
-   */
   decreaseQuantity(): void {
     if (this.selectedQuotes > 0) {
       this.selectedQuotes--;

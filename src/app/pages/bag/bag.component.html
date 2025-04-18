@@ -4,124 +4,160 @@
     [breadcrumbs]="[
       { label: 'Home', url: '/' },
       { label: 'Sorteios', url: '/sorteio' },
-      { label: 'Nº 99439593922332', url: '/sorteio/99439593922332' },
     ]"
   ></app-breadcrumb>
 
-  <!-- Conteúdo Principal -->
-  <div class="flex flex-col items-center justify-center mt-8 text-center px-4 sm:px-8">
-    <img src="assets/icons/ticket-check.svg" alt="Ticket" class="w-36 h-32 sm:w-20 sm:h-20 mb-4" />
-    <h3 class="text-xl sm:text-2xl font-semibold text-gray-800 mb-2">Sua compra foi realizada com sucesso!</h3>
-    <p class="text-gray-600 text-sm sm:text-base md:text-lg max-w-3xl mx-auto">
-      Veja todas as cotas adquiridas e as suas chances de ganhar.
-    </p>
-  </div>
+  <!-- Itens comprados -->
+  <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6">
+    <h2 class="text-xl font-bold text-gray-800">Itens</h2>
 
-  <!-- Informações da compra -->
-  <div
-    class="flex flex-row sm:flex-row sm:items-center justify-between bg-white rounded-xl border border-[#D1D8EE] py-4 px-6 sm:py-5 sm:px-16 mt-8 text-center sm:text-left"
-  >
-    <h1 class="text-light-purple text-lg sm:text-xl font-semibold break-words">Nº 99439593922332</h1>
-    <p class="text-gray-700 text-sm sm:text-base mt-2 sm:mt-0">12/12/2024 12:23</p>
-  </div>
+    <ng-container *ngFor="let item of items">
+      <div class="flex flex-col md:flex-row justify-between items-start md:items-center rounded-lg gap-3">
+        <!-- Bloco da imagem + infos -->
+        <div class="flex items-start gap-3 w-full">
+          <img [src]="lotery.imagens[0].img" [alt]="lotery.descricao" class="w-16 h-16 object-contain shrink-0" />
+          <div class="flex flex-col w-full">
+            <div>
+              <h3 class="font-semibold text-base text-gray-800">{{ lotery.descricao }}</h3>
+              <p class="text-xs text-gray-500">{{ date }}</p>
+            </div>
 
-  <!-- Título para a seção de Sorteios -->
-  <div class="mt-8">
-    <h2 class="text-lg font-semibold text-gray-800">Sorteios</h2>
-  </div>
+            <!-- Botões no mobile -->
+            <!-- Botões no mobile alinhados à direita -->
+            <div class="md:hidden flex justify-end w-full mt-2">
+              <div class="flex items-center gap-3">
+                <button
+                  class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+                  (click)="decrease(item)"
+                >
+                  −
+                </button>
 
-  <!-- Detalhes da compra -->
-  <div class="mt-8 mb-8 space-y-8 lg:grid lg:grid-cols-3 lg:gap-6">
-    <!-- Sorteios -->
-    <div class="border border-light-purple rounded-3xl bg-white p-6 space-y-6 lg:col-span-2">
-      <!-- Primeiro Sorteio -->
-      <div class="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-4">
-        <div class="flex items-center space-x-4">
-          <img src="assets/bag_Product_Cart.svg" alt="Pix do Milhão" class="w-36 h-32" />
-          <div>
-            <h3 class="text-lg font-semibold">Pix do Milhão</h3>
-            <p class="bg-gray-light text-blue-dark text-sm">12/12/2024 - 19:30</p>
-            <span class="text-xs bg-tercearia text-blue-dark px-2 py-1 rounded">123 Giros na Roleta</span>
-          </div>
-        </div>
-        <div class="flex items-center border border-light-purple rounded-lg">
-          <img src="assets/bag_banner_roleta.svg" alt="Roleta" class="w-36 h-32" />
-          <div>
-            <h3 class="text-lg font-semibold">Pix do Milhão</h3>
-            <p class="bg-gray-light text-blue-dark text-sm">12/12/2024 - 19:30</p>
-            <span class="text-xs bg-tercearia text-blue-dark px-2 py-1 rounded">123 Giros na Roleta</span>
-            <div class="m-1">
-              <app-button [context]="'default'" [styleType]="'tertiary'">Girar</app-button>
+                <div class="flex items-center gap-1 text-base font-semibold text-[#4B0FAA]">
+                  <span class="text-xl font-bold">{{ item.quantity }}</span>
+                  <span class="text-[#2E2170]">
+                    {{ item.quantity === 1 ? 'Título' : 'Títulos' }}
+                  </span>
+                </div>
+
+                <button
+                  class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+                  (click)="increase(item)"
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <!-- Componente Tickets -->
-      <app-tickets></app-tickets>
+        <!-- Botões no desktop -->
+        <div class="hidden md:flex items-center gap-3">
+          <button
+            class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+            (click)="decrease(item)"
+          >
+            −
+          </button>
+
+          <div class="flex items-center gap-1 text-base font-semibold text-[#4B0FAA]">
+            <span class="text-xl font-bold">{{ item.quantity }}</span>
+            <span class="text-[#2E2170]">
+              {{ item.quantity === 1 ? 'Título' : 'Títulos' }}
+            </span>
+          </div>
+
+          <button
+            class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+            (click)="increase(item)"
+          >
+            +
+          </button>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <!-- Resumo -->
+  <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
+    <div class="space-y-2 text-sm">
+      <!-- <div class="flex justify-between text-gray-700">
+        <span>Subtotal ({{ getTotalItems() }} itens)</span>
+        <span class="font-semibold text-gray-800">R$ {{ subtotal | number: '1.2-2' }}</span>
+      </div> -->
+
+      <div class="flex justify-between text-lg font-semibold text-gray-800">
+        <span>Total</span>
+        <span>R$ {{ total | number: '1.2-2' }}</span>
+      </div>
+      <hr class="my-2 border-gray-200" />
     </div>
 
-    <!-- Detalhes do pagamento -->
-    <div class="bg-white rounded-xl p-6 space-y-6">
-      <!-- Título para a seção de Detalhes do pagamento -->
-      <div class="mt-8">
-        <h2 class="text-lg font-semibold text-gray-800">Detalhes</h2>
-      </div>
-      <div class="text-gray-600 text-sm space-y-2">
-        <!-- Subtotal -->
-        <div class="flex justify-between">
-          <span>Subtotal (2 itens)</span>
-          <span class="font-semibold">R$ 2.014,95</span>
-        </div>
+    <div *ngIf="!showPix" class="w-full flex justify-end">
+      <button
+        class="bg-[#4B0FAA] hover:bg-purple-600 transition text-white text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6"
+        (click)="initPayment()"
+      >
+        Pagar com Pix
+      </button>
+    </div>
 
-        <!-- Cotas -->
-        <div class="flex justify-between">
-          <span>Pix do Milhão (123 cotas)</span>
-          <span class="font-semibold">R$ 123,00</span>
-        </div>
+    <div *ngIf="showPix" class="bg-white rounded-2xl shadow-md p-4 space-y-4 text-sm text-gray-700">
+      <!-- Título -->
+      <h3 class="text-lg font-semibold text-purple-900">Seu código de pagamento por pix está pronto</h3>
+      <p class="text-gray-500">Escaneie o QR Code para pagar com Pix</p>
 
-        <!-- Descontos -->
-        <div class="flex justify-between">
-          <span>Descontos</span>
-          <span class="text-light-purple">-R$ 1.000,00</span>
-        </div>
-
-        <!-- Linha divisória -->
-        <hr class="my-2 text-[#DFE6F6]" />
-
-        <!-- Total -->
-        <div class="flex justify-between text-lg font-semibold">
-          <span>Total</span>
-          <span>R$ 1.014,95</span>
-        </div>
+      <!-- Timer -->
+      <div class="flex items-center gap-2 text-xs text-purple-700 font-bold">
+        <span class="bg-purple-200 px-2 py-1 rounded-md">{{ minutes }}</span>
+        <span>:</span>
+        <span class="bg-purple-200 px-2 py-1 rounded-md">{{ seconds < 10 ? '0' + seconds : seconds }}</span>
+        <span class="ml-1 text-gray-700 font-normal">minutos para pagar</span>
       </div>
 
-      <!-- Forma de pagamento -->
-      <div class="mt-4 p-3 bg-[#DFE6F6] rounded-lg">
-        <h3 class="text-sm font-semibold text-blue-dark">Forma de pagamento</h3>
-        <div class="flex items-center">
-          <img src="assets/icons/pix.svg" alt="Pix" />
-          <p class="ml-2 text-light-purple font-medium">PIX</p>
+      <div class="w-full h-3 bg-gray-200 rounded-full overflow-hidden">
+        <div
+          class="h-full transition-all duration-500"
+          [ngStyle]="{ width: progress + '%', backgroundColor: getProgressColor() }"
+        ></div>
+      </div>
+
+      <!-- QR Code -->
+      <div class="flex justify-center">
+        <qrcode
+          *ngIf="pixCode"
+          [qrdata]="pixCode"
+          [width]="200"
+          [errorCorrectionLevel]="'M'"
+          class="rounded-xl shadow-md p-2 bg-white"
+        ></qrcode>
+      </div>
+
+      <!-- Código Pix com botão copiar -->
+      <div>
+        <p class="text-sm font-medium text-gray-800 mb-1">Código Pix:</p>
+        <div class="relative">
+          <textarea
+            readonly
+            class="w-full h-24 p-3 border border-gray-300 rounded-lg bg-gray-50 text-xs font-mono resize-none"
+            >{{ pixCode }}</textarea
+          >
+          <button
+            class="absolute top-2 right-2 px-3 py-1 text-xs bg-[#4B0FAA] hover:bg-purple-600 text-white rounded-md transition"
+            (click)="copyPixCode()"
+          >
+            Copiar
+          </button>
         </div>
       </div>
-      <!-- Linha divisória -->
-      <hr class="my-2 text-[#DFE6F6]" />
-      <!-- Total -->
-      <div class="flex flex-col text-lg">
-        <span class="font-semibold">Comprador</span>
-        <div class="flex flex-row justify-between">
-          <p>Nome</p>
-          <p class="font-semibold text-sm">Rafael Oliveira Santos</p>
-        </div>
-        <div class="flex flex-row justify-between">
-          <p>CPF</p>
-          <p class="font-semibold text-sm">009. **********435</p>
-        </div>
-        <div class="flex flex-row justify-between">
-          <p>Telefone</p>
-          <p class="font-semibold text-sm">(41) 999******1</p>
-        </div>
-      </div>
+
+      <!-- Botão principal -->
+      <button
+        class="w-full bg-[#4B0FAA] hover:bg-purple-600 transition text-white text-sm py-2 rounded-xl font-medium"
+        (click)="startPix()"
+      >
+        Copiar código Pix
+      </button>
     </div>
   </div>
 </div>

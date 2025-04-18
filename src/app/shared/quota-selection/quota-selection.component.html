@@ -1,4 +1,3 @@
-<!-- Wrapper geral -->
 <div
   class="w-full rounded-xl"
   [ngClass]="{
@@ -6,7 +5,6 @@
     'p-0': showAdvanced,
   }"
 >
-  <!-- Layout INICIAL -->
   <ng-container *ngIf="!showAdvanced; else layoutAvancado">
     <div class="flex items-center justify-center gap-3 mb-5 text-[#1d054c]">
       <ng-icon name="bootstrapTicket" class="!text-[#1d054c] !w-7 !h-7"></ng-icon>
@@ -24,19 +22,15 @@
     </button>
   </ng-container>
 
-  <!-- Layout AVANÇADO -->
   <ng-template #layoutAvancado>
-    <!-- Linha de controle de cotas -->
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-      <!-- Botão - -->
+    <div *ngIf="isMobile" class="flex flex-wrap items-center justify-between gap-2 mb-4">
       <button
-        class="w-[48px] h-[48px] rounded-full bg-[#1d054c] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
         (click)="decreaseQuantity()"
       >
         −
       </button>
 
-      <!-- Quantidade de cotas -->
       <div class="flex items-center gap-1 text-lg font-semibold">
         <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
         <span class="text-[#2E2170]">
@@ -48,53 +42,71 @@
         </span>
       </div>
 
-      <!-- Botão reset -->
       <button class="text-[#999] text-xl font-bold" (click)="resetSelection(); showAdvanced = false">×</button>
 
-      <!-- Botão + -->
       <button
-        class="w-[48px] h-[48px] rounded-full bg-[#295f1d] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
         (click)="increaseQuantity()"
       >
         +
       </button>
-
-      <!-- Preço total -->
-      <div class="ml-auto bg-[#4b0faa] text-white px-4 py-2 rounded-xl font-bold text-sm">
-        {{ totalPrice | currency: 'BRL' }}
-      </div>
     </div>
 
-    <!-- Botões rápidos -->
-    <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
-      <button
-        *ngFor="let quota of quotas"
-        (click)="selectQuota(quota)"
-        [ngClass]="{
-          'bg-[#4b0faa] text-white': quota === selectedQuotes,
-          'bg-transparent border border-[#4b0faa] text-[#4b0faa]': quota !== selectedQuotes,
-        }"
-        class="h-[40px] px-5 rounded-full font-semibold text-sm transition"
-      >
-        +{{ quota }}
-      </button>
-    </div>
-
-    <!-- Ações -->
-    @if (context === 'card') {
-      <div class="flex flex-col w-full gap-3 mt-6">
+    <div class="w-full overflow-x-auto">
+      <div class="flex flex-wrap justify-between items-center gap-3 min-w-fit px-2 py-2">
         <button
-          class="w-full h-12 bg-[#7fea18] text-[#4b0faa] font-bold rounded-[16px] text-base hover:brightness-105 transition"
+          *ngIf="!isMobile"
+          class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white shrink-0"
+          (click)="decreaseQuantity()"
         >
-          Comprar agora {{ totalPrice | currency: 'BRL' }}
+          −
+        </button>
+
+        <div *ngIf="!isMobile" class="flex items-center gap-1 text-lg font-semibold shrink-0">
+          <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
+          <span class="text-[#2E2170]">
+            {{ selectedQuotes === 1 ? 'Título' : 'Títulos' }}
+          </span>
+        </div>
+
+        <button
+          *ngIf="!isMobile"
+          class="text-[#999] text-xl font-bold shrink-0"
+          (click)="resetSelection(); showAdvanced = false"
+        >
+          ×
         </button>
 
         <button
-          class="w-full h-12 border-2 border-[#4b0faa] text-[#4b0faa] font-bold bg-transparent rounded-[16px] text-base hover:bg-[#f0e8f9] transition"
+          *ngIf="!isMobile"
+          class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white shrink-0"
+          (click)="increaseQuantity()"
         >
-          Adicionar ao carrinho
+          +
         </button>
+
+        <ng-container *ngFor="let quota of quotas">
+          <button
+            (click)="selectQuota(quota)"
+            class="relative flex flex-col justify-center items-center rounded-[20px] border-2 text-center transition w-[90px] aspect-square shrink-0"
+            [ngClass]="{
+              'bg-[#4b0faa] text-white border-[#4b0faa]': quota === selectedQuotes,
+              'bg-white text-[#4b0faa] border-[#4b0faa]': quota !== selectedQuotes,
+            }"
+          >
+            <div
+              class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#4b0faa] text-white flex items-center justify-center text-xs font-bold shadow"
+            >
+              +
+            </div>
+
+            <span class="text-sm font-semibold leading-tight">
+              {{ quota }} {{ quota === 1 ? 'Título' : 'Títulos' }}
+            </span>
+            <span class="text-xs font-bold mt-1">Adicionar</span>
+          </button>
+        </ng-container>
       </div>
-    }
+    </div>
   </ng-template>
 </div>

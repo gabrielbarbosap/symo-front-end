@@ -1,0 +1,19 @@
+input[type='range'].slider-thumb::-webkit-slider-thumb {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #4b0faa;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  margin-top: -9px; /* centraliza com a trilha */
+}
+
+input[type='range'].slider-thumb::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #4b0faa;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+}

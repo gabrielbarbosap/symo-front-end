@@ -10,6 +10,8 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root',
 })
 export class QuotaService {
+  private pricePerQuota: number = 3.0;
+
   // Mapa para armazenar o estado das cotas de cada sorteio, identificado por UUID.
   private quotaStateMap: Map<string, BehaviorSubject<QuotaState>> = new Map();
 
@@ -37,7 +39,7 @@ export class QuotaService {
    */
   private getOrCreateQuotaState(uuid: string): QuotaState {
     if (!this.quotaStateMap.has(uuid)) {
-      const initialState: QuotaState = { selectedQuotes: 0, totalPrice: 0, progress: 0 };
+      const initialState: QuotaState = { selectedQuotes: 5, totalPrice: this.pricePerQuota * 5, progress: 0 };
       this.quotaStateMap.set(uuid, new BehaviorSubject<QuotaState>(initialState));
     }
     return this.quotaStateMap.get(uuid)!.value;
@@ -64,7 +66,6 @@ export class QuotaService {
   }
 
   // Preço por cota
-  private pricePerQuota: number = 3.0;
 }
 
 /**
