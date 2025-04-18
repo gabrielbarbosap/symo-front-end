@@ -4,13 +4,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoteryItem, LoteryService } from '../../services/lotery.service';
 import { CommonModule } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { NgpProgress, NgpProgressIndicator } from 'ng-primitives/progress';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-bag',
   standalone: true,
-  imports: [BreadcrumbComponent, CommonModule, QRCodeComponent, NgpProgress, NgpProgressIndicator],
+  imports: [BreadcrumbComponent, CommonModule, QRCodeComponent],
   templateUrl: './bag.component.html',
   styleUrl: './bag.component.css',
 })

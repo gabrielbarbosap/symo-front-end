@@ -1,5 +1,4 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
-import { TopBannerComponent } from '../top-banner/top-banner.component';
 import { LoginComponent } from '../../components/auth/login/login.component';
 import { NgpDialogManager } from 'ng-primitives/dialog';
 import { ActivatedRoute, Params, Router } from '@angular/router';
@@ -9,7 +8,6 @@ import { LogoutComponent } from '../../components/auth/logout/logout.component';
 
 @Component({
   selector: 'app-header',
-  imports: [TopBannerComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
 })

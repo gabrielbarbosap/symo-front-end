@@ -6,14 +6,14 @@ import { QuotaService } from '../../services/quota.service';
 import { QuotaSelectionComponent } from '../quota-selection/quota-selection.component';
 import { ProgressComponent } from '../progress/progress.component';
 import { ButtonComponent } from '../button/button.component';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 import { LoteryItem, LoteryService } from '../../services/lotery.service';
 import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, QuotaSelectionComponent, ProgressComponent, ButtonComponent, NgIcon],
+  imports: [CommonModule, FormsModule, QuotaSelectionComponent, ProgressComponent, ButtonComponent],
   viewProviders: [
     provideIcons({
       bootstrapTicket,

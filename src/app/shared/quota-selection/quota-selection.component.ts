@@ -1,14 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { QuotaService } from '../../services/quota.service';
-import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
-import { ButtonComponent } from '../button/button.component';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 
 @Component({
-  imports: [NgIf, NgFor, ButtonComponent, NgClass, FormsModule, CurrencyPipe, NgIcon],
+  imports: [NgIf, NgFor, NgClass, FormsModule, NgIcon],
   viewProviders: [
     provideIcons({
       bootstrapTicket,
