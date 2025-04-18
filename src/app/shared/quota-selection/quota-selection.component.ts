@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { v4 as uuidv4 } from 'uuid';
 import { QuotaService } from '../../services/quota.service';
 import { CurrencyPipe, NgClass, NgFor, NgIf } from '@angular/common';
@@ -21,13 +21,16 @@ import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 export class QuotaSelectionComponent implements OnInit {
   @Input() context: 'hero' | 'card' = 'hero';
   @Input() isMobile: boolean = false;
+  @Output() totalPriceEmit = new EventEmitter<any>();
 
   selectedQuotes: number = 0;
   totalPrice: number = 0;
   progress: number = 0;
   uuid: string = '';
   quotas: any = [1, 2, 3, 5, 10, 20];
-  showAdvanced = false;
+  showAdvanced = true;
+
+  maxQuota = 20;
 
   constructor(private quotaService: QuotaService) {}
 
@@ -36,7 +39,6 @@ export class QuotaSelectionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showAdvanced = this.isMobile;
     this.generateUUID();
     this.quotaService.getQuotaState$(this.uuid).subscribe((state) => {
       this.selectedQuotes = state.selectedQuotes;
@@ -46,7 +48,7 @@ export class QuotaSelectionComponent implements OnInit {
   }
 
   selectQuota(amount: number): void {
-    this.selectedQuotes += amount;
+    this.selectedQuotes = amount;
     this.showAdvanced = true;
     this.updateQuotaState();
   }
@@ -58,6 +60,7 @@ export class QuotaSelectionComponent implements OnInit {
 
   public updateQuotaState(): void {
     this.quotaService.updateSelectedQuotes(this.uuid, this.selectedQuotes);
+    this.totalPriceEmit.emit(this.totalPrice);
   }
 
   increaseQuantity(): void {

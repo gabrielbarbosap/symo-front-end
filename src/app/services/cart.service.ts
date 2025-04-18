@@ -41,12 +41,13 @@ export class CartService {
     const existingItem = currentCart.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
-      existingItem.quantity += item.quantity;
+      existingItem.quantity = item.quantity;
     } else {
       currentCart.push(item);
     }
 
     // Atualiza o estado do carrinho
+    console.log(...currentCart);
     this.cartSignal.set([...currentCart]);
   }
 

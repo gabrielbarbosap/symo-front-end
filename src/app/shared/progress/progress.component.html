@@ -1,25 +1,23 @@
-<div class="bg-[#2E2170] rounded-xl p-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-sm mx-auto text-white">
+<div class="bg-[#2E2170] rounded-xl p-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-sm mx-auto text-white h-full">
   <!-- Layout Mobile e Tablets -->
   <div class="flex items-center justify-between gap-4 lg:hidden">
     <!-- Progresso à esquerda -->
     <div *ngIf="showProgress" class="flex flex-col items-start">
       <!-- Barra -->
       <div class="w-24 h-3 bg-[#E9EEFF] rounded-full relative overflow-hidden mb-1">
-        <div class="h-full bg-[#8C6BFA] rounded-full transition-all duration-500" style="width: 75%"></div>
+        <div class="h-full bg-[#4B0FAA] rounded-full transition-all duration-500" style="width: 75%"></div>
       </div>
       <span class="text-[10px] font-bold text-white leading-tight">75% <span class="font-normal">VENDIDO</span></span>
     </div>
 
-    <div class="flex items-center gap-2">
-      <span class="text-base font-bold whitespace-nowrap">12 dias</span>
+    <div class="flex items-center gap-[6px] text-sm font-semibold text-[#2E2170]">
+      <span class="text-base font-bold text-white pr-1">{{ diasRestantes }} dias</span>
 
-      <div class="flex gap-[2px] text-sm font-semibold text-[#2E2170]">
-        <span class="bg-white px-2 py-[4px] rounded-md">12</span>
-        <span class="text-white px-1">:</span>
-        <span class="bg-white px-2 py-[4px] rounded-md">34</span>
-        <span class="text-white px-1">:</span>
-        <span class="bg-white px-2 py-[4px] rounded-md">03</span>
-      </div>
+      <span class="bg-white px-2 py-[4px] rounded-md">{{ horas }}</span>
+      <span class="text-white px-1">:</span>
+      <span class="bg-white px-2 py-[4px] rounded-md">{{ minutos }}</span>
+      <span class="text-white px-1">:</span>
+      <span class="bg-white px-2 py-[4px] rounded-md">{{ segundos }}</span>
     </div>
   </div>
 

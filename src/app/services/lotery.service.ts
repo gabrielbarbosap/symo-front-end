@@ -75,6 +75,27 @@ export class LoteryService {
   public loteries = signal<LoteryItem[]>([]);
   public isLoading = signal(false);
 
+  generateOrder(bodyOrder: any): Observable<any> {
+    const body = {
+      id_rifa: bodyOrder.idRifa,
+      quantidade: bodyOrder.quantidade,
+    };
+
+    return this.http.post(`${this.environment.apiUrl}/user/rifa/comprar/cota`, body);
+  }
+
+  updateOrder(pedidoId: number, quantidade: number): Observable<any> {
+    const body = {
+      quantidade_cota: quantidade,
+    };
+
+    return this.http.put(`${this.environment.apiUrl}/user/rifa/pedido/${pedidoId}`, body);
+  }
+
+  getQrCode(idRifa: number, idPedido: number): Observable<any> {
+    return this.http.get(`${this.environment.apiUrl}/user/rifa/${idRifa}/pedido/${idPedido}/qrcode`);
+  }
+
   getLoteries(page: number = 1): Observable<LoteryResponse> {
     this.isLoading.set(true);
 

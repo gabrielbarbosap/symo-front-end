@@ -3,7 +3,7 @@ import { HttpInterceptorFn } from '@angular/common/http';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const token = localStorage.getItem('token');
 
-  const authRoutes = ['/auth', '/signup', '/rifa'];
+  const authRoutes = ['/auth', '/signup'];
   const isAuthRoute = authRoutes.some((route) => req.url.includes(route));
 
   if (!isAuthRoute) {

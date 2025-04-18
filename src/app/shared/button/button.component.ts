@@ -16,7 +16,7 @@ export class ButtonComponent {
     const baseClass = 'text-center text-xs sm:text-sm md:text-base p-2 rounded-xl w-full';
 
     const sizeClass =
-      this.context === 'wallet' ? 'h-20' : this.context === 'hero' ? 'h-[56px] md:h-[137px]' : 'h-[56px]';
+      this.context === 'wallet' ? 'h-20' : this.context === 'hero' ? 'h-[56px] md:h-[98px]' : 'h-[56px]';
 
     if (this.disabled) {
       return `bg-gray-300 text-gray-600 cursor-not-allowed`;
@@ -24,7 +24,7 @@ export class ButtonComponent {
 
     switch (this.styleType) {
       case 'primary':
-        return `${baseClass} ${sizeClass} bg-[#8C6BFA] text-white hover:bg-[#764BE9]`;
+        return `${baseClass} ${sizeClass} bg-[#4B0FAA] text-white hover:bg-[#764BE9]`;
       case 'secondary':
         return `${baseClass} ${sizeClass} border-2 border-[#8C6BFA] text-[#8C6BFA]`;
       case 'tertiary':

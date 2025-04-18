@@ -8,7 +8,8 @@ import { ProgressComponent } from '../progress/progress.component';
 import { ButtonComponent } from '../button/button.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
-import { LoteryItem } from '../../services/lotery.service';
+import { LoteryItem, LoteryService } from '../../services/lotery.service';
+import { Router } from '@angular/router';
 
 @Component({
   standalone: true,
@@ -42,10 +43,12 @@ export class HeroBannerComponent implements OnInit {
 
   private _selectedQuotes: number = 0;
   options: number[] = [100, 200, 300, 400];
-
+  totalPrice: any;
   constructor(
     private quotaService: QuotaService,
-    private cartService: CartService
+    private cartService: CartService,
+    private loteryService: LoteryService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -61,6 +64,7 @@ export class HeroBannerComponent implements OnInit {
     this.price = this.lotery.valor;
     this.date = this.formatDate(this.lotery.dataSorteio ?? '');
     this.soldPercentage = this.calculateSoldPercentage(this.lotery.numeroInicial, this.lotery.numeroFinal);
+    this.totalPrice = this.lotery.valor * 5;
   }
 
   private formatDate(dateString: string): string {
@@ -93,8 +97,9 @@ export class HeroBannerComponent implements OnInit {
     this._selectedQuotes = Math.round(value);
   }
 
-  get totalPrice(): number {
-    return this.selectedQuotes * this.price;
+  emitPrice(event: any) {
+    this.totalPrice = 0;
+    this.totalPrice = event;
   }
 
   openSelection(): void {
@@ -116,5 +121,38 @@ export class HeroBannerComponent implements OnInit {
   decreaseQuotes(): void {
     const newQuotes = Math.max(1, this.selectedQuotes - 1);
     this.quotaService.updateSelectedQuotes(this.uuid, newQuotes);
+  }
+
+  toSaleBag() {
+    const quantity = this.totalPrice / this.lotery.valor;
+    console.log(quantity);
+    const itemCart = {
+      id: this.lotery.id,
+      name: this.lotery.descricao,
+      price: this.lotery.valor,
+      quantity: quantity,
+    };
+    this.cartService.addToCart(itemCart);
+
+    const bodyOrder = {
+      idRifa: this.lotery.id,
+      quantidade: quantity,
+    };
+    sessionStorage.setItem('loteryData', JSON.stringify(this.lotery));
+
+    this.loteryService.generateOrder(bodyOrder).subscribe({
+      next: (response) => {
+        this.router.navigate(['/bag'], {
+          queryParams: {
+            quantidade: this.totalPrice / this.lotery.valor,
+            sorteio: this.lotery.id,
+            pedido: response.id,
+          },
+        });
+      },
+      error: (err) => {
+        console.error('Erro ao gerar pedido:', err);
+      },
+    });
   }
 }
