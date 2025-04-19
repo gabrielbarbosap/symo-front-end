@@ -44,11 +44,18 @@
             <ng-container *ngFor="let sorteio of compra.sorteios">
               <!-- <div class="grid grid-cols-1 md:grid-cols-2"> -->
               <div class="border border-[#8C6BFA] p-2 rounded-xl m-2">
-                <div class="flex items-center gap-2">
-                  <img [src]="sorteio.imagemUrl" alt="{{ sorteio.nome }}" class="w-5 h-5 rounded-md object-cover" />
+                <div class="flex flex-col md:flex-row md:items-start gap-2">
+                  <img
+                    [src]="sorteio.imagemUrl"
+                    alt="{{ sorteio.nome }}"
+                    class="w-full md:w-1/2 md:h-1/2 rounded-md object-cover"
+                  />
                   <div>
-                    <h4 class="text-sm font-semibold text-gray-700">{{ sorteio.nome }}</h4>
-                    <p class="text-xs text-gray-500">{{ sorteio.data }} {{ sorteio.hora }}</p>
+                    <h4 class="text-lg md:font-semibold text-[#8C6BFA]">{{ sorteio.nome }}</h4>
+                    <span class="text-xs bg-[#B2B7C7] text-[#2E2170] rounded p-1">
+                      <span>{{ sorteio.data }}</span> -
+                      <span>{{ sorteio.hora }}</span>
+                    </span>
                   </div>
                 </div>
                 <div class="flex flex-row justify-between items-center mt-4">
