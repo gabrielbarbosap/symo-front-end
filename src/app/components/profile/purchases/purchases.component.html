@@ -1,4 +1,4 @@
-<div class="flex flex-col mx-auto w-full sm:max-w-md md:max-w-lg lg:max-w-2xl xl:max-w-3xl">
+<div class="flex flex-col mx-auto w-full sm:max-w-md md:max-w-2xl xl:max-w-3xl">
   <h2 class="text-xl font-semibold text-blue-dark mb-4 text-center sm:text-left">Minhas compras</h2>
 
   <div class="bg-white md:border md:border-light-purple md:rounded-xl md:shadow-md md:p-8">
@@ -9,27 +9,41 @@
 
       <div class="rounded-lg border border-gray-200" *ngFor="let compra of comprasRealizadasGeral">
         <div
-          class="p-3 border-b border-gray-200 flex items-center justify-between cursor-pointer"
+          class="p-3 border-gray-200 flex items-center justify-between cursor-pointer"
           (click)="compra.expanded = !compra.expanded"
         >
           <div class="p-2">
-            <p class="text-sm text-light-purple font-semibold">Nº {{ compra.numeroCompra }}</p>
+            <div class="flex items-center gap-2 mb-1">
+              <p class="text-sm text-light-purple font-semibold">Nº {{ compra.numeroCompra }}</p>
+              <span class="bg-yellow-400 text-yellow-900 font-semibold px-2 py-0.5 rounded-md text-xs flex md:hidden">
+                PREMIADO
+              </span>
+            </div>
+            <p class="text-xs text-gray-500 flex md:hidden mb-1">{{ compra.dataCompra }}</p>
             <p class="text-xs text-gray-500">
               {{ compra.sorteios.length }} SORTEIO{{ compra.sorteios.length > 1 ? 'S' : '' }}
-              <span class="bg-yellow-400 text-yellow-900 font-semibold px-2 py-0.5 rounded-md text-xxs">PREMIADO</span>
+              <span
+                class="bg-yellow-400 text-yellow-900 font-semibold px-2 py-0.5 rounded-md text-xs hidden md:inline-block"
+              >
+                PREMIADO
+              </span>
             </p>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs text-gray-500">{{ compra.dataCompra }}</span>
-            <button class="text-purple-500 text-sm">{{ compra.expanded ? '-' : '+' }}</button>
+            <span class="text-xs text-gray-500 hidden md:flex">{{ compra.dataCompra }}</span>
+            <button class="text-purple-500 text-4xl cursor-pointer">{{ compra.expanded ? '-' : '+' }}</button>
           </div>
         </div>
 
-        <div *ngIf="compra.expanded" class="space-y-4 p-4">
-          <div *ngFor="let sorteio of compra.sorteios" class="border border-gray-200 rounded-lg">
-            <div class="grid grid-cols-1 md:grid-cols-2 p-3">
-              <div class="border border-gray-200 p-2 rounded-lg m-2">
-                <h6 class="text-xs font-bold mb-2 text-blue-dark">Sorteios</h6>
+        <div *ngIf="compra.expanded" class="space-y-4 flex flex-col md:flex-row">
+          <!-- class="border border-gray-200 rounded-lg" -->
+          <div class="w-full md:max-w-sm">
+            <div class="mx-4 mb-0">
+              <h6 class="text-lg font-bold text-[#2E2170]">Sorteios</h6>
+            </div>
+            <ng-container *ngFor="let sorteio of compra.sorteios">
+              <!-- <div class="grid grid-cols-1 md:grid-cols-2"> -->
+              <div class="border border-[#8C6BFA] p-2 rounded-xl m-2">
                 <div class="flex items-center gap-2">
                   <img [src]="sorteio.imagemUrl" alt="{{ sorteio.nome }}" class="w-5 h-5 rounded-md object-cover" />
                   <div>
@@ -37,9 +51,9 @@
                     <p class="text-xs text-gray-500">{{ sorteio.data }} {{ sorteio.hora }}</p>
                   </div>
                 </div>
-                <div class="flex flex-row justify-between items-center">
-                  <h5 class="text-xs font-semibold text-gray-600 mb-1">Títulos</h5>
-                  <span class="text-light-purple font-semibold"> Cotas</span>
+                <div class="flex flex-row justify-between items-center mt-4">
+                  <h5 class="text-lg font-bold text-[#2E2170] mb-1">Títulos</h5>
+                  <span class="text-[#8C6BFA] text-sm">123 Cotas</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2">
                   <div
@@ -56,77 +70,78 @@
                     + {{ 15 - sorteio.titulos.length }} mais
                   </div>
                 </div>
-                <button class="mt-2 text-purple-500 text-xs">Mostrar mais</button>
+
+                <div class="flex justify-center">
+                  <button class="mt-2 text-[#8C6BFA] text-xs font-bold cursor-pointer">Mostrar mais</button>
+                </div>
               </div>
-              <div class="border border-gray-200 p-2 rounded-lg m-2">
-                <h6 class="text-xs font-semibold mb-1 text-blue-dark">Detalhes</h6>
-                <dl class="text-xs text-blue-dark space-y-2">
-                  <h6 class="text-xs font-semibold mb-1 text-blue-dark">Pagamento</h6>
-                  <div class="flex justify-between">
-                    Subtotal
-                    <dd>
-                      {{ sorteio.detalhesPagamento.subtotalItens | currency: 'BRL' : 'symbol' : '1.2-2' }}
-                    </dd>
-                  </div>
-                  <div class="flex justify-between">
-                    Pix do milhão
-                    <dd>{{ sorteio.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
-                  </div>
-                  <div class="flex justify-between">
-                    Pix do milhão
-                    <dd>{{ sorteio.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
-                  </div>
-                  <div class="flex justify-between font-semibold text-gray-700">
-                    <dt>Total</dt>
-                    <dd class="font-bold text-light-purple">
-                      {{ sorteio.detalhesPagamento.total | currency: 'BRL' : 'symbol' : '1.2-2' }}
-                    </dd>
-                  </div>
-                  <div class="flex flex-col w-full rounded-xl p-2 bg-[#DFE6F6]">
-                    <dt>Forma de pagamento</dt>
-                    <div class="flex flex-row items-center py-2">
-                      <img src="assets/icons/pix.svg" class="h-8 w-8" alt="Pix" />
-                      <dd class="font-semibold ml-2">{{ sorteio.formaPagamento }}</dd>
-                    </div>
-                  </div>
-                  <div class="mt-2 border-t border-gray-200 pt-2">
-                    <div class="flex flex-col justify-between">
-                      <dt class="font-semibold text-gray-600">Comprador</dt>
-                      <dd class="text-blue-dark font-bold">{{ sorteio.comprador.nome }}</dd>
-                    </div>
-                    <div class="flex justify-between">
-                      <dt>CPF:</dt>
-                      <dd class="text-gray-500">{{ maskLast6Digits(sorteio.comprador.cpf) }}</dd>
-                    </div>
-                    <div class="flex justify-between">
-                      <dt>Tel:</dt>
-                      <dd class="text-gray-500">{{ maskLast6Digits(sorteio.comprador.telefone) }} /</dd>
-                    </div>
-                    <div class="flex justify-between">
-                      <dt>Cel:</dt>
-                      <dd>
-                        {{ maskLast6Digits(sorteio.comprador.celular) }}
-                      </dd>
-                    </div>
-                  </div>
-                  <!-- <div *ngIf="sorteio.ganhou" class="mt-2 border-t border-gray-200 pt-2">
-                    <dt class="font-semibold text-green-600">VOCÊ GANHOU!</dt>
-                    <dd class="text-gray-500" *ngIf="sorteio.premioPrincipal">
-                      Prêmio Principal: {{ sorteio.premioPrincipal }}
-                    </dd>
-                    <dd class="text-gray-500" *ngIf="sorteio.outrosPremios && sorteio.outrosPremios.length > 0">
-                      Outros Prêmios: {{ sorteio.outrosPremios.join(', ') }}
-                    </dd>
-                  </div> -->
-                </dl>
+              <!-- </div> -->
+            </ng-container>
+          </div>
+          <div class="p-2 md:p-0 md:px-2 flex-1">
+            <h6 class="text-lg font-bold mb-4 md:mb-8 text-[#2E2170]">Detalhes</h6>
+            <dl class="text-xs text-blue-dark space-y-2">
+              <h6 class="text-lg font-bold mb-3 text-[#2E2170]">Pagamento</h6>
+              <div class="flex justify-between">
+                Subtotal
+                <dd>
+                  {{ compra.detalhesPagamento.subtotalItens | currency: 'BRL' : 'symbol' : '1.2-2' }}
+                </dd>
               </div>
-            </div>
+              <div class="flex justify-between pl-2">
+                Pix do milhão
+                <dd>{{ compra.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
+              </div>
+              <div class="flex justify-between pl-2">
+                Pix do milhão
+                <dd>{{ compra.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
+              </div>
+              <div class="border-t border-b py-3 my-3 border-gray-200 flex justify-between font-semibold text-gray-700">
+                <span class="text-[#2E2170] font-bold">Total</span>
+                <dd class="font-semibold text-[#8C6BFA]">
+                  {{ compra.detalhesPagamento.total | currency: 'BRL' : 'symbol' : '1.2-2' }}
+                </dd>
+              </div>
+              <div class="flex flex-col w-full rounded-xl p-2 bg-[#E9EEFF85] border border-[#DFE6F6]">
+                <dt>Forma de pagamento</dt>
+                <div class="flex flex-row items-center pt-2 text-[#8C6BFA]">
+                  <img src="assets/icons/pix.svg" class="h-4 w-4" alt="Pix" />
+                  <dd class="font-semibold ml-2 text-sm">{{ compra.formaPagamento }}</dd>
+                </div>
+              </div>
+              <div class="mt-2 border-t border-gray-200 pt-2">
+                <div class="flex flex-col justify-between">
+                  <dt class="text-lg font-bold mb-3 text-[#2E2170]">Comprador</dt>
+                </div>
+                <div class="flex justify-between">
+                  <dt>Nome:</dt>
+                  <dd class="text-[#2E2170] font-semibold">{{ compra.comprador.nome }}</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt>CPF:</dt>
+                  <dd class="text-[#2E2170] font-semibold">{{ maskLast6Digits(compra.comprador.cpf) }}</dd>
+                </div>
+                <div class="flex justify-between">
+                  <dt>Tel:</dt>
+                  <dd class="text-[#2E2170] font-semibold">{{ maskLast6Digits(compra.comprador.telefone) }}</dd>
+                </div>
+              </div>
+              <!-- <div *ngIf="sorteio.ganhou" class="mt-2 border-t border-gray-200 pt-2">
+                <dt class="font-semibold text-green-600">VOCÊ GANHOU!</dt>
+                <dd class="text-gray-500" *ngIf="sorteio.premioPrincipal">
+                  Prêmio Principal: {{ sorteio.premioPrincipal }}
+                </dd>
+                <dd class="text-gray-500" *ngIf="sorteio.outrosPremios && sorteio.outrosPremios.length > 0">
+                  Outros Prêmios: {{ sorteio.outrosPremios.join(', ') }}
+                </dd>
+              </div> -->
+            </dl>
           </div>
         </div>
       </div>
 
       <div class="flex justify-center mt-4">
-        <button class="bg-purple-500 text-white py-3 px-6 rounded-lg hover:bg-purple-700 transition text-sm">
+        <button class="bg-[#8C6BFA] text-white py-3 px-6 rounded-lg hover:opacity-90 cursor-pointer transition text-sm">
           Carregar mais
         </button>
       </div>

@@ -12,6 +12,18 @@ interface SorteioDetalhe {
   hora: string;
   imagemUrl: string;
   status: 'ABERTO' | 'CONCLUÍDO';
+  titulos: Titulo[];
+  cotasDisponiveis?: number;
+  premioPrincipal?: string;
+  outrosPremios?: string[];
+  ganhou?: boolean;
+}
+
+interface Compra {
+  numeroCompra: string;
+  dataCompra: string;
+  sorteios: SorteioDetalhe[];
+  expanded: boolean;
   detalhesPagamento: {
     subtotalItens: number;
     pixMilhao: number;
@@ -26,18 +38,6 @@ interface SorteioDetalhe {
     celular: string;
     cpf: string;
   };
-  titulos: Titulo[];
-  cotasDisponiveis?: number;
-  premioPrincipal?: string;
-  outrosPremios?: string[];
-  ganhou?: boolean;
-}
-
-interface Compra {
-  numeroCompra: string;
-  dataCompra: string;
-  sorteios: SorteioDetalhe[];
-  expanded: boolean;
 }
 
 @Component({
@@ -62,6 +62,20 @@ export class PurchasesComponent {
       numeroCompra: '99439583922332',
       dataCompra: '12/12/2024 12:23',
       expanded: true,
+      detalhesPagamento: {
+        subtotalItens: 2014.95,
+        pixMilhao: 123.0,
+        taxaEntrega: 0,
+        desconto: 0,
+        total: 1014.95,
+      },
+      formaPagamento: 'PIX',
+      comprador: {
+        nome: 'Rafael Oliveira Santos',
+        telefone: '(81) 9999-9999',
+        celular: '(81) 9999-9999',
+        cpf: '11555666478',
+      },
       sorteios: [
         {
           nome: 'Pix do Milhão',
@@ -69,20 +83,6 @@ export class PurchasesComponent {
           hora: '19:00',
           imagemUrl: 'assets/card_sorteio.svg',
           status: 'CONCLUÍDO',
-          detalhesPagamento: {
-            subtotalItens: 2014.95,
-            pixMilhao: 123.0,
-            taxaEntrega: 0,
-            desconto: 0,
-            total: 1014.95,
-          },
-          formaPagamento: 'PIX',
-          comprador: {
-            nome: 'Rafael Oliveira Santos',
-            telefone: '(81) 9999-9999',
-            celular: '(81) 9999-9999',
-            cpf: '11555666478',
-          },
           titulos: [
             { numero: '04050564', selecionado: true },
             { numero: '04053694', selecionado: true },
@@ -110,20 +110,6 @@ export class PurchasesComponent {
           hora: '19:00',
           imagemUrl: 'assets/card_sorteio.svg',
           status: 'CONCLUÍDO',
-          detalhesPagamento: {
-            subtotalItens: 123.0,
-            pixMilhao: 0,
-            taxaEntrega: 0,
-            desconto: 0,
-            total: 123.0,
-          },
-          formaPagamento: 'PIX',
-          comprador: {
-            nome: 'Rafael Oliveira Santos',
-            telefone: '(81) 9999-9999',
-            celular: '(81) 9999-9999',
-            cpf: '11555666478',
-          },
           titulos: [
             { numero: '04059694', selecionado: true },
             { numero: '04053694', selecionado: true },
