@@ -146,7 +146,7 @@ export class HeroBannerComponent implements OnInit {
           queryParams: {
             quantidade: this.totalPrice / this.lotery.valor,
             sorteio: this.lotery.id,
-            pedido: response.id,
+            pedido: response.data.id,
           },
         });
       },

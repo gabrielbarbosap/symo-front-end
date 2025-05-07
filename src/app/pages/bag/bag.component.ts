@@ -157,7 +157,7 @@ export class BagComponent implements OnInit {
     this.loteryService.getQrCode(this.lotery.id, this.pedidoId).subscribe({
       next: (response: any) => {
         console.log('QR Code recebido:', response);
-        this.pixCode = response.pixCopiaECola;
+        this.pixCode = response.pix_copia_cola;
         this.pixQrCodeUrl = response.location; // para usar no QRCode
 
         this.showPix = true;
