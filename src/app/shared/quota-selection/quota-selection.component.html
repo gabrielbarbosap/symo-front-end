@@ -88,14 +88,14 @@
         <ng-container *ngFor="let quota of quotas">
           <button
             (click)="selectQuota(quota)"
-            class="relative flex flex-col justify-center items-center rounded-[20px] border-2 text-center transition w-[90px] aspect-square shrink-0"
+            class="relative flex flex-col justify-center items-center rounded-[20px] border-2 text-center transition w-[30%] sm:w-[90px] aspect-square shrink-0"
             [ngClass]="{
               'bg-[#4b0faa] text-white border-[#4b0faa]': quota === selectedQuotes,
               'bg-white text-[#4b0faa] border-[#4b0faa]': quota !== selectedQuotes,
             }"
           >
             <div
-              class="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-[#4b0faa] text-white flex items-center justify-center text-xs font-bold shadow"
+              class="absolute -top-2 -right-0 w-7 h-7 rounded-full bg-[#4b0faa] text-white flex items-center justify-center text-xl shadow"
             >
               +
             </div>
@@ -103,7 +103,7 @@
             <span class="text-sm font-semibold leading-tight">
               {{ quota }} {{ quota === 1 ? 'Título' : 'Títulos' }}
             </span>
-            <span class="text-xs font-bold mt-1">Adicionar</span>
+            <!-- <span class="text-xs font-bold mt-1">Adicionar</span> -->
           </button>
         </ng-container>
       </div>

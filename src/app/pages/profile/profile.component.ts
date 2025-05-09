@@ -12,7 +12,7 @@ import { SecurityPrivacyComponent } from '../../components/profile/security-form
   imports: [ProfileFormComponent, NgIf, SecurityPrivacyComponent, PurchasesComponent],
 })
 export class ProfileComponent implements OnInit, OnDestroy {
-  activeTab: string = 'account'; // Definir a aba inicial como "Minha conta"
+  activeTab: string = 'orders'; // Definir a aba inicial como "Minha conta"
 
   constructor() {}
 

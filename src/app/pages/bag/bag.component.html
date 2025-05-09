@@ -12,63 +12,34 @@
     <h2 class="text-xl font-bold text-gray-800">Itens</h2>
 
     <ng-container *ngFor="let item of items">
-      <div class="flex flex-col md:flex-row justify-between items-start md:items-center rounded-lg gap-3">
-        <!-- Bloco da imagem + infos -->
-        <div class="flex items-start gap-3 w-full">
-          <img [src]="lotery.imagens[0].img" [alt]="lotery.descricao" class="w-16 h-16 object-contain shrink-0" />
-          <div class="flex flex-col w-full">
-            <div>
-              <h3 class="font-semibold text-base text-gray-800">{{ lotery.descricao }}</h3>
-              <p class="text-xs text-gray-500">{{ date }}</p>
-            </div>
+      <div class="flex items-center justify-between bg-[#F9F9FC] p-4 rounded-xl shadow-sm gap-4">
+        <!-- Imagem e infos -->
+        <div class="flex items-center gap-4">
+          <img [src]="lotery.imagens[0].img" [alt]="lotery.descricao" class="w-14 h-14 rounded-md object-contain" />
 
-            <!-- Botões no mobile -->
-            <!-- Botões no mobile alinhados à direita -->
-            <div class="md:hidden flex justify-end w-full mt-2">
-              <div class="flex items-center gap-3">
-                <button
-                  class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
-                  (click)="decrease(item)"
-                >
-                  −
-                </button>
-
-                <div class="flex items-center gap-1 text-base font-semibold text-[#4B0FAA]">
-                  <span class="text-xl font-bold">{{ item.quantity }}</span>
-                  <span class="text-[#2E2170]">
-                    {{ item.quantity === 1 ? 'Título' : 'Títulos' }}
-                  </span>
-                </div>
-
-                <button
-                  class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
-                  (click)="increase(item)"
-                >
-                  +
-                </button>
-              </div>
-            </div>
+          <div class="flex flex-col justify-center">
+            <h3 class="text-sm font-semibold text-[#2E2170] leading-tight">{{ lotery.descricao }}</h3>
+            <span class="text-[11px] mt-1 font-medium bg-[#EDE9FE] text-[#4B0FAA] px-2 py-0.5 rounded-md w-fit">
+              {{ date }}
+            </span>
           </div>
         </div>
 
-        <!-- Botões no desktop -->
-        <div class="hidden md:flex items-center gap-3">
+        <!-- Controles -->
+        <div class="flex items-center gap-2">
           <button
-            class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+            class="w-9 h-9 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
             (click)="decrease(item)"
           >
             −
           </button>
 
-          <div class="flex items-center gap-1 text-base font-semibold text-[#4B0FAA]">
-            <span class="text-xl font-bold">{{ item.quantity }}</span>
-            <span class="text-[#2E2170]">
-              {{ item.quantity === 1 ? 'Título' : 'Títulos' }}
-            </span>
-          </div>
+          <span class="text-lg font-bold text-[#4B0FAA] min-w-[28px] text-center">
+            {{ item.quantity }}
+          </span>
 
           <button
-            class="w-10 h-10 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
+            class="w-9 h-9 rounded-full bg-[#4B0FAA] text-white text-base font-bold flex items-center justify-center"
             (click)="increase(item)"
           >
             +
@@ -77,6 +48,54 @@
       </div>
     </ng-container>
   </div>
+
+  <!-- Dados do comprador -->
+  <form *ngIf="showSaller === 'S'" [formGroup]="buyerForm" (ngSubmit)="createUser()" class="space-y-6">
+    <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
+      <h2 class="text-xl font-bold text-gray-800">Dados do Comprador</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          formControlName="fullName"
+          placeholder="Nome completo*"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          formControlName="cpf"
+          mask="000.000.000-00"
+          [dropSpecialCharacters]="false"
+          placeholder="CPF*"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+        <input
+          type="date"
+          formControlName="birthDate"
+          placeholder="Data de nascimento"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <input
+          type="text"
+          formControlName="phone"
+          placeholder="Celular com DDD*"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+        <input
+          type="email"
+          formControlName="email"
+          placeholder="E-mail"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+      </div>
+    </div>
+  </form>
 
   <!-- Resumo -->
   <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
@@ -93,12 +112,22 @@
       <hr class="my-2 border-gray-200" />
     </div>
 
-    <div *ngIf="!showPix" class="w-full flex justify-end">
+    <div *ngIf="!showPix" class="w-full flex justify-end gap-4">
       <button
-        class="bg-[#4B0FAA] hover:bg-purple-600 transition text-white text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6"
-        (click)="initPayment()"
+        *ngIf="showSaller === 'S'"
+        class="bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2"
+        (click)="createUser('cash')"
       >
-        Pagar com Pix
+        <ng-icon name="bootstrapCash" class="!w-6 !h-6" />
+        Dinheiro
+      </button>
+
+      <button
+        class="bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2"
+        (click)="createUser('pix')"
+      >
+        <ng-icon name="bootstrapQrCode" class="!w-6 !h-6" />
+        PIX
       </button>
     </div>
 
@@ -154,7 +183,7 @@
       <!-- Botão principal -->
       <button
         class="w-full bg-[#4B0FAA] hover:bg-purple-600 transition text-white text-sm py-2 rounded-xl font-medium"
-        (click)="startPix()"
+        (click)="copyPixCode()"
       >
         Copiar código Pix
       </button>

@@ -79,9 +79,17 @@ export class LoteryService {
     const body = {
       id_rifa: bodyOrder.idRifa,
       quantidade: bodyOrder.quantidade,
+      user_id: bodyOrder.userId || null,
     };
 
     return this.http.post(`${this.environment.apiUrl}/user/rifa/comprar/cota`, body);
+  }
+
+  paymentManual(idRifa: number, idPedido: number): Observable<any> {
+    return this.http.post(`${this.environment.apiUrl}/resale/order/buy/confirm`, {
+      rifa_id: idRifa,
+      pedido_id: idPedido,
+    });
   }
 
   updateOrder(pedidoId: number, quantidade: number): Observable<any> {
@@ -94,6 +102,14 @@ export class LoteryService {
 
   getQrCode(idRifa: number, idPedido: number): Observable<any> {
     return this.http.get(`${this.environment.apiUrl}/user/rifa/${idRifa}/pedido/${idPedido}/qrcode`);
+  }
+
+  getQuotasUser(): Observable<any> {
+    return this.http.get(`${this.environment.apiUrl}/user/rifa/pedido`);
+  }
+
+  verifyPayment(idPedido: number): Observable<any> {
+    return this.http.get(`${this.environment.apiUrl}/user/rifa/pedido/${idPedido}/pago`);
   }
 
   getLoteries(page: number = 1): Observable<LoteryResponse> {

@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { HeroComponent } from '../../shared/hero/hero.component';
 import { LoteryService } from '../../services/lotery.service';
 import { NgIf } from '@angular/common';
+import { AwardsComponent } from '../../shared/awards/awards.component';
 
 @Component({
   selector: 'app-home',
-  imports: [HeroComponent, NgIf],
+  imports: [HeroComponent, NgIf, AwardsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

@@ -2,10 +2,11 @@ import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { HeroBannerComponent } from '../hero-banner/hero-banner.component';
 import { CommonModule } from '@angular/common';
 import { LoteryItem } from '../../services/lotery.service';
+import { QuotaSalePageComponent } from '../../pages/quota-sale-page/quota-sale-page.component';
 
 @Component({
   selector: 'app-hero',
-  imports: [HeroBannerComponent, CommonModule],
+  imports: [HeroBannerComponent, CommonModule, QuotaSalePageComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.css',
 })
