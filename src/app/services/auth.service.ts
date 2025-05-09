@@ -11,6 +11,7 @@ export interface Registration {
     celular: string;
     data_nascimento: string;
     senha: string;
+    tipo: string;
   };
   endereco?: {
     cep?: string;
@@ -49,6 +50,7 @@ interface RegistrationResponse {
   email: string;
   celular: string;
   dataNascimento: string;
+  id: any;
 }
 
 interface Login {
@@ -71,6 +73,7 @@ interface ProfileResponse {
   dataNascimento: string;
   cpf: string;
   celular: string;
+  revendaAtivo: string;
 }
 
 @Injectable({

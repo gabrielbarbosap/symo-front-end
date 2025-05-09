@@ -228,6 +228,7 @@ export class RegisterComponent {
 
       const formDate = this.registrationForm.value.personalInfo.birthDate;
       const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+      const typeUser = localStorage.getItem('type_user') || 'U';
 
       const payload: Registration = {
         user: {
@@ -237,6 +238,7 @@ export class RegisterComponent {
           data_nascimento: date,
           email: this.registrationForm.value.contactInfo.email,
           senha: this.registrationForm.value.accessInfo.password,
+          tipo: typeUser,
         },
       };
 

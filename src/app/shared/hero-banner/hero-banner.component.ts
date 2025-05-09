@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../services/cart.service';
 import { QuotaService } from '../../services/quota.service';
@@ -10,6 +10,7 @@ import { provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 import { LoteryItem, LoteryService } from '../../services/lotery.service';
 import { Router } from '@angular/router';
+import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
   standalone: true,
@@ -39,7 +40,9 @@ export class HeroBannerComponent implements OnInit {
 
   @Output() dataLotery = new EventEmitter<any>();
   @Input()
-  uuid!: string; // Identificação do sorteio
+  uuid!: string;
+
+  toast = inject(HotToastService);
 
   private _selectedQuotes: number = 0;
   options: number[] = [100, 200, 300, 400];
@@ -152,6 +155,7 @@ export class HeroBannerComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erro ao gerar pedido:', err);
+        this.toast.error('Ocorreu um erro ao fazer o login. Por favor tente novamente mais tarde');
       },
     });
   }

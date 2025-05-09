@@ -158,7 +158,8 @@ export class LoginComponent implements OnInit {
     this.router.navigate([], { relativeTo: this.route, queryParams: { auth: undefined } });
   }
 
-  goToRegister() {
+  goToRegister(type: string) {
+    localStorage.setItem('type_user', type);
     this.dialogRef.close();
     this.router.navigate([], { relativeTo: this.route, queryParams: { auth: 'register' } });
   }
@@ -174,9 +175,10 @@ export class LoginComponent implements OnInit {
       .signin(payload)
       .pipe(switchMap(() => this.authService.getProfile()))
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.isSubmitting.set(false);
-
+          localStorage.setItem('revenda_ativa', res.revendaAtivo);
+          console.log(res);
           this.toast.success('Login realizado com sucesso');
 
           this.close();

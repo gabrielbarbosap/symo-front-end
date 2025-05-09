@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { LoteryService } from '../../../services/lotery.service';
 
 interface Titulo {
   numero: string;
@@ -47,7 +48,14 @@ interface Compra {
   templateUrl: './purchases.component.html',
   styleUrl: './purchases.component.css',
 })
-export class PurchasesComponent {
+export class PurchasesComponent implements OnInit {
+  private loteryService = inject(LoteryService);
+
+  ngOnInit(): void {
+    this.loteryService.getQuotasUser().subscribe((res) => {
+      console.log(res);
+    });
+  }
   maskLast6Digits(number: string) {
     if (!number) return '';
 

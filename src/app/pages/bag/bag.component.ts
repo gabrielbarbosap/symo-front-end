@@ -1,15 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BreadcrumbComponent } from '../../shared/breadcrumb/breadcrumb.component';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoteryItem, LoteryService } from '../../services/lotery.service';
 import { CommonModule } from '@angular/common';
 import { QRCodeComponent } from 'angularx-qrcode';
-import { ChangeDetectorRef } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { HotToastService } from '@ngxpert/hot-toast';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { bootstrapCash, bootstrapQrCode } from '@ng-icons/bootstrap-icons';
+import { NgxMaskDirective } from 'ngx-mask';
 
 @Component({
   selector: 'app-bag',
   standalone: true,
-  imports: [BreadcrumbComponent, CommonModule, QRCodeComponent],
+  imports: [BreadcrumbComponent, CommonModule, QRCodeComponent, ReactiveFormsModule, NgIcon, NgxMaskDirective],
+  viewProviders: [
+    provideIcons({
+      bootstrapCash,
+      bootstrapQrCode,
+    }),
+  ],
   templateUrl: './bag.component.html',
   styleUrl: './bag.component.css',
 })
@@ -35,12 +46,26 @@ export class BagComponent implements OnInit {
 
   qntInit: any;
 
+  buyerForm!: FormGroup;
+  private authService = inject(AuthService);
+  toast = inject(HotToastService);
+
+  showSaller = 'N';
+
   constructor(
-    private router: Router,
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private loteryService: LoteryService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {}
+    private router: Router
+  ) {
+    this.buyerForm = this.fb.group({
+      fullName: ['', [Validators.required]],
+      cpf: ['', [Validators.required]],
+      birthDate: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+    });
+  }
 
   ngOnInit() {
     this.route.queryParams.subscribe((params) => {
@@ -69,6 +94,8 @@ export class BagComponent implements OnInit {
       console.log('ID do pedido:', pedidoId);
       this.pedidoId = pedidoId;
     });
+
+    this.showSaller = localStorage.getItem('revenda_ativa') || 'N';
   }
 
   formatDate(dateString: string): string {
@@ -153,20 +180,47 @@ export class BagComponent implements OnInit {
     }
   }
 
+  private verifyIntervalId: any;
+
   startPix() {
     this.loteryService.getQrCode(this.lotery.id, this.pedidoId).subscribe({
       next: (response: any) => {
         console.log('QR Code recebido:', response);
         this.pixCode = response.pix_copia_cola;
-        this.pixQrCodeUrl = response.location; // para usar no QRCode
+        this.pixQrCodeUrl = response.location;
 
         this.showPix = true;
         this.minutes = 2;
         this.seconds = 0;
         this.startCountdown(3);
+
+        this.startVerifyLoop();
       },
       error: (err) => {
         console.error('Erro ao buscar o QR Code:', err);
+      },
+    });
+  }
+
+  startVerifyLoop() {
+    if (this.verifyIntervalId) clearInterval(this.verifyIntervalId);
+
+    this.verifyIntervalId = setInterval(() => {
+      this.verifyPix();
+    }, 20000);
+  }
+
+  verifyPix() {
+    this.loteryService.verifyPayment(this.pedidoId).subscribe({
+      next: (response: any) => {
+        if (response) {
+          clearInterval(this.verifyIntervalId);
+          this.toast.success('Pagamento confirmado!');
+          this.router.navigate(['/profile']);
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao verificar pagamento:', err);
       },
     });
   }
@@ -195,5 +249,69 @@ export class BagComponent implements OnInit {
     }
 
     return `hsl(${hue}, 100%, 50%)`;
+  }
+
+  createUser(typePayment?: string): void {
+    if (this.showSaller === 'N') {
+      this.initPayment();
+    }
+
+    if (this.buyerForm.valid) {
+      const form = this.buyerForm.value;
+      const typeUser = localStorage.getItem('type_user') || 'U';
+      const formDate = form.birthDate;
+      const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+      const payload = {
+        user: {
+          nome: form.fullName,
+          cpf: form.cpf,
+          data_nascimento: date,
+          celular: form.phone.replace(/\D/g, ''),
+          email: form.email,
+          senha: '123456789',
+          tipo: typeUser,
+        },
+      };
+
+      this.authService.signup(payload).subscribe({
+        next: (res) => {
+          const currentQuantity = this.items[0]?.quantity;
+
+          console.log(res);
+          const body = {
+            quantidade: currentQuantity,
+            idRifa: this.lotery.id,
+            userId: res.id,
+          };
+
+          this.loteryService.generateOrder(body).subscribe((res) => {
+            this.pedidoId = res.data.id;
+            if (typePayment === 'cash') {
+              this.paymentManual();
+              this.toast.success('Pedido realizado.');
+            }
+          });
+        },
+        error: (err) => {
+          console.error('Erro ao cadastrar', err);
+          this.toast.error('Erro no cadastro. Tente novamente mais tarde');
+        },
+      });
+
+      return;
+    }
+
+    Object.keys(this.buyerForm.controls).forEach((key) => {
+      const control = this.buyerForm.get(key);
+      control?.markAsTouched();
+    });
+
+    this.toast.info('Preencha todos os campos obrigatórios corretamente');
+  }
+
+  paymentManual() {
+    this.loteryService.paymentManual(this.lotery.id, this.pedidoId).subscribe(() => {
+      this.startVerifyLoop();
+    });
   }
 }
