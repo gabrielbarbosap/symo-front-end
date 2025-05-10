@@ -259,7 +259,6 @@ export class BagComponent implements OnInit {
 
     if (this.buyerForm.valid) {
       const form = this.buyerForm.value;
-      const typeUser = localStorage.getItem('type_user') || 'U';
       const formDate = form.birthDate;
       const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
       const payload = {
@@ -270,7 +269,7 @@ export class BagComponent implements OnInit {
           celular: form.phone.replace(/\D/g, ''),
           email: form.email,
           senha: '123456789',
-          tipo: typeUser,
+          tipo: 'U',
         },
       };
 
