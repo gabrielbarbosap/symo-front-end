@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { ENVIRONMENT } from '../../environments/environment.token';
 
 export interface LoteryUser {
@@ -82,9 +82,13 @@ export class LoteryService {
       user_id: bodyOrder.userId || null,
     };
 
-    return this.http.post(`${this.environment.apiUrl}/user/rifa/comprar/cota`, body);
+    return this.http.post(`${this.environment.apiUrl}/user/rifa/comprar/cota`, body).pipe(
+      catchError((error) => {
+        console.error('Erro no serviço generateOrder', error);
+        return throwError(() => error);
+      })
+    );
   }
-
   paymentManual(idRifa: number, idPedido: number): Observable<any> {
     return this.http.post(`${this.environment.apiUrl}/resale/order/buy/confirm`, {
       rifa_id: idRifa,

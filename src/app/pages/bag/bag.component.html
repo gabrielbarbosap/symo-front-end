@@ -50,7 +50,7 @@
   </div>
 
   <!-- Dados do comprador -->
-  <form *ngIf="showSaller === 'S'" [formGroup]="buyerForm" (ngSubmit)="createUser()" class="space-y-6">
+  <form *ngIf="showSaller === 'R'" [formGroup]="buyerForm" (ngSubmit)="createUser()" class="space-y-6">
     <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
       <h2 class="text-xl font-bold text-gray-800">Dados do Comprador</h2>
 
@@ -114,7 +114,7 @@
 
     <div *ngIf="!showPix" class="w-full flex justify-end gap-4">
       <button
-        *ngIf="showSaller === 'S'"
+        *ngIf="showSaller === 'R'"
         class="bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2"
         (click)="createUser('cash')"
       >

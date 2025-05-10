@@ -98,6 +98,7 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.environment.apiUrl}/auth`, auth).pipe(
       tap((response) => {
         localStorage.setItem('token', response.token);
+        localStorage.setItem('type_user', response.abilities[0]);
         this.phone.set('');
         this.password.set('');
       })
