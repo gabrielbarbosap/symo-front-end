@@ -292,6 +292,8 @@ export class BagComponent implements OnInit {
               this.toast.success(
                 'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
               );
+            } else {
+              this.initPayment();
             }
           });
         },
