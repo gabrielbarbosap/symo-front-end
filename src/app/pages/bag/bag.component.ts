@@ -50,7 +50,7 @@ export class BagComponent implements OnInit {
   private authService = inject(AuthService);
   toast = inject(HotToastService);
 
-  showSaller = 'N';
+  showSaller = 'U';
 
   constructor(
     private fb: FormBuilder,
@@ -95,7 +95,7 @@ export class BagComponent implements OnInit {
       this.pedidoId = pedidoId;
     });
 
-    this.showSaller = localStorage.getItem('revenda_ativa') || 'N';
+    this.showSaller = localStorage.getItem('type_user') || 'U';
   }
 
   formatDate(dateString: string): string {
@@ -252,7 +252,7 @@ export class BagComponent implements OnInit {
   }
 
   createUser(typePayment?: string): void {
-    if (this.showSaller === 'N') {
+    if (this.showSaller === 'U') {
       this.initPayment();
     }
 
@@ -289,6 +289,9 @@ export class BagComponent implements OnInit {
             if (typePayment === 'cash') {
               this.paymentManual();
               this.toast.success('Pedido realizado.');
+              this.toast.success(
+                'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
+              );
             }
           });
         },

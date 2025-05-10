@@ -177,7 +177,6 @@ export class LoginComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.isSubmitting.set(false);
-          localStorage.setItem('revenda_ativa', res.revendaAtivo);
           console.log(res);
           this.toast.success('Login realizado com sucesso');
 

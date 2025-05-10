@@ -9,7 +9,7 @@ import { ButtonComponent } from '../button/button.component';
 import { provideIcons } from '@ng-icons/core';
 import { bootstrapTicket } from '@ng-icons/bootstrap-icons';
 import { LoteryItem, LoteryService } from '../../services/lotery.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HotToastService } from '@ngxpert/hot-toast';
 
 @Component({
@@ -43,6 +43,7 @@ export class HeroBannerComponent implements OnInit {
   uuid!: string;
 
   toast = inject(HotToastService);
+  private route = inject(ActivatedRoute);
 
   private _selectedQuotes: number = 0;
   options: number[] = [100, 200, 300, 400];
@@ -154,9 +155,15 @@ export class HeroBannerComponent implements OnInit {
         });
       },
       error: (err) => {
-        console.error('Erro ao gerar pedido:', err);
-        this.toast.error('Ocorreu um erro ao fazer o login. Por favor tente novamente mais tarde');
+        console.error('Erro capturado no subscribe:', err);
+        console.log('Antes do navigate');
+        this.navigateTo('login');
+        this.toast.warning('Realize o login anters de comprar.');
       },
     });
+  }
+
+  navigateTo(auth = 'login') {
+    this.router.navigate([], { relativeTo: this.route, queryParams: { auth } });
   }
 }

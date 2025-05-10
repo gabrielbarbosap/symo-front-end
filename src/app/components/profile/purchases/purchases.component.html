@@ -1,121 +1,100 @@
-<div class="flex flex-col mx-auto w-full sm:max-w-md md:max-w-2xl xl:max-w-3xl">
+<!-- LOADING -->
+<div *ngIf="isLoading" class="flex justify-center items-center py-10">
+  <div class="animate-spin rounded-full h-10 w-10 border-4 border-purple-500 border-t-transparent"></div>
+</div>
+
+<!-- CONTEÚDO -->
+<div *ngIf="!isLoading" class="flex flex-col mx-auto w-full sm:max-w-md md:max-w-2xl xl:max-w-3xl">
   <h2 class="text-xl font-semibold text-blue-dark mb-4 text-center sm:text-left">Minhas compras</h2>
 
   <div class="bg-white md:border md:border-light-purple md:rounded-xl md:shadow-md md:p-8">
     <div class="space-y-4">
-      <div class="flex items-center justify-between mb-2">
-        <h3 class="text-lg font-semibold text-gray-700">Compras realizadas</h3>
-      </div>
-
       <div class="rounded-lg border border-gray-200" *ngFor="let compra of comprasRealizadasGeral">
+        <!-- Cabeçalho -->
         <div
           class="p-3 border-gray-200 flex items-center justify-between cursor-pointer"
           (click)="compra.expanded = !compra.expanded"
         >
           <div class="p-2">
             <div class="flex items-center gap-2 mb-1">
-              <p class="text-sm text-light-purple font-semibold">Nº {{ compra.numeroCompra }}</p>
-              <span class="bg-yellow-400 text-yellow-900 font-semibold px-2 py-0.5 rounded-md text-xs flex md:hidden">
-                PREMIADO
-              </span>
+              <p class="text-sm text-light-purple font-semibold">Compra #{{ compra.numeroCompra }}</p>
+              <span class="bg-green-100 text-green-700 font-semibold px-2 py-0.5 rounded-md text-xs">PAGO</span>
             </div>
-            <p class="text-xs text-gray-500 flex md:hidden mb-1">{{ compra.dataCompra }}</p>
+            <p class="text-xs text-gray-500">{{ compra.dataCompra }}</p>
             <p class="text-xs text-gray-500">
-              {{ compra.sorteios.length }} SORTEIO{{ compra.sorteios.length > 1 ? 'S' : '' }}
-              <span
-                class="bg-yellow-400 text-yellow-900 font-semibold px-2 py-0.5 rounded-md text-xs hidden md:inline-block"
-              >
-                PREMIADO
-              </span>
+              {{ compra.cartelas.length }} CARTELA{{ compra.cartelas.length > 1 ? 'S' : '' }}
             </p>
           </div>
           <div class="flex items-center gap-2">
             <span class="text-xs text-gray-500 hidden md:flex">{{ compra.dataCompra }}</span>
-            <button class="text-purple-500 text-4xl cursor-pointer">{{ compra.expanded ? '-' : '+' }}</button>
+            <button class="text-purple-500 text-4xl cursor-pointer">
+              {{ compra.expanded ? '-' : '+' }}
+            </button>
           </div>
         </div>
 
+        <!-- EXPANSÃO -->
         <div *ngIf="compra.expanded" class="space-y-4 flex flex-col md:flex-row">
-          <!-- class="border border-gray-200 rounded-lg" -->
+          <!-- LADO ESQUERDO: CARTELAS + IMAGEM -->
           <div class="w-full md:max-w-sm">
-            <div class="mx-4 mb-0">
-              <h6 class="text-lg font-bold text-[#2E2170]">Sorteios</h6>
+            <div class="mx-4 mb-2">
+              <h6 class="text-lg font-bold text-[#2E2170]">Cartelas</h6>
+              <p class="text-sm text-gray-600">{{ compra.nomeRifa }}</p>
             </div>
-            <ng-container *ngFor="let sorteio of compra.sorteios">
-              <!-- <div class="grid grid-cols-1 md:grid-cols-2"> -->
-              <div class="border border-[#8C6BFA] p-2 rounded-xl m-2">
-                <div class="flex flex-col md:flex-row md:items-start gap-2">
-                  <img
-                    [src]="sorteio.imagemUrl"
-                    alt="{{ sorteio.nome }}"
-                    class="w-full md:w-1/2 md:h-1/2 rounded-md object-cover"
-                  />
-                  <div>
-                    <h4 class="text-lg md:font-semibold text-[#8C6BFA]">{{ sorteio.nome }}</h4>
-                    <span class="text-xs bg-[#B2B7C7] text-[#2E2170] rounded p-1">
-                      <span>{{ sorteio.data }}</span> -
-                      <span>{{ sorteio.hora }}</span>
-                    </span>
-                  </div>
-                </div>
-                <div class="flex flex-row justify-between items-center mt-4">
-                  <h5 class="text-lg font-bold text-[#2E2170] mb-1">Títulos</h5>
-                  <span class="text-[#8C6BFA] text-sm">123 Cotas</span>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-2 mt-2">
-                  <div
-                    *ngFor="let titulo of sorteio.titulos"
-                    class="flex flex-row items-center text-xxs text-center justify-between border border-light-purple p-2 rounded-sm"
-                  >
-                    <img src="assets/icons/ticket.svg" alt="ticket" class="w-5 h-5 max-w-10" />
-                    <span class="text-sm mr-">{{ titulo.numero }}</span>
-                  </div>
-                  <div
-                    *ngIf="sorteio.titulos.length < 15"
-                    class="text-xxs text-center py-1 rounded-sm text-gray-300 col-span-full"
-                  >
-                    + {{ 15 - sorteio.titulos.length }} mais
-                  </div>
-                </div>
 
-                <div class="flex justify-center">
-                  <button class="mt-2 text-[#8C6BFA] text-xs font-bold cursor-pointer">Mostrar mais</button>
+            <div class="relative">
+              <img [src]="compra.imagemRifa" alt="Imagem da rifa" class="rounded-lg mx-auto w-full h-48 object-cover" />
+
+              <!-- Badge status estilo "bandeira" -->
+              <div
+                class="absolute -top-3 -right-10 -translate-x-1/2 px-4 py-6 text-white text-xs font-bold rounded-b-full z-10 shadow-md"
+                [ngClass]="{
+                  'bg-green-500': compra.statusRifa === 'aberto',
+                  'bg-gray-500': compra.statusRifa === 'finalizado',
+                }"
+              >
+                {{ compra.statusRifa | uppercase }}
+              </div>
+            </div>
+
+            <ng-container *ngFor="let cartela of compra.cartelas">
+              <div class="border border-[#8C6BFA] p-2 rounded-xl m-2">
+                <h4 class="text-sm font-semibold text-[#8C6BFA] mb-2">Cartela: {{ cartela.cartela }}</h4>
+                <div class="grid grid-cols-5 gap-2 text-xs text-center">
+                  <div *ngFor="let numero of cartela.numeros" class="border border-light-purple p-1 rounded-sm">
+                    {{ numero }}
+                  </div>
                 </div>
               </div>
-              <!-- </div> -->
             </ng-container>
           </div>
+
+          <!-- LADO DIREITO: DETALHES -->
           <div class="p-2 md:p-0 md:px-2 flex-1">
             <h6 class="text-lg font-bold mb-4 md:mb-8 text-[#2E2170]">Detalhes</h6>
             <dl class="text-xs text-blue-dark space-y-2">
               <h6 class="text-lg font-bold mb-3 text-[#2E2170]">Pagamento</h6>
               <div class="flex justify-between">
                 Subtotal
-                <dd>
-                  {{ compra.detalhesPagamento.subtotalItens | currency: 'BRL' : 'symbol' : '1.2-2' }}
-                </dd>
+                <dd>{{ compra.valorTotal | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
               </div>
-              <div class="flex justify-between pl-2">
-                Pix do milhão
-                <dd>{{ compra.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
-              </div>
-              <div class="flex justify-between pl-2">
-                Pix do milhão
-                <dd>{{ compra.detalhesPagamento.pixMilhao | currency: 'BRL' : 'symbol' : '1.2-2' }}</dd>
-              </div>
+
               <div class="border-t border-b py-3 my-3 border-gray-200 flex justify-between font-semibold text-gray-700">
                 <span class="text-[#2E2170] font-bold">Total</span>
                 <dd class="font-semibold text-[#8C6BFA]">
-                  {{ compra.detalhesPagamento.total | currency: 'BRL' : 'symbol' : '1.2-2' }}
+                  {{ compra.valorTotal | currency: 'BRL' : 'symbol' : '1.2-2' }}
                 </dd>
               </div>
-              <div class="flex flex-col w-full rounded-xl p-2 bg-[#E9EEFF85] border border-[#DFE6F6]">
+
+              <!-- <div class="flex flex-col w-full rounded-xl p-2 bg-[#E9EEFF85] border border-[#DFE6F6]">
                 <dt>Forma de pagamento</dt>
                 <div class="flex flex-row items-center pt-2 text-[#8C6BFA]">
                   <img src="assets/icons/pix.svg" class="h-4 w-4" alt="Pix" />
                   <dd class="font-semibold ml-2 text-sm">{{ compra.formaPagamento }}</dd>
                 </div>
-              </div>
+              </div> -->
+
+              <!-- COMPRADOR -->
               <div class="mt-2 border-t border-gray-200 pt-2">
                 <div class="flex flex-col justify-between">
                   <dt class="text-lg font-bold mb-3 text-[#2E2170]">Comprador</dt>
@@ -133,24 +112,9 @@
                   <dd class="text-[#2E2170] font-semibold">{{ maskLast6Digits(compra.comprador.telefone) }}</dd>
                 </div>
               </div>
-              <!-- <div *ngIf="sorteio.ganhou" class="mt-2 border-t border-gray-200 pt-2">
-                <dt class="font-semibold text-green-600">VOCÊ GANHOU!</dt>
-                <dd class="text-gray-500" *ngIf="sorteio.premioPrincipal">
-                  Prêmio Principal: {{ sorteio.premioPrincipal }}
-                </dd>
-                <dd class="text-gray-500" *ngIf="sorteio.outrosPremios && sorteio.outrosPremios.length > 0">
-                  Outros Prêmios: {{ sorteio.outrosPremios.join(', ') }}
-                </dd>
-              </div> -->
             </dl>
           </div>
         </div>
-      </div>
-
-      <div class="flex justify-center mt-4">
-        <button class="bg-[#8C6BFA] text-white py-3 px-6 rounded-lg hover:opacity-90 cursor-pointer transition text-sm">
-          Carregar mais
-        </button>
       </div>
     </div>
   </div>

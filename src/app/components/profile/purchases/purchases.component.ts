@@ -1,143 +1,82 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CurrencyPipe, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, NgClass, NgFor, NgIf, UpperCasePipe } from '@angular/common';
 import { LoteryService } from '../../../services/lotery.service';
 
-interface Titulo {
-  numero: string;
-  selecionado: boolean;
-}
-
-interface SorteioDetalhe {
-  nome: string;
-  data: string;
-  hora: string;
-  imagemUrl: string;
-  status: 'ABERTO' | 'CONCLUÍDO';
-  titulos: Titulo[];
-  cotasDisponiveis?: number;
-  premioPrincipal?: string;
-  outrosPremios?: string[];
-  ganhou?: boolean;
+interface Cartela {
+  cartela: string;
+  numeros: string[];
 }
 
 interface Compra {
   numeroCompra: string;
   dataCompra: string;
-  sorteios: SorteioDetalhe[];
-  expanded: boolean;
-  detalhesPagamento: {
-    subtotalItens: number;
-    pixMilhao: number;
-    taxaEntrega: number;
-    desconto: number;
-    total: number;
-  };
+  valorTotal: number;
+  cartelas: Cartela[];
   formaPagamento: string;
   comprador: {
     nome: string;
     telefone: string;
-    celular: string;
     cpf: string;
   };
+  imagemRifa: string;
+  nomeRifa: string;
+  statusRifa: 'aberto' | 'finalizado' | string;
+  expanded: boolean;
 }
 
 @Component({
   selector: 'app-purchases',
   standalone: true,
-  imports: [CurrencyPipe, NgIf, NgFor],
+  imports: [CurrencyPipe, NgIf, NgFor, NgClass, UpperCasePipe],
   templateUrl: './purchases.component.html',
   styleUrl: './purchases.component.css',
 })
 export class PurchasesComponent implements OnInit {
   private loteryService = inject(LoteryService);
+  comprasRealizadasGeral: Compra[] = [];
+  isLoading = true;
 
   ngOnInit(): void {
-    this.loteryService.getQuotasUser().subscribe((res) => {
-      console.log(res);
+    this.isLoading = true;
+
+    this.loteryService.getQuotasUser().subscribe({
+      next: (res: any) => {
+        const data = res.data;
+
+        this.comprasRealizadasGeral = data.map((item: any) => ({
+          numeroCompra: item.id.toString(),
+          dataCompra: new Date(item.createdAt).toLocaleString('pt-BR'),
+          valorTotal: parseFloat(item.valorTotal),
+          formaPagamento: 'Pix',
+          comprador: {
+            nome: item.user?.nome || 'Não informado',
+            telefone: item.user?.celular || '',
+            cpf: item.user?.cpf || '',
+          },
+          imagemRifa: item.rifa?.imagens?.[0]?.img || 'assets/card_sorteio.svg',
+          nomeRifa: item.rifa?.descricao || 'Sorteio',
+          statusRifa: item.rifa?.status?.toLowerCase() || 'desconhecido',
+          cartelas: item.cartelas.map((cartela: any) => ({
+            cartela: cartela.cartela,
+            numeros: cartela.numeros,
+          })),
+          expanded: false,
+        }));
+
+        this.isLoading = false;
+      },
+      error: (err) => {
+        console.error('Erro ao carregar compras', err);
+        this.isLoading = false;
+      },
     });
   }
-  maskLast6Digits(number: string) {
-    if (!number) return '';
 
-    const digitsOnly = number.replace(/\D/g, '');
+  maskLast6Digits(value: string): string {
+    if (!value) return '';
+    const digitsOnly = value.replace(/\D/g, '');
     const visiblePart = digitsOnly.slice(0, -6);
     const maskedPart = '*'.repeat(6);
-
     return visiblePart + maskedPart;
   }
-  comprasRealizadasGeral: Compra[] = [
-    {
-      numeroCompra: '99439583922332',
-      dataCompra: '12/12/2024 12:23',
-      expanded: true,
-      detalhesPagamento: {
-        subtotalItens: 2014.95,
-        pixMilhao: 123.0,
-        taxaEntrega: 0,
-        desconto: 0,
-        total: 1014.95,
-      },
-      formaPagamento: 'PIX',
-      comprador: {
-        nome: 'Rafael Oliveira Santos',
-        telefone: '(81) 9999-9999',
-        celular: '(81) 9999-9999',
-        cpf: '11555666478',
-      },
-      sorteios: [
-        {
-          nome: 'Pix do Milhão',
-          data: '16/12/2024',
-          hora: '19:00',
-          imagemUrl: 'assets/card_sorteio.svg',
-          status: 'CONCLUÍDO',
-          titulos: [
-            { numero: '04050564', selecionado: true },
-            { numero: '04053694', selecionado: true },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-          ],
-          ganhou: true,
-          premioPrincipal: 'MOTO HONDA 2025 0KM COM CAPACETE 345 CILINDRADAS',
-          outrosPremios: ['04059694'],
-        },
-        {
-          nome: 'Pix do Milhão',
-          data: '12/12/2024',
-          hora: '19:00',
-          imagemUrl: 'assets/card_sorteio.svg',
-          status: 'CONCLUÍDO',
-          titulos: [
-            { numero: '04059694', selecionado: true },
-            { numero: '04053694', selecionado: true },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-            { numero: '04053694', selecionado: false },
-            { numero: '04050564', selecionado: false },
-          ],
-          ganhou: false,
-        },
-      ],
-    },
-  ];
 }
