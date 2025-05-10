@@ -254,6 +254,7 @@ export class BagComponent implements OnInit {
   createUser(typePayment?: string): void {
     if (this.showSaller === 'U') {
       this.initPayment();
+      return;
     }
 
     if (this.buyerForm.valid) {
