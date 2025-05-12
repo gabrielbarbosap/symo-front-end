@@ -8,7 +8,7 @@
   ></app-breadcrumb>
 
   <!-- Itens comprados -->
-  <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6">
+  <div *ngIf="!saleCompleted" class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6">
     <h2 class="text-xl font-bold text-gray-800">Itens</h2>
 
     <ng-container *ngFor="let item of items">
@@ -50,18 +50,14 @@
   </div>
 
   <!-- Dados do comprador -->
-  <form *ngIf="showSaller === 'R'" [formGroup]="buyerForm" (ngSubmit)="createUser()" class="space-y-6">
+  <form
+    *ngIf="showSaller === 'R' && !saleCompleted"
+    [formGroup]="buyerForm"
+    (ngSubmit)="createUser()"
+    class="space-y-6"
+  >
     <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
       <h2 class="text-xl font-bold text-gray-800">Dados do Comprador</h2>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <input
-          type="text"
-          formControlName="fullName"
-          placeholder="Nome completo*"
-          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
-        />
-      </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
@@ -73,21 +69,30 @@
           (blur)="blurCpf()"
           class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
         />
+
+        <input
+          type="text"
+          formControlName="fullName"
+          placeholder="Nome completo*"
+          class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
+        />
+
         <input
           type="date"
           formControlName="birthDate"
           placeholder="Data de nascimento"
           class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
         />
-      </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="text"
           formControlName="phone"
           placeholder="Celular com DDD*"
           class="bg-white text-sm text-gray-700 px-4 py-3 rounded-lg border border-gray-300 w-full"
         />
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <input
           type="email"
           formControlName="email"
@@ -99,7 +104,7 @@
   </form>
 
   <!-- Resumo -->
-  <div class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
+  <div *ngIf="!saleCompleted" class="bg-white rounded-2xl p-6 space-y-6 shadow-sm mt-6 mb-4">
     <div class="space-y-2 text-sm">
       <!-- <div class="flex justify-between text-gray-700">
         <span>Subtotal ({{ getTotalItems() }} itens)</span>
@@ -116,7 +121,7 @@
     <div *ngIf="!showPix" class="w-full flex justify-end gap-4">
       <button
         *ngIf="showSaller === 'R'"
-        class="bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2"
+        class="cursor-pointer bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2 hover:bg-[#E0D9FB] hover:border-[#4B0FAA] hover:text-[#4B0FAA] transition"
         (click)="createUser('cash')"
       >
         <ng-icon name="bootstrapCash" class="!w-6 !h-6" />
@@ -124,7 +129,7 @@
       </button>
 
       <button
-        class="bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2"
+        class="cursor-pointer bg-[#F3F0FF] border border-[#6D28D9] text-[#6D28D9] text-sm font-medium rounded-xl w-[160px] py-3 sm:w-auto sm:py-4 sm:px-6 flex items-center justify-center gap-2 hover:bg-[#E0D9FB] hover:border-[#4B0FAA] hover:text-[#4B0FAA] transition"
         (click)="createUser('pix')"
       >
         <ng-icon name="bootstrapQrCode" class="!w-6 !h-6" />
@@ -189,5 +194,19 @@
         Copiar código Pix
       </button>
     </div>
+  </div>
+</div>
+
+<div *ngIf="saleCompleted" class="bg-white rounded-2xl shadow-md p-6 mt-16 text-center space-y-4">
+  <h2 class="text-2xl font-bold text-[#4B0FAA]">Venda finalizada com sucesso!</h2>
+  <p class="text-gray-600 text-sm">O pedido foi registrado e o pagamento foi marcado como realizado em dinheiro.</p>
+  <p class="text-sm text-gray-600">
+    O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.
+  </p>
+
+  <div class="bg-[#F3F0FF] border border-[#D6BBFB] text-[#4B0FAA] p-4 rounded-lg text-sm font-medium">
+    <p><strong>Número do pedido:</strong> {{ pedidoId }}</p>
+    <p><strong>Quantidade de cotas:</strong> {{ items[0]?.quantity }}</p>
+    <p><strong>Total pago:</strong> R$ {{ total | number: '1.2-2' }}</p>
   </div>
 </div>
