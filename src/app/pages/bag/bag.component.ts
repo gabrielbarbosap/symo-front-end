@@ -31,6 +31,8 @@ export class BagComponent implements OnInit {
   subtotal = 0;
   total = 0;
 
+  saleCompleted = false;
+
   pixQrCodeUrl = '';
   pixCode = '';
 
@@ -64,7 +66,7 @@ export class BagComponent implements OnInit {
       cpf: ['', [Validators.required]],
       birthDate: ['', [Validators.required]],
       phone: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.email]],
     });
   }
 
@@ -317,6 +319,8 @@ export class BagComponent implements OnInit {
             this.pedidoId = res.data.id;
             if (typePayment === 'cash') {
               this.paymentManual();
+              this.saleCompleted = true; // ✅ Ativa o estado de venda finalizada
+
               this.toast.success('Pedido realizado.');
               this.toast.success(
                 'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
