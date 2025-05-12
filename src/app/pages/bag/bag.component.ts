@@ -213,7 +213,7 @@ export class BagComponent implements OnInit {
   verifyPix() {
     this.loteryService.verifyPayment(this.pedidoId).subscribe({
       next: (response: any) => {
-        if (response) {
+        if (response === true) {
           clearInterval(this.verifyIntervalId);
           this.toast.success('Pagamento confirmado!');
           this.router.navigate(['/profile']);
