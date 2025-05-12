@@ -100,7 +100,7 @@ export class LoteryService {
   updateOrder(pedidoId: number, quantidade: number, userId?: number): Observable<any> {
     const body = {
       quantidade_cota: quantidade,
-      user_id: userId || null,
+      usu_id: userId || null,
     };
 
     return this.http.put(`${this.environment.apiUrl}/user/rifa/pedido/${pedidoId}`, body);
