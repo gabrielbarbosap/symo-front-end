@@ -89,6 +89,7 @@ export class LoteryService {
       })
     );
   }
+
   paymentManual(idRifa: number, idPedido: number): Observable<any> {
     return this.http.post(`${this.environment.apiUrl}/resale/order/buy/confirm`, {
       rifa_id: idRifa,
@@ -110,6 +111,11 @@ export class LoteryService {
 
   getQuotasUser(): Observable<any> {
     return this.http.get(`${this.environment.apiUrl}/user/rifa/pedido`);
+  }
+
+  getResaleUsers(identifier: string): Observable<any> {
+    const url = `${this.environment.apiUrl}/resale/get-users?identifier=${identifier}`;
+    return this.http.get(url);
   }
 
   verifyPayment(idPedido: number): Observable<any> {
