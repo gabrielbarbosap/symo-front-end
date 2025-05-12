@@ -158,7 +158,7 @@ export class HeroBannerComponent implements OnInit {
         console.error('Erro capturado no subscribe:', err);
         console.log('Antes do navigate');
         this.navigateTo('login');
-        this.toast.warning('Realize o login anters de comprar.');
+        this.toast.warning('Realize o login antes de comprar.');
       },
     });
   }
