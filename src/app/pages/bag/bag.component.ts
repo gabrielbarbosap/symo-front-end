@@ -51,6 +51,7 @@ export class BagComponent implements OnInit {
   toast = inject(HotToastService);
 
   showSaller = 'U';
+  existingUserId: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -216,6 +217,9 @@ export class BagComponent implements OnInit {
         if (response === true) {
           clearInterval(this.verifyIntervalId);
           this.toast.success('Pagamento confirmado!');
+          this.toast.success(
+            'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
+          );
           this.router.navigate(['/profile']);
         }
       },
@@ -258,9 +262,37 @@ export class BagComponent implements OnInit {
     }
 
     if (this.buyerForm.valid) {
+      const currentQuantity = this.items[0]?.quantity;
+
+      // Se o usuário já existe, só cria o pedido
+      if (this.existingUserId) {
+        const body = {
+          quantidade: currentQuantity,
+          idRifa: this.lotery.id,
+          userId: this.existingUserId,
+        };
+
+        this.loteryService.generateOrder(body).subscribe((res) => {
+          this.pedidoId = res.data.id;
+          if (typePayment === 'cash') {
+            this.paymentManual();
+            this.toast.success('Pedido realizado.');
+            this.toast.success(
+              'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
+            );
+          } else {
+            this.initPayment();
+          }
+        });
+
+        return;
+      }
+
+      // Se não existir, segue com o cadastro
       const form = this.buyerForm.value;
       const formDate = form.birthDate;
       const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
+
       const payload = {
         user: {
           nome: form.fullName,
@@ -275,9 +307,6 @@ export class BagComponent implements OnInit {
 
       this.authService.signup(payload).subscribe({
         next: (res) => {
-          const currentQuantity = this.items[0]?.quantity;
-
-          console.log(res);
           const body = {
             quantidade: currentQuantity,
             idRifa: this.lotery.id,
@@ -312,6 +341,42 @@ export class BagComponent implements OnInit {
     });
 
     this.toast.info('Preencha todos os campos obrigatórios corretamente');
+  }
+
+  blurCpf() {
+    const cpf = this.buyerForm.value.cpf;
+
+    if (!cpf) return;
+
+    this.loteryService.getResaleUsers(cpf).subscribe({
+      next: (response) => {
+        const user = response?.data?.[0];
+
+        if (user) {
+          this.existingUserId = user.id;
+
+          this.buyerForm.patchValue({
+            fullName: user.nome,
+            birthDate: this.formatDateToInput(user.dataNascimento),
+            phone: user.celular,
+            email: user.email,
+          });
+
+          this.toast.success('Dados preenchidos com base no CPF informado.');
+        } else {
+          this.existingUserId = null;
+          this.toast.info('Nenhum usuário encontrado com este CPF.');
+        }
+      },
+      error: (err) => {
+        console.error('Erro ao buscar usuários:', err);
+        this.toast.error('Erro ao buscar dados do usuário.');
+      },
+    });
+  }
+
+  private formatDateToInput(date: string): string {
+    return new Date(date).toISOString().slice(0, 10); // "YYYY-MM-DD"
   }
 
   paymentManual() {
