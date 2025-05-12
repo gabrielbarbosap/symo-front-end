@@ -1,0 +1,48 @@
+<div class="bg-[#2E2170] rounded-xl p-4 w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-sm mx-auto text-white h-full">
+  <!-- Layout Mobile e Tablets -->
+  <div class="flex items-center justify-between gap-4 lg:hidden">
+    <!-- Progresso à esquerda -->
+    <div *ngIf="showProgress" class="flex flex-col items-start">
+      <!-- Barra -->
+      <div class="w-24 h-3 bg-[#E9EEFF] rounded-full relative overflow-hidden mb-1 p-[1px]">
+        <div class="h-full bg-[#8C6BFA] rounded-full transition-all duration-500" style="width: 45%"></div>
+      </div>
+      <span class="font-bold leading-tight text-[#8C6BFA]">
+        45% <span class="font-normal text-white text-xs">VENDIDO</span>
+      </span>
+    </div>
+
+    <div class="flex items-center gap-[6px] text-sm font-semibold text-[#2E2170]">
+      <span class="text-base font-bold text-white pr-1">{{ diasRestantes }} dias</span>
+
+      <span class="px-2 py-[4px] bg-[#8C6BFA] text-white rounded-md w-[33px]">{{ horas }}</span>
+      <span class="text-white">:</span>
+      <span class="px-2 py-[4px] bg-[#8C6BFA] text-white rounded-md w-[33px]">{{ minutos }}</span>
+      <span class="text-white">:</span>
+      <span class="px-2 py-[4px] bg-[#8C6BFA] text-white rounded-md w-[33px]">{{ segundos }}</span>
+    </div>
+  </div>
+
+  <div class="hidden lg:flex flex-col items-center justify-center gap-3 h-full">
+    <div class="w-10 h-10 border-2 border-white rounded-full flex items-center justify-center">
+      <span class="text-xl">🕒</span>
+    </div>
+    <span class="text-[10px] tracking-wide">SORTEIO TERMINA EM</span>
+
+    <span class="text-xl font-bold">{{ diasRestantes }} dias</span>
+
+    <div class="flex gap-[2px] items-center justify-center text-sm font-semibold text-[#2E2170]">
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ horas }}
+      </span>
+      <span class="text-white">:</span>
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ minutos }}
+      </span>
+      <span class="text-white">:</span>
+      <span class="bg-[#8C6BFA] text-white flex items-center justify-center px-3 py-[6px] w-[33px] rounded-md">
+        {{ segundos }}
+      </span>
+    </div>
+  </div>
+</div>

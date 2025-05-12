@@ -1,0 +1,51 @@
+<!-- Cabeçalho -->
+<div class="mt-6 flex flex-row items-center justify-between">
+  <strong class="text-gray-text">Domingo, 26 Janeiro de 2024</strong>
+  <p class="text-gray-text">Saldo do Dia <strong class="text-light-purple">R$ 345,65</strong></p>
+</div>
+<hr />
+
+<!-- Lista de Transações -->
+<div
+  *ngFor="let transacao of transacoes"
+  class="border-b border-gray-200 py-4 flex items-center justify-between flex-wrap"
+>
+  <div class="flex items-center gap-3 w-full sm:w-auto">
+    <!-- Ícone -->
+    <span class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100">
+      <img *ngIf="transacao.tipo === 'comissao'" src="/assets/icons/HandCoins.svg" alt="Ícone comissão" />
+      <img *ngIf="transacao.tipo === 'premio'" src="/assets/icons/Trophy.svg" alt="Ícone prêmio" />
+      <img *ngIf="transacao.tipo === 'saque'" src="/assets/icons/ArrowUpRight.svg" alt="Ícone saque" />
+      <img *ngIf="transacao.tipo === 'compra'" src="/assets/icons/ShoppingCart.svg" alt="Ícone compra" />
+      <img *ngIf="transacao.tipo === 'deposito'" src="/assets/icons/seta_baixo.svg" alt="Ícone depósito" />
+    </span>
+
+    <!-- Descrição + Status "Processando" -->
+    <div class="flex flex-row items-center gap-2">
+      <p class="text-sm text-gray-700 font-bold">Nº 99439593922332</p>
+      <p class="text-sm text-light-purple">{{ transacao.descricao }}</p>
+
+      <!-- Status "PROCESSANDO" ajustado -->
+      <span
+        *ngIf="transacao.status === 'processando'"
+        class="bg-[#C4CCE4] text-gray-700 text-xs font-semibold min-w-[100px] h-[24px] flex items-center justify-center rounded-md px-2"
+      >
+        PROCESSANDO
+      </span>
+    </div>
+  </div>
+
+  <!-- Valor -->
+  <div class="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
+    <div class="text-right">
+      <p
+        [class.text-red-500]="transacao.valor < 0"
+        [class.text-purple-600]="transacao.valor > 0"
+        class="text-lg font-bold"
+      >
+        {{ transacao.valor | currency: 'BRL' }}
+      </p>
+    </div>
+    <img class="w-5 h-5" src="assets/icons/ArrowRight.svg" alt="Abrir" />
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<div
+  class="w-full rounded-xl"
+  [ngClass]="{
+    'bg-[#f0e8f9] px-4 py-6': !showAdvanced,
+    'p-0': showAdvanced,
+  }"
+>
+  <ng-container *ngIf="!showAdvanced; else layoutAvancado">
+    <div class="flex items-center justify-center gap-3 mb-5 text-[#1d054c]">
+      <ng-icon name="bootstrapTicket" class="!text-[#1d054c] !w-7 !h-7"></ng-icon>
+      <div class="w-px h-7 bg-[#4b0faa] opacity-30"></div>
+      <span class="text-lg text-left font-semibold text-[#1d054c] leading-tight">
+        Você não selecionou<br />nenhum título
+      </span>
+    </div>
+
+    <button
+      class="w-full h-12 bg-[#4b0faa] text-white font-semibold text-sm rounded-[12px] hover:opacity-90 transition"
+      (click)="selectQuota(1)"
+    >
+      Selecionar títulos
+    </button>
+  </ng-container>
+
+  <ng-template #layoutAvancado>
+    <div *ngIf="isMobile" class="flex flex-wrap items-center justify-between gap-2 mb-4">
+      <button
+        class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        (click)="decreaseQuantity()"
+      >
+        −
+      </button>
+
+      <div class="flex items-center gap-1 text-lg font-semibold">
+        <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
+        <span class="text-[#2E2170]">
+          @if (selectedQuotes === 1) {
+            Título
+          } @else {
+            Títulos
+          }
+        </span>
+      </div>
+
+      <button class="text-[#999] text-xl font-bold" (click)="resetSelection(); showAdvanced = false">×</button>
+
+      <button
+        class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white"
+        (click)="increaseQuantity()"
+      >
+        +
+      </button>
+    </div>
+
+    <div class="w-full overflow-x-auto">
+      <div class="flex flex-wrap justify-between items-center gap-3 min-w-fit px-2 py-2">
+        <button
+          *ngIf="!isMobile"
+          class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white shrink-0"
+          (click)="decreaseQuantity()"
+        >
+          −
+        </button>
+
+        <div *ngIf="!isMobile" class="flex items-center gap-1 text-lg font-semibold shrink-0">
+          <span class="text-[#4b0faa] text-2xl font-bold">{{ selectedQuotes }}</span>
+          <span class="text-[#2E2170]">
+            {{ selectedQuotes === 1 ? 'Título' : 'Títulos' }}
+          </span>
+        </div>
+
+        <button
+          *ngIf="!isMobile"
+          class="text-[#999] text-xl font-bold shrink-0"
+          (click)="resetSelection(); showAdvanced = false"
+        >
+          ×
+        </button>
+
+        <button
+          *ngIf="!isMobile"
+          class="w-[48px] h-[48px] rounded-full bg-[#4B0FAA] text-white text-2xl font-bold flex items-center justify-center border-2 border-white shrink-0"
+          (click)="increaseQuantity()"
+        >
+          +
+        </button>
+
+        <ng-container *ngFor="let quota of quotas">
+          <button
+            (click)="selectQuota(quota)"
+            class="relative flex flex-col justify-center items-center rounded-[20px] border-2 text-center transition w-[30%] sm:w-[90px] aspect-square shrink-0"
+            [ngClass]="{
+              'bg-[#4b0faa] text-white border-[#4b0faa]': quota === selectedQuotes,
+              'bg-white text-[#4b0faa] border-[#4b0faa]': quota !== selectedQuotes,
+            }"
+          >
+            <div
+              class="absolute -top-2 -right-0 w-7 h-7 rounded-full bg-[#4b0faa] text-white flex items-center justify-center text-xl shadow"
+            >
+              +
+            </div>
+
+            <span class="text-sm font-semibold leading-tight">
+              {{ quota }} {{ quota === 1 ? 'Título' : 'Títulos' }}
+            </span>
+            <!-- <span class="text-xs font-bold mt-1">Adicionar</span> -->
+          </button>
+        </ng-container>
+      </div>
+    </div>
+  </ng-template>
+</div>

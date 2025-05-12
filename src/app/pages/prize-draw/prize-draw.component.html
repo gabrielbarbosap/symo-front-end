@@ -1,0 +1,15 @@
+<div class="gap-2 mt-[70px] lg:px-[200px]">
+  <app-breadcrumb
+    [breadcrumbs]="[
+      { label: 'Home', url: '/' },
+      { label: 'Sorteios', url: '/sorteio' },
+    ]"
+  >
+  </app-breadcrumb>
+  <app-header-prize-draw></app-header-prize-draw>
+  @for (sorteio of cards; track $index) {
+    <div class="mb-10">
+      <app-card-prize-draw [draw]="sorteio"></app-card-prize-draw>
+    </div>
+  }
+</div>

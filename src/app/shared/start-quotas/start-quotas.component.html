@@ -1,0 +1,36 @@
+<div
+  class="bg-blue-100 mt-3.5 p-1 rounded-2xl shadow-md flex flex-col items-center justify-center md:h-49.5 sm:h-35 w-full"
+>
+  <div class="flex items-center gap-3">
+    <img src="assets/icons/ticket.svg" class="text-purple-500 text-2xl" />
+    <div class="border-l-2 border-gray-300 pl-3 text-light-purple ms-sm md:text-xl text-sm font-semibold">
+      Você não selecionou <br />
+      nenhum título
+    </div>
+  </div>
+
+  <div class="w-full flex justify-center">
+    <app-btn-prize-draw
+      text="Selecionar números da Sorte"
+      styleBtn="bg-light-purple text-white mt-4 py-2 ms-sm md:text-base  lg:text-base  text-sm md:text-[11px] md:w-full md:h-[45px]"
+      styleContainer="flex justify-center w-full"
+      size="w-[90%]"
+    />
+  </div>
+</div>
+
+<!-- Botão -->
+<div class="flex flex-col gap-2 md:flex-row mt-6">
+  <app-btn-prize-draw
+    styleContainer="flex-1"
+    styleBtn="border  border-gray-text text-white bg-gray-text md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+    text="Comprar agora R$ 234,45"
+    size="w-full"
+  />
+  <app-btn-prize-draw
+    styleContainer="flex-1"
+    styleBtn="border  border-gray-light text-gray-text  md:text-[13px] md:w-full md:h-[56px] mobile:h-[37px]  md:min-w-[50%]  md:truncate md:px-2 mobile:text-[14px] lg:text-base"
+    text="Adicionar ao carrinho"
+    size="w-full"
+  />
+</div>

@@ -1,0 +1,37 @@
+<div
+  class="bg-white rounded-xl border border-gray-300 shadow-lg p-0 flex flex-col w-full sm:max-w-[300px] md:max-w-sm lg:max-w-lg mx-auto"
+>
+  <!-- Imagem de Destaque (Topo) -->
+  <img src="/assets/banner.png" alt="Imagem do Sorteio Pix do Milhão" class="w-full h-40 object-cover rounded-t-xl" />
+
+  <!-- Contador (Progress Component) e Preço -->
+  <div class="bg-[#2E2170] text-white flex justify-between items-center px-4 py-2 text-xs sm:text-sm">
+    <div class="flex flex-col">
+      <!-- <app-progress [dataSorteio]="lotery.dataSorteio" [showProgress]="false"></app-progress> -->
+    </div>
+    <div class="flex flex-col text-right">
+      <span class="text-white font-semibold">Título:</span>
+      <span class="text-[#D3BFFF] font-bold text-sm sm:text-base">R$ 3,00</span>
+    </div>
+  </div>
+
+  <!-- Título -->
+  <div class="p-4 sm:p-5 pt-4">
+    <h3 class="text-base sm:text-lg font-bold text-[#8C6BFA]">Caroço da Sorte: 3.000,00 Reais no seu bolso</h3>
+
+    <!-- Informações do Sorteio -->
+    <div class="flex flex-wrap gap-2 mt-2">
+      <span class="bg-[#2E2170] text-white text-[9px] sm:text-xs font-semibold px-2 sm:px-3 py-1 rounded-xl">
+        EDIÇÃO 01
+      </span>
+      <span class="bg-[#C4CCE4] text-[#2E2170] text-[9px] sm:text-xs font-semibold px-2 sm:px-3 py-1 rounded-xl">
+        17/05/2024 - 19:00
+      </span>
+    </div>
+
+    <!-- Seleção de Cotas -->
+    <div class="w-full mt-4">
+      <app-quota-selection [context]="'card'"></app-quota-selection>
+    </div>
+  </div>
+</div>

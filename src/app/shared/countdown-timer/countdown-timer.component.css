@@ -1,0 +1,19 @@
+.countdown-box {
+  background-color: #2e2170; /* Fundo Roxo */
+  color: white; /* Texto Branco */
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  padding: 8px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.countdown-separator {
+  font-weight: bold;
+  color: #a3aed0; /* Mesma cor do fundo */
+}

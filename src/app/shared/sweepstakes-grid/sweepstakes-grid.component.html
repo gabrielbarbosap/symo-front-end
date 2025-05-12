@@ -1,0 +1,24 @@
+<div class="lg:px-12 lg:px-[200px]">
+  <div class="flex items-center justify-between flex-wrap">
+    <!-- Título e Ícone -->
+    <div class="flex items-center gap-2">
+      <img src="assets/icons/alvo.svg" alt="Sorteios" class="w-5 sm:w-6" />
+      <strong class="text-sm sm:text-base">Sorteios 🔥</strong>
+    </div>
+
+    <!-- Botão Desktop -->
+    <div class="hidden sm:block">
+      <app-button class="w-full sm:w-auto" styleType="secondary"> Ver todos os sorteios </app-button>
+    </div>
+  </div>
+
+  <!-- Grid Responsiva -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mt-4 sm:mt-6">
+    <app-sweepstakes></app-sweepstakes>
+  </div>
+
+  <!-- Botão Mobile -->
+  <!-- <div class="block sm:hidden mt-4 text-center">
+    <app-button class="w-full" styleType="secondary"> Ver todos os sorteios </app-button>
+  </div> -->
+</div>

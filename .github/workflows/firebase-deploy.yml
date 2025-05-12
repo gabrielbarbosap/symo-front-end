@@ -1,0 +1,31 @@
+name: Deploy Firebase Hosting
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 22.7.0
+
+      - name: Instalar dependências
+        run: npm install
+
+      - name: Build do projeto (se necessário)
+        run: npm run build
+
+      - name: Instalar Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Deploy para Firebase
+        run: firebase deploy --token "${{ secrets.FIREBASE_TOKEN }}"

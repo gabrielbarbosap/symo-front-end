@@ -1,0 +1,56 @@
+<div class="md:min-h-101 ms:max-h-40 bg-white shadow-lg rounded-xl p-4 w-full flex flex-col sm:flex-row gap-4 relative">
+  <!-- Imagem -->
+  <div class="relative flex flex-col rounded-lg overflow-hidden">
+    <!-- Imagem do sorteio -->
+    <img src="assets/icons/sorteio.png" alt="Sorteio" class="w-full sm:min-h-58 lg:min-h-full" />
+
+    <!-- Badge de participação -->
+    <!-- <div class="absolute top-2 left-2 bg-purple-700 text-white text-sm px-3 py-1 rounded-full">
+      Você já está participando
+    </div> -->
+
+    <!-- Contador posicionado na parte inferior -->
+    <div class="absolute bottom-1 w-full flex">
+      <!-- <app-count-down /> -->
+    </div>
+  </div>
+
+  <!-- Conteúdo -->
+  <div class="w-full sm:w-2/3 flex flex-col justify-between">
+    <!-- Título e Data -->
+    <div>
+      <h2 class="font-semibold text-light-purple md:text-xl lg:text-[clamp(1rem,2.5vw,2rem)]">
+        Caroço da Sorte: 3.000,00 Reais no seu bolso
+      </h2>
+      <div class="flex items-center gap-2 mt-2 flex-wrap mb-2">
+        @for (tag of badges; track $index) {
+          <app-tag-badge [text]="tag.text" [color]="tag.color" [bgColor]="tag.bgColor" />
+        }
+      </div>
+    </div>
+    <!-- conteúdo card aqui  -->
+    <ng-container *ngTemplateOutlet="currentTemplate"> </ng-container>
+  </div>
+
+  <div
+    class="h-[94px] w-[113px] absolute -top-3 xl:right-3 ms:left-3 bg-[#0EAD83] text-white text-xs flex items-center justify-center px-4 py-5 rounded-t-[8px] rounded-b-[58px]"
+  >
+    <span>EM ABERTO</span>
+  </div>
+</div>
+
+<ng-template #open>
+  <app-selected-quotas></app-selected-quotas>
+</ng-template>
+
+<ng-template #participating>
+  <app-purchased-shares />
+</ng-template>
+
+<ng-template #completed>
+  <app-start-quotas />
+</ng-template>
+
+<ng-template #comingSoon>
+  <app-winners />
+</ng-template>

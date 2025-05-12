@@ -1,0 +1,14 @@
+<ng-container *ngIf="lotery; else loading">
+  <app-hero [lotery]="lotery"></app-hero>
+</ng-container>
+
+<ng-template #loading>
+  <div class="flex justify-center items-center h-64">
+    <span class="text-xl font-semibold text-gray-500">Carregando sorteio...</span>
+    <div class="loader"></div>
+  </div>
+</ng-template>
+
+<div class="flex justify-center">
+  <img src="/assets/banner_reclame_aqui_desktop.svg" alt="ReclameAqui" class="w-full m-12 max-w-full h-auto" />
+</div>

@@ -1,0 +1,13 @@
+<div class="w-full">
+  <div class="flex justify-center items-center bg-[#45009D]">
+    <!-- Banner para mobile -->
+    <img *ngIf="isMobile" src="{{ lotery.imagens[0].img }}" alt="Banner Mobile" />
+
+    <!-- Banner para desktop -->
+    <img *ngIf="!isMobile" src="{{ lotery.imagens[0].img }}" alt="Banner Desktop" />
+  </div>
+
+  <app-hero-banner [lotery]="lotery" [isMobile]="isMobile"></app-hero-banner>
+
+  <!-- <app-quota-sale-page></app-quota-sale-page> -->
+</div>
