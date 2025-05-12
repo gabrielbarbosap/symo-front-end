@@ -268,16 +268,20 @@ export class BagComponent implements OnInit {
 
       // ✅ Se o usuário já existe, só inicia o pagamento, NÃO gera novo pedido
       if (this.existingUserId) {
-        if (typePayment === 'cash') {
-          this.paymentManual();
-          this.saleCompleted = true;
-          this.toast.success('Pedido marcado como pago.');
-          this.toast.success(
-            'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
-          );
-        } else {
-          this.initPayment();
-        }
+        this.loteryService.updateOrder(this.pedidoId, currentQuantity, this.existingUserId).subscribe((res) => {
+          this.pedidoId = res.data.id;
+
+          if (typePayment === 'cash') {
+            this.paymentManual();
+            this.saleCompleted = true;
+            this.toast.success('Pedido realizado.');
+            this.toast.success(
+              'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
+            );
+          } else {
+            this.initPayment();
+          }
+        });
         return;
       }
 
