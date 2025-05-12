@@ -345,6 +345,7 @@ export class BagComponent implements OnInit {
 
   blurCpf() {
     const cpf = this.buyerForm.value.cpf;
+    console.log(cpf);
 
     if (!cpf) return;
 
