@@ -4,7 +4,9 @@
   <!-- Barra principal com fundo roxo personalizado -->
   <div class="w-full h-[80px] md:h-[120px] bg-[#4b0faa] dark:bg-dark flex items-center justify-between px-4 md:px-8">
     <!-- Logo -->
-    <img src="assets/logo_caroco.png" alt="Logo" class="w-[100px] h-[36px] md:w-[184px] md:h-[64px]" />
+    <a [routerLink]="'/'">
+      <img src="assets/logo_caroco.png" alt="Logo" class="w-[100px] h-[36px] md:w-[184px] md:h-[64px]" />
+    </a>
 
     <!-- Campo de busca (visível em sm+) 
     <div class="hidden sm:flex ml-4 flex-grow max-w-[300px] md:max-w-[600px] relative">

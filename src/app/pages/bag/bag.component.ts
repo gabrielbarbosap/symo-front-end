@@ -207,7 +207,7 @@ export class BagComponent implements OnInit {
 
     this.verifyIntervalId = setInterval(() => {
       this.verifyPix();
-    }, 20000);
+    }, 5000);
   }
 
   verifyPix() {

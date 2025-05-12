@@ -1,7 +1,7 @@
 import { Component, computed, inject, OnInit } from '@angular/core';
 import { LoginComponent } from '../../components/auth/login/login.component';
 import { NgpDialogManager } from 'ng-primitives/dialog';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params, Router, RouterModule } from '@angular/router';
 import { RegisterComponent } from '../../components/auth/register/register.component';
 import { AuthService } from '../../services/auth.service';
 import { LogoutComponent } from '../../components/auth/logout/logout.component';
@@ -10,6 +10,7 @@ import { LogoutComponent } from '../../components/auth/logout/logout.component';
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrl: './header.component.css',
+  imports: [RouterModule],
 })
 export class HeaderComponent implements OnInit {
   private dialogManager = inject(NgpDialogManager);
