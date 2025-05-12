@@ -266,31 +266,22 @@ export class BagComponent implements OnInit {
     if (this.buyerForm.valid) {
       const currentQuantity = this.items[0]?.quantity;
 
-      // Se o usuário já existe, só cria o pedido
+      // ✅ Se o usuário já existe, só inicia o pagamento, NÃO gera novo pedido
       if (this.existingUserId) {
-        const body = {
-          quantidade: currentQuantity,
-          idRifa: this.lotery.id,
-          userId: this.existingUserId,
-        };
-
-        this.loteryService.generateOrder(body).subscribe((res) => {
-          this.pedidoId = res.data.id;
-          if (typePayment === 'cash') {
-            this.paymentManual();
-            this.toast.success('Pedido realizado.');
-            this.toast.success(
-              'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
-            );
-          } else {
-            this.initPayment();
-          }
-        });
-
+        if (typePayment === 'cash') {
+          this.paymentManual();
+          this.saleCompleted = true;
+          this.toast.success('Pedido marcado como pago.');
+          this.toast.success(
+            'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
+          );
+        } else {
+          this.initPayment();
+        }
         return;
       }
 
-      // Se não existir, segue com o cadastro
+      // Se não existir, segue com o cadastro e geração do pedido
       const form = this.buyerForm.value;
       const formDate = form.birthDate;
       const date = formDate.replace(/(\d{2})(\d{2})(\d{4})/, '$3-$2-$1');
@@ -317,10 +308,10 @@ export class BagComponent implements OnInit {
 
           this.loteryService.generateOrder(body).subscribe((res) => {
             this.pedidoId = res.data.id;
+
             if (typePayment === 'cash') {
               this.paymentManual();
-              this.saleCompleted = true; // ✅ Ativa o estado de venda finalizada
-
+              this.saleCompleted = true;
               this.toast.success('Pedido realizado.');
               this.toast.success(
                 'O cliente poderá acessar suas cartelas fazendo login com o número de telefone informado.'
@@ -339,6 +330,7 @@ export class BagComponent implements OnInit {
       return;
     }
 
+    // Exibe erros de validação
     Object.keys(this.buyerForm.controls).forEach((key) => {
       const control = this.buyerForm.get(key);
       control?.markAsTouched();
